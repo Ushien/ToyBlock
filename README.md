@@ -10,3 +10,7 @@ Project manager: [Jérôme Fink](https://github.com/Jefidev)
 # How to deploy the website
 
 # How to test the code
+
+# Main tools
+
+The React structure of the project is based on the one provided by [Create React App](https://github.com/facebook/create-react-app)
