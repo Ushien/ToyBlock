@@ -21,6 +21,14 @@ Then you may need to install scripts and configurations used by Create React App
 npm install react-scripts --save
 ```
 
+After that, go to code/toyblock/ and then type
+```sh
+npm start
+```
+
+That will launch the app on localhost:3000
+
+
 # Main tools
 
 The React structure of the project is based on the one provided by [Create React App](https://github.com/facebook/create-react-app).
