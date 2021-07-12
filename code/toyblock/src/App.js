@@ -2,33 +2,100 @@ import './App.css';
 import React, { Component } from 'react'
 
 class HandlingBlock extends Component {
-  constructor(props) {
 
+  constructor(props) {
     super(props);
     console.log(this.distance)
     this.incrementDistance = this.incrementDistance.bind(this)
-    this.state = {distance: 0};
+    this.state = {distance: 1};
   }
 
   incrementDistance() {
-    console.log("We entered the parent function")
-    console.log(this)
+    console.log("We move forward in the document")
     this.setState({distance: this.state.distance+1});
   }
 
   render(){ 
-    if (this.state.distance === 0){
-      console.log("We entered the render")
-      console.log(this)
+    if (this.state.distance === 1){
+      console.log("Entered Intro Block 1")
       return (
       <div> <BlocIntro1 onDistanceChange={this.incrementDistance} distance={this.state.distance} /> </div>
       )  
     }
-    if (this.state.distance ===1){
+    if (this.state.distance ===2){
+      console.log("Entered Intro Block 2")
       return (
-      <div><BlocIntro2 />
-
-      <div>{this.state.distance}</div>
+      <div><BlocIntro2 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===3){
+      console.log("Entered Intro Block 3")
+      return (
+      <div><BlocIntro3 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===4){
+      console.log("Entered Intro Block 4")
+      return (
+      <div><BlocIntro4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===5){
+      console.log("Entered Block 1")
+      return (
+      <div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===6){
+      console.log("Entered Block 2")
+      return (
+      <div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===7){
+      console.log("Entered Block 3")
+      return (
+      <div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===8){
+      console.log("Entered Block 4")
+      return (
+      <div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===9){
+      console.log("Entered Block 5")
+      return (
+      <div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===10){
+      console.log("Entered Block 6")
+      return (
+      <div><Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===11){
+      console.log("Entered Block 7")
+      return (
+      <div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      </div>
+      )
+    }
+    if (this.state.distance ===12){
+      console.log("Entered Block 8")
+      return (
+      <div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
       </div>
       )
     }
@@ -36,11 +103,10 @@ class HandlingBlock extends Component {
 }
 
 class BlocIntro1 extends Component {
+
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    console.log("We are in the Intro block")
-    console.log(this)
   }
 
   componentDidMount(){
@@ -62,10 +128,79 @@ class BlocIntro1 extends Component {
 }
 
 class BlocIntro2 extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
   render(){
     return <div>Peuplé de petits animaux sympathiques</div>
   }
 }
+
+class BlocIntro3 extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
+  render(){
+    return <div>
+      <div>Les pommes de pins ça prend beaucoup de place dans les poches... Et si on créait une vraie monnaie ?</div>
+      <div>Êtes-vous prêt à leur donner un coup de main ?</div>
+      </div>
+  }
+}
+
+class BlocIntro4 extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+  render(){
+    return <div>Commencons par choisir un nom sympa: </div>
+  }
+}
+
 
 class Bloc1 extends Component { //Notation des transactions
   
