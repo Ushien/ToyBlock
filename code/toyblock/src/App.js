@@ -1,10 +1,6 @@
 import './App.css';
 import React, { Component } from 'react'
 
-function sayHello() {
-  alert('You clicked me!');
-}
-
 class HandlingBlock extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +30,18 @@ class HandlingBlock extends Component {
 }
 
 class BlocIntro1 extends Component {
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    {this.setState({distance: this.state.distance+1})}
+  }
+
   render(){
     return <div>Au beau milieu de la forêt se trouve un village...</div>
   }
