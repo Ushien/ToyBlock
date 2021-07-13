@@ -2,6 +2,15 @@ import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8} from './Blocs.js'
 
+/*
+Here you can change the base parameters of the website
+
+Pick another startdistance if you want to start the story further (From 1 to 8)
+Pick another defaultname if you want to change the default name of the money
+*/
+const startdistance = 1
+const defaultname = "Toycoin"
+
 class HandlingBlock extends Component {
 
   constructor(props) {
@@ -9,7 +18,7 @@ class HandlingBlock extends Component {
     console.log(this.distance)
     this.incrementDistance = this.incrementDistance.bind(this)
     this.changeName = this.changeName.bind(this)
-    this.state = {distance: 1, moneyname: "Toycoin"};
+    this.state = {distance: startdistance, moneyname: defaultname};
     console.log("Voici l'état initial du state")
     console.log(this.state)
   }
@@ -208,7 +217,24 @@ class BlocIntro4 extends Component {
 }
 
 class Bloc1 extends Component { //Notation des transactions
-  
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
       text1
@@ -217,67 +243,157 @@ class Bloc1 extends Component { //Notation des transactions
 }
 
 class Bloc2 extends Component { //Décentralisation de la monnaie
-  
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 2
-      </div>
+      text2
     );
   }
 }
 
 class Bloc3 extends Component { //Signature électronique
-  
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 3
-      </div>
+      text3
     );
   }
 }
 
 class Bloc4 extends Component { //Listes d'attentes
-  
+    constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 4
-      </div>
+      text4
     );
   }
 }
 
 class Bloc5 extends Component { //Blockchain
-  
+    constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 5
-      </div>
+      text5
     );
   }
 }
 
 class Bloc6 extends Component { //Proof of work
-  
+    constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 6
-      </div>
+      text6
     );
   }
 }
 
 class Bloc7 extends Component { //Rétribution
-  
+    constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    console.log("The screen is clicked")
+    this.props.onDistanceChange();
+  }
+
   render(){
     return (
-      <div>
-        Bloc 7
-      </div>
+      text7
     );
   }
 }
@@ -286,9 +402,7 @@ class Bloc8 extends Component { //Travail d'équipe
   
   render(){
     return (
-      <div>
-        Bloc 8
-      </div>
+      text8
     );
   }
 }
