@@ -7,12 +7,19 @@ class HandlingBlock extends Component {
     super(props);
     console.log(this.distance)
     this.incrementDistance = this.incrementDistance.bind(this)
-    this.state = {distance: 1};
+    this.changeName = this.changeName.bind(this)
+    this.state = {distance: 1, moneyname: "Toycoin"};
   }
 
   incrementDistance() {
     console.log("We move forward in the document")
     this.setState({distance: this.state.distance+1});
+  }
+
+  changeName(newname) {
+    console.log("This is the old money name: " + this.state.moneyname)
+    this.setState({moneyname: newname})
+    console.log("The name is changed to " + this.state.moneyname)
   }
 
   render(){ 
@@ -39,7 +46,7 @@ class HandlingBlock extends Component {
     if (this.state.distance ===4){
       console.log("Entered Intro Block 4")
       return (
-      <div><BlocIntro4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      <div><BlocIntro4 onDistanceChange={this.incrementDistance} onNameChange={this.changeName} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>
       )
     }
@@ -157,16 +164,8 @@ class BlocIntro3 extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
   handleClick = (e) => {
-    console.log("The screen is clicked")
+    console.log("The button is clicked")
     this.props.onDistanceChange();
   }
 
@@ -174,6 +173,7 @@ class BlocIntro3 extends Component {
     return <div>
       <div>Les pommes de pins ça prend beaucoup de place dans les poches... Et si on créait une vraie monnaie ?</div>
       <div>Êtes-vous prêt à leur donner un coup de main ?</div>
+      <button onClick={() => this.handleClick()}>Allons-y</button>
       </div>
   }
 }
@@ -181,26 +181,28 @@ class BlocIntro3 extends Component {
 class BlocIntro4 extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
+  handleSubmit = (e) => {
+    console.log("The form is submitted")
     this.props.onDistanceChange();
   }
+
+  handleChange = (e) => {
+    this.props.onNameChange(e.target.value);
+  }
+
   render(){
-    return <div>Commencons par choisir un nom sympa: </div>
+    return <div>
+      <div>Commencons par choisir un nom sympa: </div>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
+        <input type="submit" value="Choisir" />
+      </form>
+    </div>
   }
 }
-
 
 class Bloc1 extends Component { //Notation des transactions
   
@@ -212,7 +214,6 @@ class Bloc1 extends Component { //Notation des transactions
     );
   }
 }
-
 
 class Bloc2 extends Component { //Décentralisation de la monnaie
   
@@ -290,8 +291,6 @@ class Bloc8 extends Component { //Travail d'équipe
     );
   }
 }
-
-const moneyname = 'Infocoin';
 
 class App extends Component {
   render() {
