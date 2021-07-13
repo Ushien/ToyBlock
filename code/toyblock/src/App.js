@@ -38,7 +38,7 @@ class HandlingBlock extends Component {
     if (this.state.distance === 1){
       console.log("Entered Intro Block 1")
       return (
-      <div> <BlocIntro1 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      <div> <BlocIntro1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
       </div>
       )  
     }
@@ -73,14 +73,14 @@ class HandlingBlock extends Component {
     if (this.state.distance ===6){
       console.log("Entered Block 2")
       return (
-      <div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      <div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>
       )
     }
     if (this.state.distance ===7){
       console.log("Entered Block 3")
       return (
-      <div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      <div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>
       )
     }
@@ -108,7 +108,7 @@ class HandlingBlock extends Component {
     if (this.state.distance ===11){
       console.log("Entered Block 7")
       return (
-      <div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      <div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>
       )
     }
@@ -143,7 +143,7 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return introtext1;
+    return introtext1();
   }
 }
 
@@ -166,7 +166,7 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return introtext2;
+    return introtext2();
   }
 }
 
@@ -184,7 +184,7 @@ class BlocIntro3 extends Component {
 
   render(){
     return <div>
-      {introtext3}
+      {introtext3()}
       <button onClick={() => this.handleClick()}>Allons-y</button>
       </div>
   }
@@ -207,7 +207,7 @@ class BlocIntro4 extends Component {
 
   render(){
     return <div>
-      {introtext4}
+      {introtext4()}
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
         <input type="submit" value="Choisir" />
@@ -237,7 +237,7 @@ class Bloc1 extends Component { //Notation des transactions
 
   render(){
     return (
-      text1
+      text1()
     );
   }
 }
@@ -263,7 +263,7 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 
   render(){
     return (
-      text2
+      text2(this.props.moneyname)
     );
   }
 }
@@ -289,7 +289,7 @@ class Bloc3 extends Component { //Signature électronique
 
   render(){
     return (
-      text3
+      text3(this.props.moneyname)
     );
   }
 }
@@ -315,7 +315,7 @@ class Bloc4 extends Component { //Listes d'attentes
 
   render(){
     return (
-      text4
+      text4()
     );
   }
 }
@@ -341,7 +341,7 @@ class Bloc5 extends Component { //Blockchain
 
   render(){
     return (
-      text5
+      text5()
     );
   }
 }
@@ -367,7 +367,7 @@ class Bloc6 extends Component { //Proof of work
 
   render(){
     return (
-      text6
+      text6()
     );
   }
 }
@@ -393,7 +393,7 @@ class Bloc7 extends Component { //Rétribution
 
   render(){
     return (
-      text7
+      text7(this.props.moneyname)
     );
   }
 }
@@ -402,7 +402,7 @@ class Bloc8 extends Component { //Travail d'équipe
   
   render(){
     return (
-      text8
+      text8()
     );
   }
 }
