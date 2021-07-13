@@ -1,5 +1,6 @@
 import './App.css';
 import React, { Component } from 'react'
+import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8} from './Blocs.js'
 
 class HandlingBlock extends Component {
 
@@ -9,6 +10,8 @@ class HandlingBlock extends Component {
     this.incrementDistance = this.incrementDistance.bind(this)
     this.changeName = this.changeName.bind(this)
     this.state = {distance: 1, moneyname: "Toycoin"};
+    console.log("Voici l'état initial du state")
+    console.log(this.state)
   }
 
   incrementDistance() {
@@ -26,7 +29,8 @@ class HandlingBlock extends Component {
     if (this.state.distance === 1){
       console.log("Entered Intro Block 1")
       return (
-      <div> <BlocIntro1 onDistanceChange={this.incrementDistance} distance={this.state.distance} /> </div>
+      <div> <BlocIntro1 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      </div>
       )  
     }
     if (this.state.distance ===2){
@@ -130,7 +134,7 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return <div>Au beau milieu de la forêt se trouve un village...</div>
+    return introtext1;
   }
 }
 
@@ -153,7 +157,7 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return <div>Peuplé de petits animaux sympathiques</div>
+    return introtext2;
   }
 }
 
@@ -171,8 +175,7 @@ class BlocIntro3 extends Component {
 
   render(){
     return <div>
-      <div>Les pommes de pins ça prend beaucoup de place dans les poches... Et si on créait une vraie monnaie ?</div>
-      <div>Êtes-vous prêt à leur donner un coup de main ?</div>
+      {introtext3}
       <button onClick={() => this.handleClick()}>Allons-y</button>
       </div>
   }
@@ -195,7 +198,7 @@ class BlocIntro4 extends Component {
 
   render(){
     return <div>
-      <div>Commencons par choisir un nom sympa: </div>
+      {introtext4}
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
         <input type="submit" value="Choisir" />
@@ -208,9 +211,7 @@ class Bloc1 extends Component { //Notation des transactions
   
   render(){
     return (
-      <div>
-        Bloc 1
-      </div>
+      text1
     );
   }
 }

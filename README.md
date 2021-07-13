@@ -32,3 +32,9 @@ That will launch the app on localhost:3000
 # Main tools
 
 The React structure of the project is based on the one provided by [Create React App](https://github.com/facebook/create-react-app).
+
+# Project structure
+
+The main part of the project is found in App.js
+
+The text of the website is found in Blocs.js
