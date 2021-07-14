@@ -11,7 +11,7 @@ Here you can change the base parameters of the website
 Pick another startdistance if you want to start the story further (From 1 to 8)
 Pick another defaultname if you want to change the default name of the money
 */
-const startdistance = 1
+const startdistance = 5
 const defaultname = "Toycoin"
 
 class HandlingBlock extends Component {
@@ -38,6 +38,8 @@ class HandlingBlock extends Component {
   }
 
   render(){ 
+    var wholetext = [];
+
     if (this.state.distance === 1){
       console.log("Entered Intro Block 1")
       return (
@@ -48,7 +50,8 @@ class HandlingBlock extends Component {
     if (this.state.distance ===2){
       console.log("Entered Intro Block 2")
       return (
-      <div><BlocIntro2 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      <div>
+        <BlocIntro2 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
       </div>
       )
     }
@@ -66,62 +69,47 @@ class HandlingBlock extends Component {
       </div>
       )
     }
-    if (this.state.distance ===5){
+    if (this.state.distance >= 5){
       console.log("Entered Block 1")
-      return (
-      <div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
     }
-    if (this.state.distance ===6){
+    if (this.state.distance >= 6){
       console.log("Entered Block 2")
-      return (
-      <div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+        </div>)
     }
-    if (this.state.distance ===7){
+    if (this.state.distance >=7){
       console.log("Entered Block 3")
-      return (
-      <div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+        </div>)
     }
-    if (this.state.distance ===8){
+    if (this.state.distance >=8){
       console.log("Entered Block 4")
-      return (
-      <div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
     }
-    if (this.state.distance ===9){
+    if (this.state.distance >=9){
       console.log("Entered Block 5")
-      return (
-      <div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
     }
-    if (this.state.distance ===10){
+    if (this.state.distance >=10){
       console.log("Entered Block 6")
-      return (
-      <div><Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
     }
-    if (this.state.distance ===11){
+    if (this.state.distance >=11){
       console.log("Entered Block 7")
-      return (
-      <div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+        </div>)
     }
-    if (this.state.distance ===12){
+    if (this.state.distance >=12){
       console.log("Entered Block 8")
-      return (
-      <div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-      </div>
-      )
+      wholetext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
     }
+    return wholetext;
   }
 }
 
