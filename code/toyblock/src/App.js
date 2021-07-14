@@ -2,6 +2,9 @@ import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8} from './Blocs.js'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
 /*
 Here you can change the base parameters of the website
 
@@ -143,7 +146,8 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return introtext1();
+    return <div className="text-center"> {introtext1()}
+    </div>;
   }
 }
 
@@ -166,7 +170,7 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return introtext2();
+    return<div className="text-center">{introtext2()}</div> ;
   }
 }
 
@@ -183,9 +187,9 @@ class BlocIntro3 extends Component {
   }
 
   render(){
-    return <div>
+    return <div className="text-center">
       {introtext3()}
-      <button onClick={() => this.handleClick()}>Allons-y</button>
+      <Button variant="primary" onClick={() => this.handleClick()}>Allons-y</Button>
       </div>
   }
 }
@@ -206,7 +210,7 @@ class BlocIntro4 extends Component {
   }
 
   render(){
-    return <div>
+    return <div className="text-center">
       {introtext4()}
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
@@ -236,8 +240,8 @@ class Bloc1 extends Component { //Notation des transactions
   }
 
   render(){
-    return (
-      text1()
+    return ( <div className="text-center"> {text1()}
+    </div>
     );
   }
 }
@@ -262,8 +266,8 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
   }
 
   render(){
-    return (
-      text2(this.props.moneyname)
+    return (<div className="text-center"> {text2(this.props.moneyname)}
+    </div>
     );
   }
 }
@@ -288,8 +292,8 @@ class Bloc3 extends Component { //Signature électronique
   }
 
   render(){
-    return (
-      text3(this.props.moneyname)
+    return (<div className="text-center"> {text3(this.props.moneyname)}
+    </div>
     );
   }
 }
@@ -314,8 +318,8 @@ class Bloc4 extends Component { //Listes d'attentes
   }
 
   render(){
-    return (
-      text4()
+    return (<div className="text-center"> {text4()}
+    </div>
     );
   }
 }
@@ -340,8 +344,8 @@ class Bloc5 extends Component { //Blockchain
   }
 
   render(){
-    return (
-      text5()
+    return (<div className="text-center"> {text5()}
+    </div>
     );
   }
 }
@@ -366,8 +370,8 @@ class Bloc6 extends Component { //Proof of work
   }
 
   render(){
-    return (
-      text6()
+    return (<div className="text-center"> {text6()}
+    </div>
     );
   }
 }
@@ -392,8 +396,8 @@ class Bloc7 extends Component { //Rétribution
   }
 
   render(){
-    return (
-      text7(this.props.moneyname)
+    return (<div className="text-center"> {text7(this.props.moneyname)}
+    </div>
     );
   }
 }
@@ -401,8 +405,8 @@ class Bloc7 extends Component { //Rétribution
 class Bloc8 extends Component { //Travail d'équipe
   
   render(){
-    return (
-      text8()
+    return (<div className="text-center"> {text8()}
+    </div>
     );
   }
 }

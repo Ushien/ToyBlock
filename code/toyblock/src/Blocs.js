@@ -51,13 +51,13 @@ function text1(){
 function text2(moneyname){
         return(<div>
                 <div>
-                Donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname} à Paresseux ». Tout le monde le note dans son propre carnet.
+                Donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname}s à Paresseux ». Tout le monde le note dans son propre carnet.
                 </div> 
                 <h2>
                 Problème:
                 </h2>
                 <div>
-                Renard a vite besoin d’argent pour acheter une tarte. Il écrit dans une lettre : « Inscrivez tous que Grenouille m’a donné 100 {moneyname}! ». Le reste du village reçoit la lettre, et ils copient la transaction dans leur carnet. 
+                Renard a vite besoin d’argent pour acheter une tarte. Il écrit dans une lettre : « Inscrivez tous que Grenouille m’a donné 100 {moneyname}s ! ». Le reste du village reçoit la lettre, et ils copient la transaction dans leur carnet. 
                 N’importe qui peut inscrire des transactions fausses et le reste du village va les copier !
                 </div>
         </div>
@@ -77,7 +77,7 @@ function text3(moneyname){
                 Problème:
                 </h2>
                 <div>
-                Cette fois-ci, Renard a envie d’un cookie, et d’un jus de fruits, coûtant 5 {moneyname}s chacun ! Problème : Renard est presque à sec, il ne lui reste que 5 {moneyname}. Pourtant, il a très envie d’acheter les deux douceurs. Il trouve une stratégie.
+                Cette fois-ci, Renard a envie d’un cookie, et d’un jus de fruits, coûtant 5 {moneyname}s chacun ! Problème : Renard est presque à sec, il ne lui reste que 5 {moneyname}s. Pourtant, il a très envie d’acheter les deux douceurs. Il trouve une stratégie.
                 Renard prépare 2 lettres : L’une d’elle dit qu’il a dépensé 5 {moneyname}s dans un cookie, l’autre qu’il les a dépensés dans un jus de fruit. Il les enferme dans leur coffre, avec la serrure renard. Il envoie sa première lettre à un coin du village, et court vite de l’autre côté pour envoyer la deuxième.
                 Pingouin reçoit d’abord la première lettre. Il vérifie dans son carnet, et voit que Renard a acheté un cookie avec ses 5 derniers {moneyname}s. Il note l’info, et retransmet la lettre au reste du village. Pendant ce temps-là, de l’autre côté, Paresseux reçoit la lettre numéro 2. Il vérifie, selon son carnet, Renard possède encore 5 {moneyname}s. Il ne voit donc aucun problème à inscrire la transaction !
                 Ca y est, Renard a réussi à mettre des infos contradictoires en circulation dans le village.

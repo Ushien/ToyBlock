@@ -32,6 +32,7 @@ That will launch the app on localhost:3000
 # Main tools
 
 The React structure of the project is based on the one provided by [Create React App](https://github.com/facebook/create-react-app).
+The frontend of the project is made with the help of [React-Bootstrap](https://github.com/react-bootstrap/react-bootstrap)
 
 # Project structure
 
