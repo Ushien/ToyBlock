@@ -11,7 +11,7 @@ Here you can change the base parameters of the website
 Pick another startdistance if you want to start the story further (From 1 to 8)
 Pick another defaultname if you want to change the default name of the money
 */
-const startdistance = 5
+const startdistance = 1
 const defaultname = "Toycoin"
 
 class HandlingBlock extends Component {
@@ -237,9 +237,10 @@ class Bloc1 extends Component { //Notation des transactions
 class Bloc2 extends Component { //Décentralisation de la monnaie
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -252,6 +253,7 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text2(this.props.moneyname)}
@@ -263,9 +265,10 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 class Bloc3 extends Component { //Signature électronique
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -278,6 +281,7 @@ class Bloc3 extends Component { //Signature électronique
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text3(this.props.moneyname)}
@@ -289,9 +293,10 @@ class Bloc3 extends Component { //Signature électronique
 class Bloc4 extends Component { //Listes d'attentes
     constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -304,6 +309,7 @@ class Bloc4 extends Component { //Listes d'attentes
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text4()}
@@ -315,9 +321,10 @@ class Bloc4 extends Component { //Listes d'attentes
 class Bloc5 extends Component { //Blockchain
     constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -330,6 +337,7 @@ class Bloc5 extends Component { //Blockchain
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text5()}
@@ -341,9 +349,10 @@ class Bloc5 extends Component { //Blockchain
 class Bloc6 extends Component { //Proof of work
     constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -356,6 +365,7 @@ class Bloc6 extends Component { //Proof of work
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text6()}
@@ -367,9 +377,10 @@ class Bloc6 extends Component { //Proof of work
 class Bloc7 extends Component { //Rétribution
     constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
+  /*
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClick, false);
   }
@@ -382,6 +393,7 @@ class Bloc7 extends Component { //Rétribution
     console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
+  */
 
   render(){
     return (<div className="text-center"> {text7(this.props.moneyname)}
