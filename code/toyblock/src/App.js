@@ -4,11 +4,13 @@ import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, tex
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+// import Fade from 'react-bootstrap/Fade'
+// import { Collapse } from 'bootstrap';
 
 /*
 Here you can change the base parameters of the website
 
-Pick another startdistance if you want to start the story further (From 1 to 8)
+Pick another startdistance if you want to start the story further (From 1 to 5)
 Pick another defaultname if you want to change the default name of the money
 */
 const startdistance = 1
@@ -76,7 +78,8 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >= 6){
       console.log("Entered Block 2")
-      wholetext.push(<div><Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+      wholetext.push(<div>
+        <Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
         </div>)
     }
     if (this.state.distance >=7){
@@ -134,7 +137,10 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return <div className="text-center"> {introtext1()}
+    return <div className="text-center"> 
+    <div className="fs-3">
+      {introtext1()}
+    </div>
     </div>;
   }
 }
@@ -158,7 +164,11 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return<div className="text-center">{introtext2()}</div> ;
+    return<div className="text-center"> 
+    <div className="fs-3">
+      {introtext2()}
+    </div>
+    </div>;
   }
 }
 
@@ -176,7 +186,7 @@ class BlocIntro3 extends Component {
 
   render(){
     return <div className="text-center">
-      {introtext3()}
+      <div className="fs-3">{introtext3()}</div>
       <Button variant="primary" onClick={() => this.handleClick()}>Allons-y</Button>
       </div>
   }
@@ -199,7 +209,8 @@ class BlocIntro4 extends Component {
 
   render(){
     return <div className="text-center">
-      {introtext4()}
+      <div className="fs-3">{introtext4()}</div>
+      
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
         <input type="submit" value="Choisir" />
@@ -207,6 +218,8 @@ class BlocIntro4 extends Component {
     </div>
   }
 }
+
+/* END OF THE INTRO */
 
 class Bloc1 extends Component { //Notation des transactions
   constructor(props) {
@@ -228,7 +241,7 @@ class Bloc1 extends Component { //Notation des transactions
   }
 
   render(){
-    return ( <div className="text-center"> {text1()}
+    return ( <div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text1()}</div>
     </div>
     );
   }
@@ -256,7 +269,7 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
   */
 
   render(){
-    return (<div className="text-center"> {text2(this.props.moneyname)}
+    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text2(this.props.moneyname)}</div>
     </div>
     );
   }
@@ -284,7 +297,11 @@ class Bloc3 extends Component { //Signature électronique
   */
 
   render(){
-    return (<div className="text-center"> {text3(this.props.moneyname)}
+    return (
+    <div className="text-center"> <br/> <br/> <br/> 
+      <div className="fs-3">
+        {text3(this.props.moneyname)}
+      </div>
     </div>
     );
   }
@@ -312,7 +329,7 @@ class Bloc4 extends Component { //Listes d'attentes
   */
 
   render(){
-    return (<div className="text-center"> {text4()}
+    return (<div className="text-center"> <div className="fs-3">{text4()}</div>
     </div>
     );
   }
@@ -340,7 +357,7 @@ class Bloc5 extends Component { //Blockchain
   */
 
   render(){
-    return (<div className="text-center"> {text5()}
+    return (<div className="text-center"> <div className="fs-3">{text5()}</div>
     </div>
     );
   }
@@ -368,7 +385,7 @@ class Bloc6 extends Component { //Proof of work
   */
 
   render(){
-    return (<div className="text-center"> {text6()}
+    return (<div className="text-center"> <div className="fs-3">{text6()}</div>
     </div>
     );
   }
@@ -396,7 +413,7 @@ class Bloc7 extends Component { //Rétribution
   */
 
   render(){
-    return (<div className="text-center"> {text7(this.props.moneyname)}
+    return (<div className="text-center"> <div className="fs-3">{text7(this.props.moneyname)}</div>
     </div>
     );
   }
@@ -405,7 +422,7 @@ class Bloc7 extends Component { //Rétribution
 class Bloc8 extends Component { //Travail d'équipe
   
   render(){
-    return (<div className="text-center"> {text8()}
+    return (<div className="text-center"> <div className="fs-3">{text8()}</div>
     </div>
     );
   }
