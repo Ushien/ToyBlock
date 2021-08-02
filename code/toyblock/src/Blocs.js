@@ -27,7 +27,7 @@ function introtext3(){
 
 function introtext4(){
         return(<div>
-                Commencons par choisir un nom pour cette monnaie révolutionnaire: 
+                Commencons par choisir un nom pour cette monnaie révolutionnaire. Sois créatif ! :
         </div>
         )
 }
