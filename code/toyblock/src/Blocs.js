@@ -90,7 +90,7 @@ function text4(){
         return(<div>
                 <div>
                 Solution : Listes d’attentes
-                On donne à chaque habitant, en plus de son carnet, un petit tableau et une craie pour noter les transactions en attende de validation. Dès que Pingouin reçoit une transaction dans une lettre, il l’écrit, non plus dans son carnet, mais sur son petit tableau. Ainsi, tous les jours à 18 heures, le chef du village choisit une liste d’attente au hasard, par exemple celle de Paresseux, et fait une annonce au village pour dire que la liste d’attente de paresseux a été choisie comme liste officielle, et tout le monde recopie les transactions de cette liste d’attente dans son carnet. Après ça, tout le monde efface son tableau.
+                On donne à chaque habitant, en plus de son carnet, un petit tableau et une craie pour noter les transactions en attente de validation. Dès que Pingouin reçoit une transaction dans une lettre, il l’écrit, non plus dans son carnet, mais sur son petit tableau. Ainsi, tous les jours à 18 heures, le chef du village choisit une liste d’attente au hasard, par exemple celle de Paresseux, et fait une annonce au village pour dire que la liste d’attente de paresseux a été choisie comme liste officielle, et tout le monde recopie les transactions de cette liste d’attente dans son carnet. Après ça, tout le monde efface son tableau.
                 </div> 
                 <h2>
                 Problème:

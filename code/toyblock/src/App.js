@@ -1,6 +1,7 @@
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8} from './Blocs.js'
+import {hashing, HashingBlock} from './blockchain.js'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
@@ -10,11 +11,13 @@ import Button from 'react-bootstrap/Button';
 /*
 Here you can change the base parameters of the website
 
-Pick another startdistance if you want to start the story further (From 1 to 5)
+Pick another startdistance if you want to start the story further (From 1 to 12)
 Pick another defaultname if you want to change the default name of the money
+Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 1
+const startdistance = 10
 const defaultname = "Toycoin"
+const baseword = "Bonjour"
 
 class HandlingBlock extends Component {
 
@@ -99,7 +102,14 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >=10){
       console.log("Entered Block 6")
-      wholetext.push(<div><Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      wholetext.push(
+        <div>
+          <div>
+            <Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+          </div>
+          <div>
+            <HashingBlock baseword = {baseword}/>
+          </div>
         </div>)
     }
     if (this.state.distance >=11){
@@ -385,7 +395,11 @@ class Bloc6 extends Component { //Proof of work
   */
 
   render(){
-    return (<div className="text-center"> <div className="fs-3">{text6()}</div>
+    return (
+    <div className="text-center"> 
+      <div className="fs-3">
+        {text6()}
+      </div>
     </div>
     );
   }
@@ -422,7 +436,14 @@ class Bloc7 extends Component { //Rétribution
 class Bloc8 extends Component { //Travail d'équipe
   
   render(){
-    return (<div className="text-center"> <div className="fs-3">{text8()}</div>
+    return (
+    <div className="text-center"> 
+      <div className="fs-3">
+        {text8()}
+      </div>
+      <div>
+        {hashing(130)}
+      </div>
     </div>
     );
   }
