@@ -15,7 +15,7 @@ Pick another startdistance if you want to start the story further (From 1 to 12)
 Pick another defaultname if you want to change the default name of the money
 Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 10
+const startdistance = 1
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -440,9 +440,6 @@ class Bloc8 extends Component { //Travail d'équipe
     <div className="text-center"> 
       <div className="fs-3">
         {text8()}
-      </div>
-      <div>
-        {hashing(130)}
       </div>
     </div>
     );

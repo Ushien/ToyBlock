@@ -108,9 +108,9 @@ function text5(){
                 Le village se met d’accord sur un nouveau système. Chaque tableau noir possède, en plus de sa liste d’attente, un chiffre, commun à tout le monde. Ce chiffre s’appelle l’identifiant. 
                 Imaginons que tout le monde reçoive le chiffre 10.
                 Le chef du village annonce une règle : « Le premier qui trouve l’identifiant suivant gagne le droit d’imposer sa liste d’attente à tout le reste du village ! »
-                Il ajoute : « Pour trouver l’identifiant suivant, il suffit de multiplier l’identifiant actuel par 20 »
+                Il ajoute : « Pour trouver l’identifiant suivant, il suffit de multiplier l’identifiant actuel par 8 »
                 Tous les habitants savent que Renard veut inscrire des bêtises dans les transactions, donc ils se pressent tous pour être le premier à réussir la multiplication. Paresseux finit par trouver le résultat, après quelques minutes de recherche. Il écrit immédiatement le nombre qu’il a trouvé : 80, et sa liste d’attente sur le panneau d’affichage du village. Pingouin était en train de calculer, mais il voit l’annonce. Il vérifie, et voit très vite que, effectivement, l’identifiant trouvé par Paresseux est correct. Tout le monde arrive à la même conclusion, et la liste d’attente de Paresseux est donc recopiée par tout le village. 
-                Pour connaître qui sera le prochain à imposer sa liste, le village prend l’identifiant trouvé par Paresseux comme nouvel identifiant. Ce sera donc celui qui trouve 80 multiplié par 20 qui pourra proposer sa liste. Et cetera !
+                Pour connaître qui sera le prochain à imposer sa liste, le village prend l’identifiant trouvé par Paresseux comme nouvel identifiant. Ce sera donc celui qui trouve 80 multiplié par 8 qui pourra proposer sa liste. Et cetera !
                 On a donc créé des listes d’attentes liées entre elles par leur identifiant, comme les maillons d’une chaîne. Chaque liste d’attente représente un bloc, on vient donc de créer ce qui s’appelle une blockchain.
                 </div> 
                 <h2>
@@ -129,7 +129,7 @@ function text6(){
                 Pour nous aider à résoudre ce problème, nous aurons besoin du hashage :
                 Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en un court nombre de taille fixe. Un peu comme un magasin représente tous les produits de son stock par un petit code-barre.
                 Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations pour partager des infos de manière sécurisée.
-                Le chef du village décide de débloquer un peu de budget, et il offre un ordinateur à chaque habitant vu village un ordinateur avec un programme de hashage !
+                Le chef du village décide de débloquer un peu de budget, et il offre un ordinateur à chaque habitant du village un ordinateur avec un programme de hashage !
 
                 Comme vu juste avant, un identifiant et une liste de transactions forment donc un bloc. On colle ces deux éléments à un nombre inconnu appelé le nonce. Ensemble, ils forment un gros texte !
                 L’objectif est simple, il faut hasher le texte formé par ces 3 données, et trouver un nombre qui respecte une condition fixée. Par exemple, le chef annonce : « Le résultat du hashage doit débuter par 5555 ! »
