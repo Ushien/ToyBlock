@@ -70,7 +70,7 @@ function text3(moneyname){
                 <div>
                 Chaque nouvel habitant qui souhaite rejoindre le système reçoit 2 choses : 
                 1 : Un modèle de serrure personnelle top secrète.
-                2 : Un trousseau de clé, une pour chaque habitant du village.
+                2 : Un trousseau de clés, une pour chaque habitant du village.
                 Avant d’écrire une transaction dans une lettre, et de la transmettre, Pingouin sécurise sa lettre en la mettant dans un coffre, avec sa serrure propre. Personne d’autre ne peut réaliser la même serrure que lui. Pour savoir qui a envoyé la lettre, ils testent toutes les clés qu’ils possèdent et comprennent vite que, vu que la clé de pingouin fonctionne, ça ne peut être que Pingouin qui a rédigé cette transaction. Une fois que la lettre est transmise, à l’intérieur de son coffre, les animaux la copient dans leur carnet.
                 </div> 
                 <h2>
@@ -128,7 +128,7 @@ function text6(){
                 <div>
                 Pour nous aider à résoudre ce problème, nous aurons besoin du hashage :
                 Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en un court nombre de taille fixe. Un peu comme un magasin représente tous les produits de son stock par un petit code-barre.
-                Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations pour partager des infos de manière sécurisée.
+                Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations: par exmemple, on peut vérifier facilement qu'un texte n'a pas été modifié.
                 Le chef du village décide de débloquer un peu de budget, et il offre un ordinateur à chaque habitant du village un ordinateur avec un programme de hashage !
 
                 Comme vu juste avant, un identifiant et une liste de transactions forment donc un bloc. On colle ces deux éléments à un nombre inconnu appelé le nonce. Ensemble, ils forment un gros texte !
@@ -176,4 +176,13 @@ function text8(){
         )
 }
 
-export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8}
+function text9(){
+        return(<div>
+                <div>
+                Cela a pris du temps... Mais finalement, l'entièreté du village semble avoir trouvé une solution qui leur convient. Le système de Blockchain en proof en work fonctionne du tonnerre et on n'entend plus beaucoup parler de Renard. Le Chef du village tient à vous remercier pour votre aide et organise une grande fête en votre honneur ! Félicitations !
+                </div> 
+        </div>        
+        )
+}
+
+export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8, text9}

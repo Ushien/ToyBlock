@@ -5,9 +5,13 @@ This project is made in the context of the INFOB318 Projet individuel class at U
 
 Project manager: [Jérôme Fink](https://github.com/Jefidev)
 
-# Deployed version of the website
+# Deployed version of the page
 
-# How to deploy the website
+You can check a deployed version of the webpage [here](https://ushien.github.io/ToyBlock/)
+
+# How to deploy the page
+
+
 
 # How to test the code
 
@@ -28,6 +32,8 @@ npm start
 
 That will launch the app on localhost:3000
 
+To apply any modification, just save the file and reload the the page in your browser.
+
 
 # Main tools
 
@@ -39,3 +45,5 @@ The frontend of the project is made with the help of [React-Bootstrap](https://g
 The main part of the project is found in App.js
 
 The text of the website is found in Blocs.js
+
+The interactive machines code is found in blockchain.js

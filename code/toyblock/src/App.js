@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react'
-import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8} from './Blocs.js'
+import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8, text9} from './Blocs.js'
 import {hashing, HashingBlock} from './blockchain.js'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -120,6 +120,11 @@ class HandlingBlock extends Component {
     if (this.state.distance >=12){
       console.log("Entered Block 8")
       wholetext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+        </div>)
+    }
+    if (this.state.distance >=13){
+      console.log("Entered Block 9")
+      wholetext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
     return wholetext;
@@ -440,6 +445,19 @@ class Bloc8 extends Component { //Travail d'équipe
     <div className="text-center"> 
       <div className="fs-3">
         {text8()}
+      </div>
+    </div>
+    );
+  }
+}
+
+class Bloc9 extends Component { //Conclusion
+  
+  render(){
+    return (
+    <div className="text-center"> 
+      <div className="fs-3">
+        {text9()}
       </div>
     </div>
     );
