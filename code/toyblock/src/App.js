@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react'
-import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8, text9} from './Blocs.js'
+import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
 import {hashing, HashingBlock} from './blockchain.js'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -107,9 +107,6 @@ class HandlingBlock extends Component {
         <div>
           <div>
             <Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
-          </div>
-          <div>
-            <HashingBlock baseword = {baseword}/>
           </div>
         </div>)
     }
@@ -297,7 +294,7 @@ class Bloc4 extends Component { //Listes d'attentes
   }
 
   render(){
-    return (<div className="text-center"> <div className="fs-3">{text4()}</div>
+    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text4()}</div>
     </div>
     );
   }
@@ -309,7 +306,7 @@ class Bloc5 extends Component { //Blockchain
   }
 
   render(){
-    return (<div className="text-center"> <div className="fs-3">{text5()}</div>
+    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text5()}</div>
     </div>
     );
   }
@@ -322,9 +319,13 @@ class Bloc6 extends Component { //Proof of work
 
   render(){
     return (
-    <div className="text-center"> 
+    <div className="text-center"> <br/> <br/> <br/> 
       <div className="fs-3">
         {text6()}
+        <div> <br/> Tu peux essayer de hasher tes propres mots !
+            <HashingBlock baseword = {baseword}/>
+          </div> <br/>
+        {text6_1()}
       </div>
     </div>
     );
@@ -337,7 +338,7 @@ class Bloc7 extends Component { //Rétribution
   }
 
   render(){
-    return (<div className="text-center"> <div className="fs-3">{text7(this.props.moneyname)}</div>
+    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text7(this.props.moneyname)}</div>
     </div>
     );
   }
@@ -347,7 +348,7 @@ class Bloc8 extends Component { //Travail d'équipe
   
   render(){
     return (
-    <div className="text-center"> 
+    <div className="text-center"> <br/> <br/> <br/> 
       <div className="fs-3">
         {text8()}
       </div>
@@ -360,7 +361,7 @@ class Bloc9 extends Component { //Conclusion
   
   render(){
     return (
-    <div className="text-center"> 
+    <div className="text-center"> <br/> <br/> <br/> 
       <div className="fs-3">
         {text9()}
       </div>

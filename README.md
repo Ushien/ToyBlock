@@ -9,10 +9,6 @@ Project manager: [Jérôme Fink](https://github.com/Jefidev)
 
 You can check a deployed version of the webpage [here](https://ushien.github.io/ToyBlock/)
 
-# How to deploy the page
-
-
-
 # How to test the code
 
 First please make sure your device meets all the requirements needed for the lauching of the app.
@@ -34,6 +30,8 @@ That will launch the app on localhost:3000
 
 To apply any modification, just save the file and reload the the page in your browser.
 
+# How to deploy the page
+
 
 # Main tools
 
@@ -47,3 +45,6 @@ The main part of the project is found in App.js
 The text of the website is found in Blocs.js
 
 The interactive machines code is found in blockchain.js
+
+
+For any further question, please check the programmer's guide in the doc directory.

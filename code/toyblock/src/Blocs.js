@@ -123,23 +123,20 @@ function text5(){
         )
 }
 
-function text6(){
+function text6_1(){
         return(<div>
                 <div>
-                Pour nous aider à résoudre ce problème, nous aurons besoin du hashage :
-                Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en un court nombre de taille fixe. Un peu comme un magasin représente tous les produits de son stock par un petit code-barre.
-                Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations: par exmemple, on peut vérifier facilement qu'un texte n'a pas été modifié.
                 Le chef du village décide de débloquer un peu de budget, et il offre un ordinateur à chaque habitant du village un ordinateur avec un programme de hashage !
 
                 Comme vu juste avant, un identifiant et une liste de transactions forment donc un bloc. On colle ces deux éléments à un nombre inconnu appelé le nonce. Ensemble, ils forment un gros texte !
-                L’objectif est simple, il faut hasher le texte formé par ces 3 données, et trouver un nombre qui respecte une condition fixée. Par exemple, le chef annonce : « Le résultat du hashage doit débuter par 5555 ! »
-                Par exemple, le résultat 55550044 serait un résultat satisfaisant.
+                L’objectif est simple, il faut hasher le texte formé par ces 3 données, et trouver un nouveau texte qui respecte une condition fixée. Par exemple, le chef annonce : « Le résultat du hashage doit débuter par abc ! »
+                Par exemple, le résultat abc55cc22 serait un résultat satisfaisant.
                 Comme il est impossible de retrouver un texte initial à partir d’un résultat de hashage, il n’y a qu’une seule possibilité pour résoudre ce problème : Tester toutes les valeurs possibles pour le nonce, et regarder si le hashage correspondant respecte la règle mise en place, le plus vite possible.
                 </div> 
                 <div>
                 Si un habitant trouve un nombre acceptable, on appelle alors cela la proof of work, il gagne le droit de transmettre sa liste d’attente à tout le village. Le résultat du hashage, lui, devient l’identifiant du bloc suivant.  
                 La fraude devient pratiquement impossible, car Renard n’a pas le temps de tester des nombres au hasard toute la journée. Et même s’il le faisait, il a peu de chances de tomber dessus.
-                Cette solution permet aussi d’empêcher la modification de transactions déjà validées, car le moindre chiffre changé modifierait le résultat du hashage, et donc tous les identifiants des blocs suivants.
+                Cette solution permet aussi d’empêcher la modification de transactions déjà validées, car la moindre lettre changée modifierait le résultat du hashage, et donc tous les identifiants des blocs suivants.
                 </div>
                 <h2>
                 Problème:
@@ -149,6 +146,16 @@ function text6(){
                 Pingouin est content du système, mais tester des nombres toute la journée ne le motive pas vraiment…
                 </div>
         </div>             
+        )
+}
+
+function text6(){
+        return(<div>
+                Pour nous aider à résoudre ce problème, nous aurons besoin du hashage :
+                Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en un court nombre de taille fixe. Un peu comme un magasin représente tous les produits de son stock par un petit code-barre.
+                Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations: par exemple, on peut vérifier facilement qu'un texte n'a pas été modifié.
+
+        </div>        
         )
 }
 
@@ -185,4 +192,4 @@ function text9(){
         )
 }
 
-export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text7, text8, text9}
+export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9}
