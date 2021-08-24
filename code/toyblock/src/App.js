@@ -5,8 +5,6 @@ import {hashing, HashingBlock} from './blockchain.js'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-// import Fade from 'react-bootstrap/Fade'
-// import { Collapse } from 'bootstrap';
 
 /*
 Here you can change the base parameters of the website
@@ -32,8 +30,11 @@ class HandlingBlock extends Component {
   }
 
   incrementDistance() {
-    console.log("We move forward in the document")
-    this.setState({distance: this.state.distance+1});
+    if(this.state.distance < 13){
+      console.log("We move forward in the document")
+      this.setState({distance: this.state.distance+1});
+    }
+    console.assert(this.state.distance <= 13)
   }
 
   changeName(newname) {
@@ -265,23 +266,7 @@ class Bloc1 extends Component { //Notation des transactions
 class Bloc2 extends Component { //Décentralisation de la monnaie
   constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text2(this.props.moneyname)}</div>
@@ -293,23 +278,7 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 class Bloc3 extends Component { //Signature électronique
   constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (
@@ -325,23 +294,7 @@ class Bloc3 extends Component { //Signature électronique
 class Bloc4 extends Component { //Listes d'attentes
     constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (<div className="text-center"> <div className="fs-3">{text4()}</div>
@@ -353,23 +306,7 @@ class Bloc4 extends Component { //Listes d'attentes
 class Bloc5 extends Component { //Blockchain
     constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (<div className="text-center"> <div className="fs-3">{text5()}</div>
@@ -381,23 +318,7 @@ class Bloc5 extends Component { //Blockchain
 class Bloc6 extends Component { //Proof of work
     constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (
@@ -413,23 +334,7 @@ class Bloc6 extends Component { //Proof of work
 class Bloc7 extends Component { //Rétribution
     constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
   }
-
-  /*
-  componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
-  }
-  */
 
   render(){
     return (<div className="text-center"> <div className="fs-3">{text7(this.props.moneyname)}</div>
