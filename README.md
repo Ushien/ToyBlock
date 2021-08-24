@@ -1,5 +1,5 @@
 # ToyBlock
-Webpage explaining the concept of Blockchain in a pedagogic way.
+Webpage explaining the concept of blockchain in a pedagogic way.
 
 This project is made in the context of the INFOB318 Projet individuel class at Unamur.
 
@@ -21,14 +21,14 @@ Then you may need to install scripts and configurations used by Create React App
 npm install react-scripts --save
 ```
 
-After that, go to code/toyblock/ and then type
+After that, go to ``code/toyblock/`` and then type
 ```sh
 npm start
 ```
 
 That will launch the app on localhost:3000
 
-To apply any modification, just save the file and reload the the page in your browser.
+To apply any modification, just save the file and reload the page in your browser.
 
 # How to deploy the page
 
