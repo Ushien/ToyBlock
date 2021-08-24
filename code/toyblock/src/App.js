@@ -1,3 +1,5 @@
+// Imports
+
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
@@ -9,8 +11,8 @@ import Button from 'react-bootstrap/Button';
 /*
 Here you can change the base parameters of the website
 
-Pick another startdistance if you want to start the story further (From 1 to 12)
-Pick another defaultname if you want to change the default name of the money
+Pick another startdistance if you want to start the story further (From 1 to 13)
+Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 */
 const startdistance = 1
