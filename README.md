@@ -7,7 +7,7 @@ Project manager: [Jérôme Fink](https://github.com/Jefidev)
 
 # Deployed version of the page
 
-You can check a deployed version of the webpage [here](https://ushien.github.io/ToyBlock/)
+You can check a deployed version of the webpage [here](https://ushien.github.io/ToyBlock/).
 
 # How to test the code
 
@@ -32,6 +32,7 @@ To apply any modification, just save the file and reload the page in your browse
 
 # How to deploy the page
 
+Multiple methods can be used depending on the type of server and website you want to add ToyBlock to. Please refer to the [official Create React App documentation](https://create-react-app.dev/docs/deployment) for any specific case.
 
 # Main tools
 
