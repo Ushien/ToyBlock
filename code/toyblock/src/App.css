@@ -1,0 +1,10 @@
+body {
+        background-color: #b8cefa;
+        padding: 40px;
+        font-family: Sans-Serif;
+      }
+
+.paragraph {
+        margin: 50px auto;
+        width: 800px;
+}

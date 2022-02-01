@@ -256,7 +256,7 @@ class Bloc1 extends Component { //Notation des transactions
   }
 
   render(){
-    return ( <div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text1()}</div>
+    return ( <div class="paragraph"> <br/> <br/> <br/> <div>{text1()}</div>
     </div>
     );
   }
@@ -268,7 +268,7 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
   }
 
   render(){
-    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text2(this.props.moneyname)}</div>
+    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text2(this.props.moneyname)}</div>
     </div>
     );
   }
