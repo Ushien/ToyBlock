@@ -11,8 +11,21 @@ body {
         font-size: 1.6em;
         text-align: justify;
         text-justify: inter-word;
+
+        animation: fadeInAnimation ease 2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+
 }
 
+@keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+         }
+    }
 
 .intro {
         

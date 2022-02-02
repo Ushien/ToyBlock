@@ -15,7 +15,7 @@ Pick another startdistance if you want to start the story further (From 1 to 13)
 Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 11
+const startdistance = 1
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -337,8 +337,9 @@ class Bloc6 extends Component { //Proof of work
       </div>
       <div class = "machine">
         <div class = "paragraph">
-        Tu peux essayer de hasher tes propres mots !
+        Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
         <HashingBlock baseword = {baseword}/>
+        Voilà un petit défi: Essaie de trouver un mot dont le hash commence par le chiffre 5.
         </div>
       </div>
       <div class="paragraph">

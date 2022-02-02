@@ -155,8 +155,8 @@ function text6_1(){
 function text6(){
         return(<div>
                 Pour nous aider à résoudre ce problème, nous aurons besoin du hashage :
-                Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en un court nombre de taille fixe. Un peu comme un magasin représente tous les produits de son stock par un petit code-barre.
-                Le hashage a également une spécificité supplémentaire : Une fois que l’on a hashé un texte, il est impossible de calculer le texte initial à partir du résultat. C’est très utile, car cela a plein d’utilisations: par exemple, on peut vérifier facilement qu'un texte n'a pas été modifié.
+                Le hashage, c’est un procédé informatique qui consiste à transformer de manière automatique un texte, grand ou moyen en une suite de chiffres et lettres de taille fixe. C'est un peu comme si on associait à une phrase précise un code secret unique ! On peut comparer ça à une sorte d'empreinte digitale : Il est impossible de deviner l'identité de quelqu'un sur base de son empreinte digitale, si la personne ne l'a jamais partagée. Par contre, une fois qu'on lui a demandé son empreinte digitale, on sait que cette empreinte digitale appartient à lui et à lui seul.
+                De la même manière, si on nous donne un hashage au hasard, il est impossible de retrouver le texte initial. C’est très utile, car cela a plein d’utilisations: par exemple, on peut vérifier facilement qu'un texte n'a pas été modifié. Au lieu de comparer les textes lettres par lettres, il suffit de chacun les hasher, et voir si les résultats sont identiques. La moindre lettre de différence dans le texte de base aurait complètement changé le hashing de celui-ci !
 
         </div>        
         )
