@@ -15,7 +15,7 @@ Pick another startdistance if you want to start the story further (From 1 to 13)
 Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 1
+const startdistance = 5
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -246,16 +246,23 @@ class Bloc1 extends Component { //Notation des transactions
   }
 
   componentDidMount(){
-    document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener('scroll', this.handleClick, false);
   }
 
   componentWillUnmount(){
-    document.removeEventListener('mousedown', this.handleClick, false);
+    document.removeEventListener('scroll', this.handleClick, false);
   }
 
   handleClick = (e) => {
-    console.log("The screen is clicked")
-    this.props.onDistanceChange();
+    const event = e.target.scrollingElement;
+    console.log("The screen is scrolled");
+    //const bottom = e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop === e.target.scrollingElement.clientHeight;
+    const bottom = Math.abs(event.scrollHeight - (event.scrollTop + event.clientHeight)) <= 1;
+
+    if (bottom){
+      console.log("Enter the condition")
+      this.props.onDistanceChange();
+    }
   }
 
   render(){

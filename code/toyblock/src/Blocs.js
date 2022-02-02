@@ -38,9 +38,12 @@ function text1(){
                 Le chef du village achète un carnet qui répertorie chaque transaction, afin de pouvoir déduire automatiquement combien chaque habitant peut encore dépenser. 
                 Les animaux le préviennent qu’ils veulent faire une transaction, et il l’écrit pour eux.
                 </div> 
-                <h2>
+                <div>
+                                PLACER MACHINE
+                </div>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Si quelqu’un de malhonnête accède à son carnet, la liste de transactions pourrait être modifiée, voire pire : brûlée !
                 </div>
@@ -51,11 +54,11 @@ function text1(){
 function text2(moneyname){
         return(<div>
                 <div>
-                Donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname}s à Paresseux ». Tout le monde le note dans son propre carnet.
+                Utilisons le même système de carnets, mais donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname}s à Paresseux ». Dès que quelqu'un reçoit une transaction par lettre, elle l'inscrit dans son propre carnet.
                 </div> 
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Renard a vite besoin d’argent pour acheter une tarte. Il écrit dans une lettre : « Inscrivez tous que Grenouille m’a donné 100 {moneyname}s ! ». Le reste du village reçoit la lettre, et ils copient la transaction dans leur carnet. 
                 N’importe qui peut inscrire des transactions fausses et le reste du village va les copier !
@@ -73,9 +76,9 @@ function text3(moneyname){
                 2 : Un trousseau de clés, une pour chaque habitant du village.
                 Avant d’écrire une transaction dans une lettre, et de la transmettre, Pingouin sécurise sa lettre en la mettant dans un coffre, avec sa serrure propre. Personne d’autre ne peut réaliser la même serrure que lui. Pour savoir qui a envoyé la lettre, ils testent toutes les clés qu’ils possèdent et comprennent vite que, vu que la clé de pingouin fonctionne, ça ne peut être que Pingouin qui a rédigé cette transaction. Une fois que la lettre est transmise, à l’intérieur de son coffre, les animaux la copient dans leur carnet.
                 </div> 
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Cette fois-ci, Renard a envie d’un cookie, et d’un jus de fruits, coûtant 5 {moneyname}s chacun ! Problème : Renard est presque à sec, il ne lui reste que 5 {moneyname}s. Pourtant, il a très envie d’acheter les deux douceurs. Il trouve une stratégie.
                 Renard prépare 2 lettres : L’une d’elle dit qu’il a dépensé 5 {moneyname}s dans un cookie, l’autre qu’il les a dépensés dans un jus de fruit. Il les enferme dans leur coffre, avec la serrure renard. Il envoie sa première lettre à un coin du village, et court vite de l’autre côté pour envoyer la deuxième.
@@ -92,9 +95,9 @@ function text4(){
                 Solution : Listes d’attentes
                 On donne à chaque habitant, en plus de son carnet, un petit tableau et une craie pour noter les transactions en attente de validation. Dès que Pingouin reçoit une transaction dans une lettre, il l’écrit, non plus dans son carnet, mais sur son petit tableau. Ainsi, tous les jours à 18 heures, le chef du village choisit une liste d’attente au hasard, par exemple celle de Paresseux, et fait une annonce au village pour dire que la liste d’attente de paresseux a été choisie comme liste officielle, et tout le monde recopie les transactions de cette liste d’attente dans son carnet. Après ça, tout le monde efface son tableau.
                 </div> 
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Renard pourrait écrire des informations fausses sur son tableau, et il existe une petite chance qu’il soit un jour choisi au hasard. Tout le monde recopierait des informations fausses !
                 </div>
@@ -113,9 +116,9 @@ function text5(){
                 Pour connaître qui sera le prochain à imposer sa liste, le village prend l’identifiant trouvé par Paresseux comme nouvel identifiant. Ce sera donc celui qui trouve 80 multiplié par 8 qui pourra proposer sa liste. Et cetera !
                 On a donc créé des listes d’attentes liées entre elles par leur identifiant, comme les maillons d’une chaîne. Chaque liste d’attente représente un bloc, on vient donc de créer ce qui s’appelle une blockchain.
                 </div> 
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Le calcul proposé par le chef du village est un peu facile… Comme Renard est malin, il calcule à l’avance tous les résultats, en peut désormais proposer des listes d’attentes fausses.
                 </div>
@@ -138,9 +141,9 @@ function text6_1(){
                 La fraude devient pratiquement impossible, car Renard n’a pas le temps de tester des nombres au hasard toute la journée. Et même s’il le faisait, il a peu de chances de tomber dessus.
                 Cette solution permet aussi d’empêcher la modification de transactions déjà validées, car la moindre lettre changée modifierait le résultat du hashage, et donc tous les identifiants des blocs suivants.
                 </div>
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Problème : 
                 Pingouin est content du système, mais tester des nombres toute la journée ne le motive pas vraiment…
@@ -164,9 +167,9 @@ function text7(moneyname){
                 <div>
                 Le chef du village réagit : Après chaque cycle, l’animal ayant fourni la proof of work recevra 10 {moneyname}s créés juste pour lui, qu’il peut dépenser comme il l’entend. Ainsi, cela motive les habitants à lutter pour la sécurité de tous !
                 </div> 
-                <h2>
+                <div class ="problem">
                 Problème:
-                </h2>
+                </div>
                 <div>
                 Le village grandit et le système {moneyname} a beaucoup de succès ! Mais il grandit tellement, qu’au final, Pingouin n’arrive plus jamais à trouver le nombre. Quelqu’un de plus rapide réussit toujours avant lui.
                 </div>
