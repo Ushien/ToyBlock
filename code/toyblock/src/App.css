@@ -1,7 +1,8 @@
 body {
         background-color: #f1fffd;
-        padding: 40px;
         font-family: Sans-Serif;
+        margin: 0px;
+        color: #252525;
       }
 
 .paragraph {
@@ -21,4 +22,10 @@ body {
         margin: 30px auto;
         font-weight: 700;
         text-align: center
+}
+
+.machine {
+        background-color: #3fceb8;
+        color: #ffffff;
+        padding: 30px;
 }

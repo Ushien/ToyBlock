@@ -15,7 +15,7 @@ Pick another startdistance if you want to start the story further (From 1 to 13)
 Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 5
+const startdistance = 11
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -331,12 +331,17 @@ class Bloc6 extends Component { //Proof of work
 
   render(){
     return (
-    <div class="paragraph"> <br/> <br/> <br/> 
-      <div>
+    <div> <br/> <br/> <br/> 
+      <div class="paragraph">
         {text6()}
-        <div> <br/> Tu peux essayer de hasher tes propres mots !
-            <HashingBlock baseword = {baseword}/>
-          </div> <br/>
+      </div>
+      <div class = "machine">
+        <div class = "paragraph">
+        Tu peux essayer de hasher tes propres mots !
+        <HashingBlock baseword = {baseword}/>
+        </div>
+      </div>
+      <div class="paragraph">
         {text6_1()}
       </div>
     </div>
