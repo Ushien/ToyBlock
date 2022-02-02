@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/ToyBlock/static/css/main.ae82996b.chunk.css",
+    "main.css": "/ToyBlock/static/css/main.b9510fd9.chunk.css",
     "main.js": "/ToyBlock/static/js/main.2477129a.chunk.js",
     "main.js.map": "/ToyBlock/static/js/main.2477129a.chunk.js.map",
     "runtime-main.js": "/ToyBlock/static/js/runtime-main.6f127869.js",
@@ -10,13 +10,13 @@
     "static/js/3.8ed9ad9f.chunk.js": "/ToyBlock/static/js/3.8ed9ad9f.chunk.js",
     "static/js/3.8ed9ad9f.chunk.js.map": "/ToyBlock/static/js/3.8ed9ad9f.chunk.js.map",
     "index.html": "/ToyBlock/index.html",
-    "static/css/main.ae82996b.chunk.css.map": "/ToyBlock/static/css/main.ae82996b.chunk.css.map",
+    "static/css/main.b9510fd9.chunk.css.map": "/ToyBlock/static/css/main.b9510fd9.chunk.css.map",
     "static/js/2.f84e74bc.chunk.js.LICENSE.txt": "/ToyBlock/static/js/2.f84e74bc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6f127869.js",
     "static/js/2.f84e74bc.chunk.js",
-    "static/css/main.ae82996b.chunk.css",
+    "static/css/main.b9510fd9.chunk.css",
     "static/js/main.2477129a.chunk.js"
   ]
 }
