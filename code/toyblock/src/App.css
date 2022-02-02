@@ -1,5 +1,5 @@
 body {
-        background-color: #b8cefa;
+        background-color: #c5fffa;
         padding: 40px;
         font-family: Sans-Serif;
       }
@@ -7,4 +7,12 @@ body {
 .paragraph {
         margin: 50px auto;
         width: 800px;
+        font-size: 2em;
+        text-align: justify;
+        text-justify: inter-word;
+}
+
+
+.intro {
+        
 }

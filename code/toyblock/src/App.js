@@ -5,8 +5,8 @@ import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
 import {hashing, HashingBlock} from './blockchain.js'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+//import Button from 'react-bootstrap/Button';
 
 /*
 Here you can change the base parameters of the website
@@ -127,6 +127,9 @@ class HandlingBlock extends Component {
       wholetext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
+
+    wholetext.push(<div><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
+
     return wholetext;
   }
 }
@@ -152,8 +155,8 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return <div className="text-center"> 
-    <div className="fs-3">
+    return <div class="paragraph intro"> 
+    <div>
       {introtext1()}
     </div>
     </div>;
@@ -179,8 +182,8 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return<div className="text-center"> 
-    <div className="fs-3">
+    return<div class="paragraph intro"> 
+    <div>
       {introtext2()}
     </div>
     </div>;
@@ -200,9 +203,9 @@ class BlocIntro3 extends Component {
   }
 
   render(){
-    return <div className="text-center">
-      <div className="fs-3">{introtext3()}</div>
-      <Button variant="primary" onClick={() => this.handleClick()}>Allons-y</Button>
+    return <div class="paragraph intro">
+      <div>{introtext3()}</div>
+      <div class="button" onClick={() => this.handleClick()}>Allons-y</div>
       </div>
   }
 }
@@ -223,8 +226,8 @@ class BlocIntro4 extends Component {
   }
 
   render(){
-    return <div className="text-center">
-      <div className="fs-3">{introtext4()}</div>
+    return <div class="paragraph intro">
+      <div>{introtext4()}</div>
       
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
@@ -281,8 +284,8 @@ class Bloc3 extends Component { //Signature électronique
 
   render(){
     return (
-    <div className="text-center"> <br/> <br/> <br/> 
-      <div className="fs-3">
+    <div class="paragraph"> <br/> <br/> <br/> 
+      <div>
         {text3(this.props.moneyname)}
       </div>
     </div>
@@ -296,7 +299,7 @@ class Bloc4 extends Component { //Listes d'attentes
   }
 
   render(){
-    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text4()}</div>
+    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text4()}</div>
     </div>
     );
   }
@@ -308,7 +311,7 @@ class Bloc5 extends Component { //Blockchain
   }
 
   render(){
-    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text5()}</div>
+    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text5()}</div>
     </div>
     );
   }
@@ -321,8 +324,8 @@ class Bloc6 extends Component { //Proof of work
 
   render(){
     return (
-    <div className="text-center"> <br/> <br/> <br/> 
-      <div className="fs-3">
+    <div class="paragraph"> <br/> <br/> <br/> 
+      <div>
         {text6()}
         <div> <br/> Tu peux essayer de hasher tes propres mots !
             <HashingBlock baseword = {baseword}/>
@@ -340,7 +343,7 @@ class Bloc7 extends Component { //Rétribution
   }
 
   render(){
-    return (<div className="text-center"> <br/> <br/> <br/> <div className="fs-3">{text7(this.props.moneyname)}</div>
+    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text7(this.props.moneyname)}</div>
     </div>
     );
   }
@@ -350,8 +353,8 @@ class Bloc8 extends Component { //Travail d'équipe
   
   render(){
     return (
-    <div className="text-center"> <br/> <br/> <br/> 
-      <div className="fs-3">
+    <div class="paragraph"> <br/> <br/> <br/> 
+      <div>
         {text8()}
       </div>
     </div>
@@ -363,8 +366,8 @@ class Bloc9 extends Component { //Conclusion
   
   render(){
     return (
-    <div className="text-center"> <br/> <br/> <br/> 
-      <div className="fs-3">
+    <div class="paragraph"> <br/> <br/> <br/> 
+      <div>
         {text9()}
       </div>
     </div>
