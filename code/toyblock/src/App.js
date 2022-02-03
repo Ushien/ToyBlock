@@ -155,9 +155,11 @@ class BlocIntro1 extends Component {
   }
 
   render(){
-    return <div class="paragraph intro"> 
+    return <div class="centeredscreen">
+    <div class="paragraph centeredtext"> 
     <div>
       {introtext1()}
+    </div>
     </div>
     </div>;
   }
@@ -182,9 +184,11 @@ class BlocIntro2 extends Component {
     this.props.onDistanceChange();
   }
   render(){
-    return<div class="paragraph intro"> 
+    return <div class="centeredscreen">
+    <div class="paragraph centeredtext"> 
     <div>
       {introtext2()}
+    </div>
     </div>
     </div>;
   }
@@ -203,9 +207,11 @@ class BlocIntro3 extends Component {
   }
 
   render(){
-    return <div class="paragraph intro">
+    return <div class="centeredscreen">
+      <div class="paragraph centeredtext">
       <div>{introtext3()}</div>
       <div class="button" onClick={() => this.handleClick()}>Allons-y</div>
+      </div>
       </div>
   }
 }
@@ -226,13 +232,15 @@ class BlocIntro4 extends Component {
   }
 
   render(){
-    return <div class="paragraph intro">
+    return <div class="centeredscreen">
+    <div class="paragraph centeredtext">
       <div>{introtext4()}</div>
       
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
-        <input type="submit" value="Choisir" />
+        <input type="submit" value="Choisir" class="button" />
       </form>
+    </div>
     </div>
   }
 }
@@ -339,7 +347,7 @@ class Bloc6 extends Component { //Proof of work
         <div class = "paragraph">
         Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
         <HashingBlock baseword = {baseword}/>
-        Voilà un petit défi: Essaie de trouver un mot dont le hash commence par le chiffre 5.
+        Voici un petit défi : Essaie de trouver un mot dont le hash commence par le chiffre 5.
         </div>
       </div>
       <div class="paragraph">

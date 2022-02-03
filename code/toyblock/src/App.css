@@ -27,10 +27,6 @@ body {
          }
     }
 
-.intro {
-        
-}
-
 .problem {
         margin: 30px auto;
         font-weight: 700;
@@ -42,3 +38,49 @@ body {
         color: #ffffff;
         padding: 30px;
 }
+
+.centeredscreen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+        
+}
+
+.centeredtext {
+        text-align: center
+}
+
+.button{
+        margin: 10px;
+        border: 2px solid;
+        color: #252525;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 14px;
+}
+
+.button:hover{
+        background: #3fceb8;
+        color: #f1fffd;
+        animation: buttonanimation ease 1s;
+        border: 2px solid #252525;
+        cursor: pointer
+   }
+
+@keyframes buttonanimation {
+        0% {
+                background: #f1fffd;
+                border: 2px solid #252525;
+                color: #252525;
+        }
+        50% {
+                /*color: #f1fffd;*/
+        }
+        100% {
+                background: #3fceb8;
+                border: 2px solid #252525;
+                }
+        }

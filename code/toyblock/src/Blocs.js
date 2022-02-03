@@ -27,7 +27,7 @@ function introtext3(){
 
 function introtext4(){
         return(<div>
-                Commencons par choisir un nom pour cette monnaie révolutionnaire. Sois créatif ! :
+                Commençons par choisir un nom pour cette monnaie révolutionnaire. Sois créatif ! :
         </div>
         )
 }
@@ -54,7 +54,7 @@ function text1(){
 function text2(moneyname){
         return(<div>
                 <div>
-                Utilisons le même système de carnets, mais donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname}s à Paresseux ». Dès que quelqu'un reçoit une transaction par lettre, elle l'inscrit dans son propre carnet.
+                Utilisons le même système de carnets, mais donnons un carnet à chaque habitant qui veut pouvoir échanger sa monnaie. Une fois que 2 animaux se sont mis d’accord sur une transaction, ils l’écrivent dans leur fichier propre, et envoient une lettre à tous les habitants du village : « Attention, inscrivez que Pingouin a donné 2 {moneyname}s à Paresseux ». Dès que quelqu'un reçoit une transaction par lettre, il l'inscrit dans son propre carnet.
                 </div> 
                 <div class ="problem">
                 Problème:
