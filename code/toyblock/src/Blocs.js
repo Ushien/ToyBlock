@@ -90,7 +90,7 @@ function text3(moneyname){
         )
 }
 
-function text4(){
+function text4(moneyname){
         return(<div>
                 <div>
                 Solution : Listes d’attentes

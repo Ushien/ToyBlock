@@ -3,7 +3,8 @@
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {hashing, HashingBlock} from './blockchain.js'
+import {hashing, HashingBlock, TransactionLine} from './blockchain.js'
+import {BlocTest} from './Test.js'
 
 /*
 Here you can change the base parameters of the website
@@ -11,10 +12,13 @@ Here you can change the base parameters of the website
 Pick another startdistance if you want to start the story further (From 1 to 13)
 Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
+Set test to true if you want to load a test version of the website
 */
-const startdistance = 11
+const startdistance = 1
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
+
+const test = true
 
 class HandlingBlock extends Component {
 
@@ -43,6 +47,10 @@ class HandlingBlock extends Component {
   }
 
   render(){ 
+    if(test){
+      return <BlocTest/>
+    }
+
     var wholetext = [];
 
     if (this.state.distance === 1){
@@ -235,7 +243,7 @@ class BlocIntro4 extends Component {
       
       <form onSubmit={this.handleSubmit} class="marged">
         <input type="text" value={this.props.moneyname} onChange={this.handleChange} class="input"/>
-        <input type="submit" value="Choisir" class="button" />
+        <input type="submit" value="Choisir ce nom" class="button" />
       </form>
     </div>
     </div>
@@ -311,7 +319,7 @@ class Bloc4 extends Component { //Listes d'attentes
   }
 
   render(){
-    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text4()}</div>
+    return (<div class="paragraph"> <br/> <br/> <br/> <div>{text4(this.props.moneyname)}</div>
     </div>
     );
   }
