@@ -3,7 +3,7 @@
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {hashing, HashingBlock, TransactionLine} from './blockchain.js'
+import {HashingBlock} from './blockchain.js'
 import {BlocTest} from './Test.js'
 
 /*
@@ -286,9 +286,6 @@ class Bloc1 extends Component { //Notation des transactions
 }
 
 class Bloc2 extends Component { //Décentralisation de la monnaie
-  constructor(props) {
-    super(props);
-  }
 
   render(){
     return (<div class="paragraph"> <br/> <br/> <br/> <div>{text2(this.props.moneyname)}</div>
@@ -298,9 +295,6 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 }
 
 class Bloc3 extends Component { //Signature électronique
-  constructor(props) {
-    super(props);
-  }
 
   render(){
     return (
@@ -314,9 +308,6 @@ class Bloc3 extends Component { //Signature électronique
 }
 
 class Bloc4 extends Component { //Listes d'attentes
-    constructor(props) {
-    super(props);
-  }
 
   render(){
     return (<div class="paragraph"> <br/> <br/> <br/> <div>{text4(this.props.moneyname)}</div>
@@ -326,9 +317,6 @@ class Bloc4 extends Component { //Listes d'attentes
 }
 
 class Bloc5 extends Component { //Blockchain
-    constructor(props) {
-    super(props);
-  }
 
   render(){
     return (<div class="paragraph"> <br/> <br/> <br/> <div>{text5()}</div>
@@ -338,9 +326,6 @@ class Bloc5 extends Component { //Blockchain
 }
 
 class Bloc6 extends Component { //Proof of work
-    constructor(props) {
-    super(props);
-  }
 
   render(){
     return (
@@ -368,9 +353,6 @@ class Bloc6 extends Component { //Proof of work
 }
 
 class Bloc7 extends Component { //Rétribution
-    constructor(props) {
-    super(props);
-  }
 
   render(){
     return (<div class="paragraph"> <br/> <br/> <br/> <div>{text7(this.props.moneyname)}</div>

@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { TransactionLine } from './blockchain';
+import {Transaction, CarnetBlock, Carnet } from './blockchain';
+
+let carnet = new Carnet("Paresseux")
+carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 25, true))
+carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 35, true))
+carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 55, true))
+
 
 class BlocTest extends Component{
-  constructor(props) {
-    super(props);
-  }
 
   render(){
-    return <div><TransactionLine amount={15} validated={false}/></div>
+    return <div>
+      <CarnetBlock carnet={carnet} validated={false}/>
+      </div>
   }
 }
 

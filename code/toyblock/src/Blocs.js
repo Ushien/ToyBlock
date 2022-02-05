@@ -47,7 +47,7 @@ function text1(){
                 </div>
         </div>
         )
-        // On place la machine carnet avant le problème
+        // On place la machine 1 (carnet) avant le problème
 }
 
 function text2(moneyname){
