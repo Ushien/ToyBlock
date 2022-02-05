@@ -38,17 +38,16 @@ function text1(){
                 Le chef du village achète un carnet qui répertorie chaque transaction, afin de pouvoir déduire automatiquement combien chaque habitant peut encore dépenser. 
                 Les animaux le préviennent qu’ils veulent faire une transaction, et il l’écrit pour eux.
                 </div> 
-                <div>
-                                PLACER MACHINE
-                </div>
+
                 <div class ="problem">
                 Problème:
                 </div>
                 <div>
-                Si quelqu’un de malhonnête accède à son carnet, la liste de transactions pourrait être modifiée, voire pire : brûlée !
+                Si quelqu’un de malhonnête accède au carnet du chef, la liste de transactions pourrait être modifiée, voire pire : brûlée !
                 </div>
         </div>
         )
+        // On place la machine carnet avant le problème
 }
 
 function text2(moneyname){
@@ -81,11 +80,13 @@ function text3(moneyname){
                 </div>
                 <div>
                 Cette fois-ci, Renard a envie d’un cookie, et d’un jus de fruits, coûtant 5 {moneyname}s chacun ! Problème : Renard est presque à sec, il ne lui reste que 5 {moneyname}s. Pourtant, il a très envie d’acheter les deux douceurs. Il trouve une stratégie.
-                Renard prépare 2 lettres : L’une d’elle dit qu’il a dépensé 5 {moneyname}s dans un cookie, l’autre qu’il les a dépensés dans un jus de fruit. Il les enferme dans leur coffre, avec la serrure renard. Il envoie sa première lettre à un coin du village, et court vite de l’autre côté pour envoyer la deuxième.
+                Renard prépare 2 lettres : L’une d’elle dit qu’il a dépensé 5 {moneyname}s dans un cookie, l’autre qu’il les a dépensés dans un jus de fruit. Il les enferme dans leur coffre, avec la serrure renard. Il commence par acheter un cookie d'un côté du village, envoie sa première lettre, et court vite de l’autre côté pour acheter un jus de fruit, et envoyer la deuxième.
                 Pingouin reçoit d’abord la première lettre. Il vérifie dans son carnet, et voit que Renard a acheté un cookie avec ses 5 derniers {moneyname}s. Il note l’info, et retransmet la lettre au reste du village. Pendant ce temps-là, de l’autre côté, Paresseux reçoit la lettre numéro 2. Il vérifie, selon son carnet, Renard possède encore 5 {moneyname}s. Il ne voit donc aucun problème à inscrire la transaction !
                 Ca y est, Renard a réussi à mettre des infos contradictoires en circulation dans le village.
                 </div>
         </div>          
+
+        // Dessin serrures coffre ?
         )
 }
 
@@ -93,13 +94,13 @@ function text4(){
         return(<div>
                 <div>
                 Solution : Listes d’attentes
-                On donne à chaque habitant, en plus de son carnet, un petit tableau et une craie pour noter les transactions en attente de validation. Dès que Pingouin reçoit une transaction dans une lettre, il l’écrit, non plus dans son carnet, mais sur son petit tableau. Ainsi, tous les jours à 18 heures, le chef du village choisit une liste d’attente au hasard, par exemple celle de Paresseux, et fait une annonce au village pour dire que la liste d’attente de paresseux a été choisie comme liste officielle, et tout le monde recopie les transactions de cette liste d’attente dans son carnet. Après ça, tout le monde efface son tableau.
+                On donne à chaque habitant, en plus de son carnet, un petit tableau et une craie pour noter les transactions en attente de validation. Dès que Pingouin reçoit une transaction dans une lettre, il l’écrit, non plus dans son carnet, mais à la craie sur son petit tableau. Ainsi, tous les jours à 18 heures, le chef du village choisit une liste d’attente au hasard, par exemple celle de Paresseux, et fait une annonce au village pour dire que la liste d’attente de paresseux a été choisie comme liste officielle. Après ça, tout le monde recopie les transactions de cette liste d’attente dans son carnet. Une fois que c'est fait, tout le monde efface son tableau et on est sûrs que tout le monde possède exactement la même liste.
                 </div> 
                 <div class ="problem">
                 Problème:
                 </div>
                 <div>
-                Renard pourrait écrire des informations fausses sur son tableau, et il existe une petite chance qu’il soit un jour choisi au hasard. Tout le monde recopierait des informations fausses !
+                Renard pourrait écrire des informations fausses sur son tableau. Il pourrait par exemple inscrire que tout le monde lui a donné 100 {moneyname}s, et il existe une petite chance qu’il soit un jour choisi au hasard. Tout le monde recopierait des informations fausses !
                 </div>
         </div>         
         )
@@ -120,7 +121,7 @@ function text5(){
                 Problème:
                 </div>
                 <div>
-                Le calcul proposé par le chef du village est un peu facile… Comme Renard est malin, il calcule à l’avance tous les résultats, en peut désormais proposer des listes d’attentes fausses.
+                Le calcul proposé par le chef du village est un peu facile… Comme Renard est malin, il calcule à l’avance tous les résultats, en peut désormais proposer des listes d’attentes fausses. En bref, c'est l'habitant le plus rapide en calcul qui impose ce qu'il veut, au final.
                 </div>
         </div>              
         )
@@ -146,7 +147,7 @@ function text6_1(){
                 </div>
                 <div>
                 Problème : 
-                Pingouin est content du système, mais tester des nombres toute la journée ne le motive pas vraiment…
+                Pingouin est content du système, mais passer sa journée à faire des calculs ne le motive pas vraiment…
                 </div>
         </div>             
         )
@@ -162,16 +163,18 @@ function text6(){
         )
 }
 
+// On place la machine de hashage
+
 function text7(moneyname){
         return(<div>
                 <div>
-                Le chef du village réagit : Après chaque cycle, l’animal ayant fourni la proof of work recevra 10 {moneyname}s créés juste pour lui, qu’il peut dépenser comme il l’entend. Ainsi, cela motive les habitants à lutter pour la sécurité de tous !
+                Le chef du village réagit : Après chaque cycle, l’habitant ayant fourni la proof of work recevra 10 {moneyname}s créés juste pour lui, qu’il peut dépenser comme il l’entend. Ainsi, cela motive les habitants à lutter pour la sécurité de tous !
                 </div> 
                 <div class ="problem">
                 Problème:
                 </div>
                 <div>
-                Le village grandit et le système {moneyname} a beaucoup de succès ! Mais il grandit tellement, qu’au final, Pingouin n’arrive plus jamais à trouver le nombre. Quelqu’un de plus rapide réussit toujours avant lui.
+                Le village grandit et le système {moneyname} a beaucoup de succès ! Mais il grandit tellement, qu’au final, Pingouin n’arrive plus jamais à trouver d'identifiant. Quelqu’un de plus rapide réussit toujours avant lui. Il n'est plus très motivé...
                 </div>
         </div>        
         )
@@ -180,7 +183,7 @@ function text7(moneyname){
 function text8(){
         return(<div>
                 <div>
-                Au lieu de travailler tout seul, des quartiers du village décident de former une équipe et s’organiser pour avoir plus de chance de trouver la proof of work. Ils se répartissent la tâche pour optimiser leurs chances, et se partagent les gains en cas de réussite. Leur temps est mieux utilisé car ils sont garantis de ne jamais tester le même nombre qu’un autre du groupe a déjà testé ! Les membres du groupes gagnent donc plus souvent, mais la somme est partagée.
+                Au lieu de travailler tout seul, des habitants du village décident de former une équipe et s’organiser pour avoir plus de chance de trouver la proof of work. Ils se répartissent la tâche pour optimiser leurs chances, et se partagent les gains en cas de réussite. Par exemple, Grenouille se charge des identifiants commençant par 5, et Paresseux se charge des identifiants commençant par 6. Leur temps est mieux utilisé car ils sont garantis de ne jamais tester le même nombre qu’un autre du groupe a déjà testé ! Les membres du groupes gagnent donc plus souvent, mais les gains sont partagés.
                 </div> 
         </div>        
         )
@@ -193,6 +196,7 @@ function text9(){
                 </div> 
         </div>        
         )
+        // Dessin fête
 }
 
 export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9}

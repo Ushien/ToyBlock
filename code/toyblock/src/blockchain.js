@@ -19,11 +19,15 @@ class HashingBlock extends Component {
         
         render(){
                 return(
-                        <div className="text-center">
+                        <div className="centeredtext">
                                 <form>
-                                        <input type="text" value={this.state.hashword} onChange={this.handleChange}/>
+                                        <input type="text" value={this.state.hashword} onChange={this.handleChange} class="input"/>
                                 </form>
+                                <div class="centeredelement">
+                                <div class="output">
                                 {this.state.hashed}
+                                </div>
+                                </div>
                         </div>
                 )
         }

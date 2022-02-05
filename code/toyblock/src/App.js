@@ -5,9 +5,6 @@ import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
 import {hashing, HashingBlock} from './blockchain.js'
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
-//import Button from 'react-bootstrap/Button';
-
 /*
 Here you can change the base parameters of the website
 
@@ -15,7 +12,7 @@ Pick another startdistance if you want to start the story further (From 1 to 13)
 Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 */
-const startdistance = 1
+const startdistance = 11
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -236,8 +233,8 @@ class BlocIntro4 extends Component {
     <div class="paragraph centeredtext">
       <div>{introtext4()}</div>
       
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.props.moneyname} onChange={this.handleChange}/>
+      <form onSubmit={this.handleSubmit} class="marged">
+        <input type="text" value={this.props.moneyname} onChange={this.handleChange} class="input"/>
         <input type="submit" value="Choisir" class="button" />
       </form>
     </div>
@@ -346,7 +343,11 @@ class Bloc6 extends Component { //Proof of work
       <div class = "machine">
         <div class = "paragraph">
         Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
+        </div>
+        <div>
         <HashingBlock baseword = {baseword}/>
+        </div>
+        <div class = "paragraph">
         Voici un petit défi : Essaie de trouver un mot dont le hash commence par le chiffre 5.
         </div>
       </div>

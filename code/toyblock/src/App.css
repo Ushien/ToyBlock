@@ -47,40 +47,75 @@ body {
         
 }
 
+.marged{
+        margin: 20px auto;
+}
+
 .centeredtext {
         text-align: center
 }
 
-.button{
+.centeredelement {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.input{
         margin: 10px;
-        border: 2px solid;
+        border: 2px groove;
         color: #252525;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         border-radius: 14px;
+        font-size: 1.6em;
+}
+
+.output{
+        margin: 10px;
+        border: 2px groove;
+        color: #252525;
+        padding: 15px 32px;
+        text-decoration: none;
+        width: 1000px;
+        border-radius: 14px;
+        font-size: 1.6em;
+        background: #7ce0d1;
+}
+
+.button{
+        margin: 10px;
+        border: 2px groove;
+        color: #252525;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 14px;
+        font-size: 1.2em;
 }
 
 .button:hover{
         background: #3fceb8;
         color: #f1fffd;
         animation: buttonanimation ease 1s;
-        border: 2px solid #252525;
+        border: 2px groove;
         cursor: pointer
    }
 
 @keyframes buttonanimation {
         0% {
                 background: #f1fffd;
-                border: 2px solid #252525;
-                color: #252525;
+                border: 2px groove;
+                /*color: #252525;*/
         }
         50% {
                 /*color: #f1fffd;*/
         }
         100% {
                 background: #3fceb8;
-                border: 2px solid #252525;
+                border: 2px groove;
                 }
         }
