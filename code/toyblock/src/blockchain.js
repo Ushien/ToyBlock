@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 
 // Class definition
 
+const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat"]
+const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {" Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
+
 class Transaction{
         constructor(from, to, amount, validated){
                 this.from = from;
@@ -26,9 +29,10 @@ class Transaction{
 }
 
 class Carnet{
-        constructor(property){
+        constructor(property, neighbors){
                 this.property = property;
                 this.transactions = [];
+                this.neighbors = neighbors;
         }
 
         addTransaction(transaction){
@@ -40,44 +44,87 @@ class Carnet{
                 return this.transactions
         }
 
+        receiveTransaction(transaction, from){
+                //vérifie que la transaction est compatible avec les autres
+                //si oui, l'ajoute, si non, envoie une erreur
+                //transmet ensuite la transaction aux voisins, sauf au from
+        }
+
+        transmitTransaction(transaction, exclude){
+                console.assert(transaction.isValidated(), "Trying to transmit a invalidated transaction");
+
+                let transmissionList = {}
+
+                for (var i in this.neighbors){
+                        if (i !== exclude){
+                                transmissionList[i] = this.neighbors[i];
+                        }
+                }
+
+
+                //assert que la transaction est validée
+                //attend un petit moment en fonction de la distance, et envoie aux gens qu'il faut, mais pas au exclude
+        }
+
+        sendTransaction(transaction, destination){
+                //envoie à un autre carnet
+        }
+
 }
 
-/*
 class Village{
-        constructor(startmoney){
+        constructor(startmoney, animals, neighbors){
                 this.startmoney = startmoney;
+                this.villagers = {};
+
+                for (let index = 0; index < animals.length; index++) {
+                        this.villagers[animals[index]] = new Carnet(animals[index], neighbors[animals[index]])
+                }
+        }
+
+        getCarnets(){
+                return this.villagers;
+        }
+
+        getCarnet(property){
+                return this.villagers[property]
+        }
+
+        addTransaction(property, from, to, amount){
+                this.getCarnet(property).addTransaction(new Transaction(from, to, amount))
         }
 }
-*/
 
-// Bloc displaying a transaction list
+// Component displaying a transaction list
 
 class CarnetBlock extends Component {
         constructor(props) {
                 super(props);
                 this.state = {carnet : this.props.carnet}
         }
+
+        //ajouter une fonction pour valider et transmettre une transaction
                 
         render(){
-                var wholetext = []
+                var fulltext = []
                 for (let index = 0; index < this.state.carnet.getTransactions().length; index++) {
-                        wholetext.push(<div> {this.state.carnet.getTransactions[index]} </div>);
+                        fulltext.push(<div> {this.state.carnet.getTransactions()[index].getAmount()} </div>);
                     }
                 return(
                         <div>
-                                {wholetext}
+                                {fulltext}
                         </div>
                 )
         }
 
 }
 
-//Bloc displaying a transaction line
+//Component displaying a transaction line
 
 class TransactionLine extends Component{
         constructor(props) {
                 super(props);
-                this.state = {amount : this.props.amount, validated : this.props.validated}
+                this.state = {transaction : this.state.transaction}
         }
 
         handleChangeAmount = (e) => {
@@ -108,6 +155,32 @@ class TransactionLine extends Component{
                 }
                 
         }
+}
+
+//Component displaying a transaction line
+
+class VillageBlock extends Component {
+        constructor(props) {
+                super(props);
+                this.state = {village : this.props.village}
+        }
+                
+        render(){
+                var fulltext = []
+
+                for (let index = 0; index < this.state.village.getCarnets().length; index++) {
+                        fulltext.push(<div> {this.state.village.getCarnets()[index]} </div>);
+                    }
+
+                console.log(this.state.village)
+
+                return(
+                        <div>
+                                {fulltext}
+                        </div>
+                )
+        }
+
 }
 
 ////////////////////////////////////////////////////////
@@ -147,4 +220,4 @@ class HashingBlock extends Component {
         }
 }
 
-export {hashing, HashingBlock, TransactionLine, Transaction, CarnetBlock, Carnet}
+export {hashing, HashingBlock, TransactionLine, Transaction, CarnetBlock, Carnet, Village, VillageBlock, animals, neighbors}

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import {Transaction, CarnetBlock, Carnet } from './blockchain';
+import {Transaction, CarnetBlock, Carnet, animals, neighbors, VillageBlock, Village } from './blockchain';
 
-let carnet = new Carnet("Paresseux")
-carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 25, true))
-carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 35, true))
-carnet.addTransaction(new Transaction("Paresseux", "Pingouin", 55, true))
-
+let village = new Village(10, animals, neighbors);
+village.addTransaction("Grenouille", "Paresseux", "Toucan", 6)
+let grencarnet = village.getCarnet("Grenouille");
+console.log("Tout va bien ?")
+console.log(grencarnet)
+grencarnet.transmitTransaction(grencarnet.getTransactions()[0], "Singe")
 
 class BlocTest extends Component{
 
   render(){
     return <div>
-      <CarnetBlock carnet={carnet} validated={false}/>
+      <VillageBlock village={village}/>
       </div>
   }
 }

@@ -24,7 +24,6 @@ class HandlingBlock extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.distance)
     this.incrementDistance = this.incrementDistance.bind(this)
     this.changeName = this.changeName.bind(this)
     this.state = {distance: startdistance, moneyname: defaultname};
@@ -34,7 +33,8 @@ class HandlingBlock extends Component {
 
   incrementDistance() {
     if(this.state.distance < 13){
-      console.log("We move forward in the document")
+      console.log("We move forward in the document. New distance:");
+      console.log(this.state.distance);
       this.setState({distance: this.state.distance+1});
     }
     console.assert(this.state.distance <= 13)
@@ -51,7 +51,7 @@ class HandlingBlock extends Component {
       return <BlocTest/>
     }
 
-    var wholetext = [];
+    var fulltext = [];
 
     if (this.state.distance === 1){
       console.log("Entered Intro Block 1")
@@ -84,33 +84,33 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >= 5){
       console.log("Entered Block 1")
-      wholetext.push(<div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
     if (this.state.distance >= 6){
       console.log("Entered Block 2")
-      wholetext.push(<div>
+      fulltext.push(<div>
         <Bloc2 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
         </div>)
     }
     if (this.state.distance >=7){
       console.log("Entered Block 3")
-      wholetext.push(<div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+      fulltext.push(<div><Bloc3 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
         </div>)
     }
     if (this.state.distance >=8){
       console.log("Entered Block 4")
-      wholetext.push(<div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
     if (this.state.distance >=9){
       console.log("Entered Block 5")
-      wholetext.push(<div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
     if (this.state.distance >=10){
       console.log("Entered Block 6")
-      wholetext.push(
+      fulltext.push(
         <div>
           <div>
             <Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
@@ -119,23 +119,23 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >=11){
       console.log("Entered Block 7")
-      wholetext.push(<div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
+      fulltext.push(<div><Bloc7 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
         </div>)
     }
     if (this.state.distance >=12){
       console.log("Entered Block 8")
-      wholetext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
     if (this.state.distance >=13){
       console.log("Entered Block 9")
-      wholetext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
         </div>)
     }
 
-    wholetext.push(<div><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
+    fulltext.push(<div><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
 
-    return wholetext;
+    return fulltext;
   }
 }
 
