@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 // Class definition
 
 const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat"]
-const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {" Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
+const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {"Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
 
 class Transaction{
         constructor(from, to, amount, validated){
@@ -23,16 +23,30 @@ class Transaction{
                 return this.amount;
         }
 
+        getFrom(){
+                return this.from;
+        }
+
+        getTo(){
+                return this.to;
+        }
+
         validate(){
                 this.validated = true;
         }
 }
 
 class Carnet{
-        constructor(property){
+        constructor(property, startmoney, animals){
                 this.property = property;
                 this.transactions = [];
+                this.startmoney = startmoney;
+                this.currentAccounts = {}
                 this.neighbors = {};
+
+                for (let index = 0; index < animals.length; index++){
+                        this.currentAccounts[animals[index]] = startmoney;
+                }
         }
 
         setNeighbors(neighbors, villagers){
@@ -47,16 +61,56 @@ class Carnet{
         addTransaction(transaction){
                 this.transactions.push(transaction)
                 // console.assert(this.transactions.filter().length < 2)
+                this.applyTransaction(transaction)
+                
+        }
+
+        applyTransaction(transaction){
+                this.currentAccounts[transaction.getFrom()] = this.currentAccounts[transaction.getFrom()] - transaction.getAmount();
+                this.currentAccounts[transaction.getTo()] = this.currentAccounts[transaction.getTo()] + transaction.getAmount();
         }
 
         getTransactions(){
                 return this.transactions
         }
 
+        // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
+        checkAccount(additionalTransaction){
+
+                let validity = true
+
+                let newAccounts = this.currentAccounts;
+                newAccounts[additionalTransaction.getFrom()] = newAccounts[additionalTransaction.getFrom()] - additionalTransaction.getAmount();
+                newAccounts[additionalTransaction.getTo()] = newAccounts[additionalTransaction.getTo()] + additionalTransaction.getAmount();  
+                
+                for(let account in newAccounts){
+                        if(newAccounts[account] < 0){
+                                validity = false;
+                        }
+                }
+
+                if(validity){
+                        return true
+                }
+                else{
+                        return false
+                }
+                
+        }
+
         receiveTransaction(transaction, from){
+
                 //vérifie que la transaction est compatible avec les autres
                 //si oui, l'ajoute, si non, envoie une erreur
+
+                if (!this.checkAccount(transaction)){
+                        throw "An invalid transaction has been received !"
+                }
+
+                this.addTransaction(transaction)
+        
                 //transmet ensuite la transaction aux voisins, sauf au from
+                this.transmitTransaction(transaction, from)
         }
 
         transmitTransaction(transaction, exclude){
@@ -73,9 +127,8 @@ class Carnet{
 
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
-                console.log("Trying to send a transaction")
-                console.log(destination)
                 //setTimeout({ peer.receiveTransaction(transaction, this.property) }, getMillisecondsFromDistance(peer));
+                destination[0].receiveTransaction(transaction, this.property)
         }
 
 }
@@ -87,7 +140,7 @@ class Village{
 
                 // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
-                        this.villagers[animals[index]] = new Carnet(animals[index])
+                        this.villagers[animals[index]] = new Carnet(animals[index], startmoney, animals)
                 }
 
                 // Assigning neighbors
