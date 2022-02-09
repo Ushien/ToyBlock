@@ -29,10 +29,19 @@ class Transaction{
 }
 
 class Carnet{
-        constructor(property, neighbors){
+        constructor(property){
                 this.property = property;
                 this.transactions = [];
-                this.neighbors = neighbors;
+                this.neighbors = {};
+        }
+
+        setNeighbors(neighbors, villagers){
+                for (var i in neighbors){
+                        this.neighbors[i] = []
+                        this.neighbors[i].push(villagers[i])
+                        this.neighbors[i].push(neighbors[i])
+                }
+                
         }
 
         addTransaction(transaction){
@@ -53,21 +62,20 @@ class Carnet{
         transmitTransaction(transaction, exclude){
                 console.assert(transaction.isValidated(), "Trying to transmit a invalidated transaction");
 
-                let transmissionList = {}
-
                 for (var i in this.neighbors){
                         if (i !== exclude){
-                                transmissionList[i] = this.neighbors[i];
+                                this.sendTransaction(transaction, this.neighbors[i])
                         }
                 }
 
-
                 //assert que la transaction est validée
-                //attend un petit moment en fonction de la distance, et envoie aux gens qu'il faut, mais pas au exclude
         }
 
         sendTransaction(transaction, destination){
-                //envoie à un autre carnet
+                //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
+                console.log("Trying to send a transaction")
+                console.log(destination)
+                //setTimeout({ peer.receiveTransaction(transaction, this.property) }, getMillisecondsFromDistance(peer));
         }
 
 }
@@ -77,8 +85,14 @@ class Village{
                 this.startmoney = startmoney;
                 this.villagers = {};
 
+                // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
-                        this.villagers[animals[index]] = new Carnet(animals[index], neighbors[animals[index]])
+                        this.villagers[animals[index]] = new Carnet(animals[index])
+                }
+
+                // Assigning neighbors
+                for (let index = 0; index < animals.length; index++) {
+                        this.getCarnets()[animals[index]].setNeighbors(neighbors[animals[index]], this.getCarnets())
                 }
         }
 
@@ -90,8 +104,8 @@ class Village{
                 return this.villagers[property]
         }
 
-        addTransaction(property, from, to, amount){
-                this.getCarnet(property).addTransaction(new Transaction(from, to, amount))
+        addTransaction(property, from, to, amount, validated){
+                this.getCarnet(property).addTransaction(new Transaction(from, to, amount, validated))
         }
 }
 
