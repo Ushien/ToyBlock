@@ -32,6 +32,8 @@ class Transaction{
         }
 
         validate(){
+                console.assert(this.from != this.to, "Sender and receiver are the same");
+                console.assert(this.amount >= 0, "Amount is negative")
                 this.validated = true;
         }
 }
@@ -77,25 +79,26 @@ class Carnet{
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
         checkAccount(additionalTransaction){
 
-                let validity = true
+                let validity = true;
+                console.log("test")
+                console.log(this)
 
-                let newAccounts = this.currentAccounts;
+                let newAccounts = {};
+                for (let account in this.currentAccounts) {
+                        newAccounts[account] = this.currentAccounts[account];
+                      }
+        
                 newAccounts[additionalTransaction.getFrom()] = newAccounts[additionalTransaction.getFrom()] - additionalTransaction.getAmount();
                 newAccounts[additionalTransaction.getTo()] = newAccounts[additionalTransaction.getTo()] + additionalTransaction.getAmount();  
-                
+
                 for(let account in newAccounts){
                         if(newAccounts[account] < 0){
                                 validity = false;
                         }
                 }
 
-                if(validity){
-                        return true
-                }
-                else{
-                        return false
-                }
-                
+                return validity;
+        
         }
 
         receiveTransaction(transaction, from){
@@ -121,8 +124,6 @@ class Carnet{
                                 this.sendTransaction(transaction, this.neighbors[i])
                         }
                 }
-
-                //assert que la transaction est validée
         }
 
         sendTransaction(transaction, destination){
