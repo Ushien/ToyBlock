@@ -64,6 +64,7 @@ class Carnet{
                 this.transactions.push(transaction)
                 // console.assert(this.transactions.filter().length < 2)
                 this.applyTransaction(transaction)
+                console.log("Transaction added and applied")
                 
         }
 
@@ -76,12 +77,14 @@ class Carnet{
                 return this.transactions
         }
 
+        getProperty(){
+                return this.property
+        }
+
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
         checkAccount(additionalTransaction){
 
                 let validity = true;
-                console.log("test")
-                console.log(this)
 
                 let newAccounts = {};
                 for (let account in this.currentAccounts) {
@@ -121,21 +124,30 @@ class Carnet{
 
                 for (var i in this.neighbors){
                         if (i !== exclude){
-                                this.sendTransaction(transaction, this.neighbors[i])
+                                console.log("On envoie la transaction de ")
+                                console.log(this.property)
+                                this.sendTransaction(transaction, this.neighbors[i]) 
+                                console.log("La transaction de ... est envoyée")
+                                console.log(this.property)
                         }
                 }
         }
 
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
-                //setTimeout({ peer.receiveTransaction(transaction, this.property) }, getMillisecondsFromDistance(peer));
-                destination[0].receiveTransaction(transaction, this.property)
+                console.log(this.getMillisecondsFromDistance(destination[1]))
+                setTimeout(() => {destination[0].receiveTransaction(transaction, this.property)} , this.getMillisecondsFromDistance(destination[1]));
+        }
+
+        getMillisecondsFromDistance(distance){
+                // return distance * 1000
+                return 4000
         }
 
 }
 
 class Village{
-        constructor(startmoney, animals, neighbors){
+        constructor(startmoney = 0, animals = [], neighbors = {}){
                 this.startmoney = startmoney;
                 this.villagers = {};
 
@@ -155,7 +167,11 @@ class Village{
         }
 
         getCarnet(property){
-                return this.villagers[property]
+                return this.villagers[property];
+        }
+
+        getStartMoney(){
+                return this.startmoney;
         }
 
         addTransaction(property, from, to, amount, validated){
@@ -172,15 +188,17 @@ class CarnetBlock extends Component {
         }
 
         //ajouter une fonction pour valider et transmettre une transaction
+
                 
         render(){
                 var fulltext = []
-                for (let index = 0; index < this.state.carnet.getTransactions().length; index++) {
-                        fulltext.push(<div> {this.state.carnet.getTransactions()[index].getAmount()} </div>);
+                /*for (let index = 0; index < this.state.carnet.getTransactions().length; index++) {
+                        fulltext.push(<div> {this.state.carnet.getTransactions()[index].getAmount()} <button onClick={}>{this.state.carnet.getProperty()}</button></div>);
                     }
+                    */
                 return(
                         <div>
-                                {fulltext}
+                                Yes
                         </div>
                 )
         }
@@ -230,23 +248,63 @@ class TransactionLine extends Component{
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
-                this.state = {village : this.props.village}
+                this.state = {startMoney: this.props.village.getStartMoney(), carnets : this.props.village.getCarnets()}
+        }
+
+        clickMe(e){
+                //let newVillage = Object.assign({}, this.state.village);
+
+                let newCarnets = {};
+                        console.log("Wow")
+                        console.log(this.state.carnets)
+                        console.log(newCarnets)
+                for (let key in this.state.carnets) {
+                        newCarnets[key] = this.state.carnets[key]; // copies each property to the objectCopy object
+                }
+                // let newVillage = this.state.village;
+                /*console.log(this.state.village["villagers"]["Grenouille"]["currentAccounts"])
+                console.log(newVillage["villagers"]["Grenouille"]["currentAccounts"])*/
+                        console.log("Wow2")
+                        console.log(this.state.carnets)
+                        console.log(newCarnets)
+                // newVillage.addTransaction("Grenouille", "Paresseux", "Pingouin", 3, true);
+                newCarnets["Grenouille"].addTransaction(new Transaction("Paresseux", "Pingouin", 3, true))
+                        console.log("Wow3")
+                        console.log(this.state.carnets)
+                        console.log(newCarnets)
+                this.setState({ carnets : newCarnets })
         }
                 
         render(){
+                /*
                 var fulltext = []
 
-                for (let index = 0; index < this.state.village.getCarnets().length; index++) {
-                        fulltext.push(<div> {this.state.village.getCarnets()[index]} </div>);
+                for (let index in this.state.village.getCarnets()) {
+                        if(this.state.village.getCarnets()[index].getTransactions()["Chat"] > 10){
+                                fulltext.push(<li> {this.state.village.getCarnets()[index].getProperty()} - Bien reçu ! </li>);
+                        }
+                        else{
+                                fulltext.push(<li> {this.state.village.getCarnets()[index].getProperty()} - Pas reçu </li>);
+                        }
                     }
+                */
 
+                if(this.state.carnets['Grenouille'].getTransactions()["Chat"] > 10){
+                        return (<div> {this.state.carnets['Grenouille'].getProperty()} - Bien reçu ! <button onClick={this.clickMe.bind(this)}>Click me</button></div>);
+                }
+                else{
+                        return (<div> {this.state.carnets['Grenouille'].getProperty()} - Pas reçu <button onClick={this.clickMe.bind(this)}>Click me</button></div>);
+                }
+
+                /*
                 console.log(this.state.village)
 
                 return(
-                        <div>
+                        <ul onClick={() => this.clickMe()}>
                                 {fulltext}
-                        </div>
+                        </ul>
                 )
+                */
         }
 
 }
@@ -268,8 +326,8 @@ class HashingBlock extends Component {
         }
         
         handleChange = (e) => {
-        this.setState({hashword : (e.target.value)})
-        this.setState({hashed : hashing(e.target.value)})
+                this.setState({hashword : (e.target.value)})
+                this.setState({hashed : hashing(e.target.value)})
         }
         
         render(){
@@ -280,7 +338,7 @@ class HashingBlock extends Component {
                                 </form>
                                 <div class="centeredelement">
                                 <div class="output">
-                                {this.state.hashed}
+                                        {this.state.hashed}
                                 </div>
                                 </div>
                         </div>
