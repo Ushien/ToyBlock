@@ -18,7 +18,7 @@ const startdistance = 1
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
-const test = false
+const test = true
 
 class HandlingBlock extends Component {
 

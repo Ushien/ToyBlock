@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Transaction, CarnetBlock, Carnet, animals, neighbors, VillageBlock, Village } from './blockchain';
+import {Transaction, TransactionLine, CarnetBlock, Carnet, animals, neighbors, VillageBlock, Village } from './blockchain';
 
-let village = new Village(10, animals, neighbors);
+
 //village.addTransaction("Grenouille", "Paresseux", "Toucan", 6, true)
 //village.addTransaction("Grenouille", "Paresseux", "Chat", 3, true)
 //village.addTransaction("Grenouille", "Paresseux", "Grenouille", 15, true)
@@ -9,13 +9,26 @@ let village = new Village(10, animals, neighbors);
 //grencarnet.transmitTransaction(grencarnet.getTransactions()[0], "Singe")
 // grencarnet.transmitTransaction(grencarnet.getTransactions()[1], "Singe")
 
+let village = new Village(10, animals, neighbors);
+let carnet = new Carnet("Toucan", 10, animals)
+let transaction1 = new Transaction("Paresseux", "Grenouille", 15, false);
+let transaction2 = new Transaction("Chat", "Singe", 40, true);
+
+carnet.addTransaction(transaction1);
+carnet.addTransaction(transaction2);
+
 
 class BlocTest extends Component{
 
   render(){
     return <div>
-      <VillageBlock village={village}/>
+      <CarnetBlock carnet = {carnet}/>
+    </div>
+    /*
+    return <div>
+        <TransactionLine transaction = {transaction} villagers = {animals}/>
       </div>
+      */
   }
 
 }

@@ -23,12 +23,24 @@ class Transaction{
                 return this.amount;
         }
 
+        setAmount(amount){
+                this.amount = amount;
+        }
+
         getFrom(){
                 return this.from;
         }
 
+        setFrom(from){
+                this.from = from;
+        }
+
         getTo(){
                 return this.to;
+        }
+
+        setTo(to){
+                this.to = to;
         }
 
         validate(){
@@ -43,8 +55,9 @@ class Carnet{
                 this.property = property;
                 this.transactions = [];
                 this.startmoney = startmoney;
-                this.currentAccounts = {}
+                this.currentAccounts = {};
                 this.neighbors = {};
+                this.villagers = animals;
 
                 for (let index = 0; index < animals.length; index++){
                         this.currentAccounts[animals[index]] = startmoney;
@@ -53,18 +66,18 @@ class Carnet{
 
         setNeighbors(neighbors, villagers){
                 for (var i in neighbors){
-                        this.neighbors[i] = []
-                        this.neighbors[i].push(villagers[i])
-                        this.neighbors[i].push(neighbors[i])
+                        this.neighbors[i] = [];
+                        this.neighbors[i].push(villagers[i]);
+                        this.neighbors[i].push(neighbors[i]);
                 }
                 
         }
 
         addTransaction(transaction){
-                this.transactions.push(transaction)
+                this.transactions.push(transaction);
                 // console.assert(this.transactions.filter().length < 2)
-                this.applyTransaction(transaction)
-                console.log("Transaction added and applied")
+                this.applyTransaction(transaction);
+                console.log("Transaction added and applied");
                 
         }
 
@@ -74,11 +87,15 @@ class Carnet{
         }
 
         getTransactions(){
-                return this.transactions
+                return this.transactions;
         }
 
         getProperty(){
-                return this.property
+                return this.property;
+        }
+
+        getVillagers(){
+                return this.villagers;
         }
 
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
@@ -184,21 +201,30 @@ class Village{
 class CarnetBlock extends Component {
         constructor(props) {
                 super(props);
-                this.state = {carnet : this.props.carnet}
+                this.state = {
+                        transactions : this.props.carnet.getTransactions(),
+                        villagers : this.props.carnet.getVillagers()}
         }
 
         //ajouter une fonction pour valider et transmettre une transaction
+        
+        check(){
+                console.log("Les transactions actuelles")
+                console.log(this.state.transactions)
+        }
 
                 
         render(){
-                var fulltext = []
-                /*for (let index = 0; index < this.state.carnet.getTransactions().length; index++) {
-                        fulltext.push(<div> {this.state.carnet.getTransactions()[index].getAmount()} <button onClick={}>{this.state.carnet.getProperty()}</button></div>);
-                    }
-                    */
+                let fullRender = []
+
+                for (let index = 0; index < this.state.transactions.length; index++) {
+                        fullRender.push(<li key = {index}><TransactionLine transaction = {this.state.transactions[index]} villagers = {this.state.villagers}/></li>)
+                }
+
                 return(
                         <div>
-                                Yes
+                                {fullRender}
+                                <button onClick={() => this.check()}> Vérifier l'état du carnet </button>
                         </div>
                 )
         }
@@ -210,32 +236,96 @@ class CarnetBlock extends Component {
 class TransactionLine extends Component{
         constructor(props) {
                 super(props);
-                this.state = {transaction : this.state.transaction}
+
+                // On supprime le villageois s'il est pas disponible
+                let arr = [...this.props.villagers];
+                arr.splice(arr.lastIndexOf(this.props.transaction.from), 1);
+                arr.splice(arr.lastIndexOf(this.props.transaction.to), 1);
+
+                this.state = {from : this.props.transaction.getFrom(), 
+                        to : this.props.transaction.getTo(), 
+                        validated : this.props.transaction.isValidated(), 
+                        amount : this.props.transaction.getAmount(),
+                        availableVillagers : arr, 
+                        // validable : validable
+                }
+
         }
 
         handleChangeAmount = (e) => {
+                // Empêcher de mettre des valeurs négatives ou 0 ou null
                 this.setState({amount : (e.target.value)})
+                this.props.transaction.setAmount(e.target.value)
                 }
 
         validate = (e) => {
+                this.setState({validated : true});
+                this.props.transaction.validate();
 
+                // Envoyer un signal au carnet pour qu'il dise si la transaction est validable ou pas
+        }
+
+        // Change the current to and from state depening on the available villagers.
+        generateNextVillager = (fromto) => {
+
+                if(fromto == "From"){
+                        let arr = [...this.state.availableVillagers];
+                        arr.push(this.state.from)
+                        let newVillager = arr[0]
+                        arr.shift()
+                        this.setState({from : newVillager, availableVillagers : arr})
+                        this.props.transaction.setFrom(newVillager)
+                }
+
+                if(fromto == "To"){
+                        let arr = [...this.state.availableVillagers];
+                        arr.push(this.state.to)
+                        let newVillager = arr[0]
+                        arr.shift()
+                        this.setState({to : newVillager, availableVillagers : arr})
+                        this.props.transaction.setTo(newVillager)
+                }
+                
+        }
+
+        check = (e) => {
+                console.log("Available villagers: ")
+                console.log(this.state.availableVillagers)
+                console.log("From")
+                console.log(this.state.from)
+                console.log("To")
+                console.log(this.state.to)
+                /*
+                console.log(this.state.validated);
+                console.log(this.props.transaction.isValidated());
+                console.log(this.state.amount)
+                console.log(this.props.transaction.getAmount())
+                */
         }
                 
         render(){
                 if (this.state.validated){
                         return(
                                 <div className="centeredtext">
-                                        {this.state.amount}
+                                        <div>{this.state.from}</div>
+                                        <div>{this.state.to}</div>
+                                        <div>{this.state.amount}</div>
+                                        <button onClick={() => this.check()}> Vérifier l'état de la transaction </button>
+                                        C'est validé
                                 </div>
                         )
                 }
                 else{
                         return(
                                 <div className="centeredtext">
+                                        <button onClick={() => this.generateNextVillager("From")}>{this.state.from}</button>
+                                        <button onClick={() => this.generateNextVillager("To")}>{this.state.to}</button>
                                         <form>
-                                                <input type="text" value={this.state.amount} onChange={this.handleChangeAmount} class="input"/>
+                                                <input type="number" value={this.state.amount} onChange={this.handleChangeAmount}/>
                                         </form>
-                                        {this.state.amount}
+                                        <button onClick={() => this.validate()}> Valider la transaction </button>
+                                        <button onClick={() => this.check()}> Vérifier l'état de la transaction</button>
+                                        C'est pas validé
                                 </div>
                         )
                 }
@@ -243,7 +333,7 @@ class TransactionLine extends Component{
         }
 }
 
-//Component displaying a transaction line
+//Component displaying a village
 
 class VillageBlock extends Component {
         constructor(props) {
@@ -308,6 +398,18 @@ class VillageBlock extends Component {
         }
 
 }
+
+class VillagerBlock extends Component {
+        constructor(props) {
+                super(props);
+                this.state = {carnet : this.props.carnet}
+        }
+
+        render(){
+                return(<div>Villager</div>)
+        }
+}
+
 
 ////////////////////////////////////////////////////////
 
