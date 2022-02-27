@@ -73,7 +73,6 @@ class Carnet{
                 
         }
 
-        // Warning ! Should not be called outside of testing.
         addTransaction(transaction){
                 this.transactions.push(transaction)
         }
@@ -101,6 +100,10 @@ class Carnet{
 
         getVillagers(){
                 return this.villagers;
+        }
+
+        getStartMoney(){
+                return this.startmoney;
         }
 
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
@@ -163,6 +166,7 @@ class Carnet{
 
         getMillisecondsFromDistance(distance){
                 // return distance * 1000
+                // TODO La finir pardi
                 return 4000
         }
 
@@ -231,10 +235,10 @@ class CarnetBlock extends Component {
                 this.generateNextVillager = this.generateNextVillager.bind(this);
 
                 this.updateValidable();
-        }
+        }        
 
-        //ajouter une fonction pour valider et transmettre une transaction
-        
+        // Debug helper
+        // Will display in the console the current state of the memory
         check(){
                 console.log("===================================================")
                 console.log("Les transactions actuelles")
@@ -247,54 +251,66 @@ class CarnetBlock extends Component {
                 console.log(this.state.availableVillagers)
                 console.log("Quelle transaction est validable ?")
                 console.log(this.state.validable)
+                // Add instructions here
         }
 
+        // Debug helper
+        // Useful to trigger some functions
         touchMe(){
-                this.updateValidable()
-                console.log(this.state.validable)
+                console.log("touchMe triggered")
+                // Add functions here
         }
 
         validateTransaction(index){
-                // Sans deep copy
                 let newtransactions = this.state.transactions
                 newtransactions[index].validate();
 
                 let newcarnet = this.state.carnet
                 newcarnet.applyTransaction(newtransactions[index])
 
-                // TODO Ajouter une transaction vide
-                newcarnet.addTransaction(new Transaction(newtransactions[index].getFrom(), newtransactions[index].getTo(), 0, false))
+                // S'il reste assez de place, crée une nouvelle transaction vide
                 let newavailable = [...this.state.availableVillagers]
-                newavailable.push(this.state.availableVillagers[index])
+
+                if(this.state.transactions.length < this.props.limit){
+                        newcarnet.addTransaction(new Transaction(newtransactions[index].getFrom(), newtransactions[index].getTo(), 0, false))
+                        newavailable.push(this.state.availableVillagers[index])
+                }
 
                 // Update l'affichage
 
                 this.setState({transaction : newtransactions, carnet : newcarnet, availableVillagers : newavailable});
                 this.updateValidable()
+
+                // TODO Si y a des voisins, leur envoie une copie de la transaction
         }
 
         handleChangeAmount(index, newAmount){
                 let newtransactions = this.state.transactions
                 newtransactions[index].setAmount(newAmount);
-                this.setState({transaction : newtransactions});
+                
+                // Update l'affichage
 
+                this.setState({transaction : newtransactions});
                 this.updateValidable()
         }
 
         generateNextVillager(id, fromto){ 
+
+                let tempTransactions = this.state.transactions
+                let totalArr = [...this.state.availableVillagers]
+
+                let assertionBuddy = 0
+
+
                 if(fromto == "From"){
                         let arr = [...this.state.availableVillagers][id];
                         arr.push(this.state.transactions[id].getFrom())
                         let newFrom = arr[0]
                         arr.shift()
-
-                        let tempTransactions = this.state.transactions
                         tempTransactions[id].setFrom(newFrom)
-
-                        let totalArr = [...this.state.availableVillagers]
                         totalArr[id] = arr
 
-                        this.setState({availableVillagers : totalArr, transaction : tempTransactions})
+                        assertionBuddy ++
                 }
 
                 if(fromto == "To"){
@@ -302,16 +318,17 @@ class CarnetBlock extends Component {
                         arr.push(this.state.transactions[id].getTo())
                         let newTo = arr[0]
                         arr.shift()
-
-                        let tempTransactions = this.state.transactions
                         tempTransactions[id].setTo(newTo)
-
-                        let totalArr = [...this.state.availableVillagers]
                         totalArr[id] = arr
 
-                        this.setState({availableVillagers : totalArr, transaction : tempTransactions})
+                        assertionBuddy ++
                 }        
-                
+
+                console.assert(assertionBuddy == 1, "Incorrect fromTo parameter")
+
+                // Update l'affichage
+
+                this.setState({availableVillagers : totalArr, transaction : tempTransactions})
                 this.updateValidable()
         }
 
@@ -334,12 +351,44 @@ class CarnetBlock extends Component {
                         }
                 }
 
-                // TODO Ne pas valider de transactions avec mauvais montant
+                // Update l'affichage
 
                 this.setState({validable : newValidable})
         }
 
+        // reset the carnet block with a brand new empty carnet
+        fullReset(){
+
+                let carnet = new Carnet(this.state.carnet.getProperty(), this.state.carnet.getStartMoney(), this.state.carnet.getVillagers())
+                carnet.addTransaction(new Transaction(
+                        this.state.transactions[this.state.transactions.length-1].getFrom(), 
+                        this.state.transactions[this.state.transactions.length-1].getTo(),
+                        0,
+                        false
+                        )
+                )
+                let transactions = carnet.getTransactions()
+                let villagers = carnet.getVillagers()
+                let availableVillagers = []
+                availableVillagers.push(this.state.availableVillagers[this.state.availableVillagers.length-1])
+                let validable = []
+                validable.push(false)
+
+                this.setState({
+                        carnet : carnet,
+                        transactions : transactions,
+                        villagers : villagers,
+                        availableVillagers : availableVillagers,
+                        validable : validable
+                })
+
+                this.updateValidable();
+        }
                 
+        // TODO Affichage des soldes actuels
+        // TODO que le bouton de validation s'affiche au premier tour
+        // TODO Comment gérer une transaction qui entre alors que c'est complet ?
+
         render(){
                 let fullRender = []
 
@@ -358,14 +407,32 @@ class CarnetBlock extends Component {
                                                 generateNextVillager = {this.generateNextVillager}
                                         />
                                 </li>)
-                        // fullRender.push(<button onClick={() => this.validateTransaction(index)}> Le carnet valide la transaction </button>)
                 }
+
+                // If the component is resettable add a reset button
+                if(this.props.resettable){
+                        fullRender.push(
+                                <button onClick={() => this.fullReset()}> 
+                                        Reset 
+                                </button>
+                        )
+                }
+
+                // Debug buttons
+                fullRender.push(
+                        <div>
+                                <button onClick={() => this.check()}> 
+                                        Vérifier l'état du carnet 
+                                </button>
+                                <button onClick={() => this.touchMe()}>
+                                                Bouton de test 
+                                </button>
+                        </div>
+                )
 
                 return(
                         <div>
                                 {fullRender}
-                                <button onClick={() => this.check()}> Vérifier l'état du carnet </button>
-                                <button onClick={() => this.touchMe()}> Bouton de test </button>
                         </div>
                 )
         }
@@ -383,8 +450,6 @@ class TransactionLine extends Component{
         }
 
         handleChangeAmount(e){
-                console.log(typeof(e.target.value))
-
                 // Bloque les entrées vides
                 let value = 0
                 if(e.target.value != ''){
