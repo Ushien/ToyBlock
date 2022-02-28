@@ -133,7 +133,7 @@ class HandlingBlock extends Component {
         </div>)
     }
 
-    fulltext.push(<div><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
+    fulltext.push(<div id = "whiteParagraph"><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
 
     return fulltext;
   }

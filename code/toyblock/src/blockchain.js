@@ -236,6 +236,96 @@ class Village{
         }
 }
 
+//Component displaying a transaction line
+
+//Parler des props attendues
+class TransactionLine extends Component{
+        constructor(props){
+                super(props);
+                this.validateTransaction = this.validateTransaction.bind(this);
+                this.handleChangeAmount = this.handleChangeAmount.bind(this);
+                this.generateNextVillager = this.generateNextVillager.bind(this);
+        }
+
+        handleChangeAmount(e){
+                // Bloque les entrées vides
+                let value = 0
+                if(e.target.value != ''){
+                        value = parseInt(e.target.value)
+                }
+                
+                this.props.handleChangeAmount(this.props.index, value)
+
+        }
+
+        validateTransaction(e){
+                this.props.validateTransaction(this.props.index)
+
+                // TODO  Assert vérifier que la transaction est validable
+        }
+
+        // Change the current to and from state depening on the available villagers.
+        generateNextVillager(fromto){
+
+                this.props.generateNextVillager(this.props.index, fromto)
+                
+        }
+
+        check = (e) => {
+                /*
+                console.log("Available villagers: ")
+                console.log(this.state.availableVillagers)
+                console.log("From")
+                console.log(this.state.from)
+                console.log("To")
+                console.log(this.state.to)
+                console.log(this.state.validated);
+                console.log(this.props.transaction.isValidated());
+                console.log(this.state.amount)
+                console.log(this.props.transaction.getAmount())
+                */
+        }
+                
+        render(){
+                let fulltext = []
+                if (!(this.props.validated)){
+                        fulltext.push(<div>
+                                <button onClick={() => this.generateNextVillager("From")}>
+                                        {this.props.from}
+                                </button>
+                                <button onClick={() => this.generateNextVillager("To")}>
+                                        {this.props.to}
+                                </button>
+                                <form>
+                                        <input type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
+                                </form>
+                                </div>)
+                        if (this.props.validable){
+                                fulltext.push(
+                                        <button onClick={() => this.validateTransaction()}>
+                                                Valider la transaction 
+                                        </button>)
+                        }
+                        
+                }
+                else{
+                        fulltext.push(<div>
+                                        {this.props.from}
+                                        {this.props.to}
+                                        {this.props.amount}
+                                </div>)
+                } 
+
+                return fulltext;
+        }
+}
+
+
+////////////////////////////////////////////////////////
+// React components
+////////////////////////////////////////////////////////
+
+
 // Component displaying a transaction list
 
 // Parler des props attendues
@@ -260,6 +350,7 @@ class CarnetBlock extends Component {
                         validable : []
                 }
 
+                this.transmitTransaction = this.transmitTransaction.bind(this)
                 this.validateTransaction = this.validateTransaction.bind(this);
                 this.handleChangeAmount = this.handleChangeAmount.bind(this);
                 this.generateNextVillager = this.generateNextVillager.bind(this);
@@ -309,13 +400,19 @@ class CarnetBlock extends Component {
 
                 // TODO Si y a des voisins, leur envoie une copie de la transaction
                 if(this.props.inVillage){
-                        this.state.carnet.transmitTransaction(newtransactions[index], "")
+                        this.transmitTransaction(newtransactions[index], "")
                 }
 
                 // Update l'affichage
 
                 this.setState({transaction : newtransactions, carnet : newcarnet, availableVillagers : newavailable});
                 this.updateValidable()
+        }
+
+        transmitTransaction(transaction, exclude){
+                if(this.props.inVillage){
+                        this.props.transmitTransaction(this.state.carnet.property, transaction, exclude)
+                }
         }
 
         handleChangeAmount(index, newAmount){
@@ -473,103 +570,31 @@ class CarnetBlock extends Component {
 
 }
 
-//Component displaying a transaction line
-
-//Parler des props attendues
-class TransactionLine extends Component{
-        constructor(props){
-                super(props);
-                this.validateTransaction = this.validateTransaction.bind(this);
-                this.handleChangeAmount = this.handleChangeAmount.bind(this);
-                this.generateNextVillager = this.generateNextVillager.bind(this);
-        }
-
-        handleChangeAmount(e){
-                // Bloque les entrées vides
-                let value = 0
-                if(e.target.value != ''){
-                        value = parseInt(e.target.value)
-                }
-                
-                this.props.handleChangeAmount(this.props.index, value)
-
-        }
-
-        validateTransaction(e){
-                this.props.validateTransaction(this.props.index)
-
-                // TODO  Assert vérifier que la transaction est validable
-        }
-
-        // Change the current to and from state depening on the available villagers.
-        generateNextVillager(fromto){
-
-                this.props.generateNextVillager(this.props.index, fromto)
-                
-        }
-
-        check = (e) => {
-                /*
-                console.log("Available villagers: ")
-                console.log(this.state.availableVillagers)
-                console.log("From")
-                console.log(this.state.from)
-                console.log("To")
-                console.log(this.state.to)
-                console.log(this.state.validated);
-                console.log(this.props.transaction.isValidated());
-                console.log(this.state.amount)
-                console.log(this.props.transaction.getAmount())
-                */
-        }
-                
-        render(){
-                let fulltext = []
-                if (!(this.props.validated)){
-                        fulltext.push(<div>
-                                <button onClick={() => this.generateNextVillager("From")}>
-                                        {this.props.from}
-                                </button>
-                                <button onClick={() => this.generateNextVillager("To")}>
-                                        {this.props.to}
-                                </button>
-                                <form>
-                                        <input type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
-                                </form>
-                                </div>)
-                        if (this.props.validable){
-                                fulltext.push(
-                                        <button onClick={() => this.validateTransaction()}>
-                                                Valider la transaction 
-                                        </button>)
-                        }
-                        
-                }
-                else{
-                        fulltext.push(<div>
-                                        {this.props.from}
-                                        {this.props.to}
-                                        {this.props.amount}
-                                </div>)
-                } 
-
-                return fulltext;
-        }
-}
-
 //Component displaying a village
 
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
                 this.state = {startMoney: this.props.village.getStartMoney(), village : this.props.village}
+
+                this.transmitTransaction = this.transmitTransaction.bind(this)
         }
+
+        //TODO Reset du village
 
         clickMe(e){
 
                 // Add functions here
 
         }
+
+        transmitTransaction(property, transaction, exclude){
+                console.log("Let's go")
+                this.state.village.getCarnet(property).transmitTransaction(transaction, exclude)
+                this.setState({village : this.state.village})
+        }
+
+        //TODO Faire en sorte que ça s'ajoute pas en dernière place
 
         check(e){
                 console.log("===================================================")
@@ -589,6 +614,7 @@ class VillageBlock extends Component {
                                                 limit = {this.props.limit}
                                                 resettable = {false}
                                                 inVillage = {true}
+                                                transmitTransaction = {this.transmitTransaction}
                                         />
                                 </li>
                         )

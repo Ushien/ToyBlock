@@ -2,8 +2,12 @@ body {
         background-color: #f1fffd;
         font-family: Sans-Serif;
         margin: 0px;
-        color: #252525;
+        color: hsl(0, 0%, 15%);
       }
+
+#whiteParagraph{
+        height: 180%
+}
 
 .paragraph {
         margin: 50px auto;
@@ -44,7 +48,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-        
 }
 
 .marged{
