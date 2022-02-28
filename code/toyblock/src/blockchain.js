@@ -77,7 +77,8 @@ class Carnet{
                 this.transactions.push(transaction)
         }
 
-        addAndValidateTransaction(transaction){
+        addAndApplyTransaction(transaction){
+                // console.assert transaction validée
                 this.addTransaction(transaction)
                 // console.assert(this.transactions.filter().length < 2)
                 this.applyTransaction(transaction);
@@ -138,7 +139,7 @@ class Carnet{
                         throw "An invalid transaction has been received !"
                 }
 
-                this.addAndValidateTransaction(transaction)
+                this.addAndApplyTransaction(transaction)
         
                 //transmet ensuite la transaction aux voisins, sauf au from
                 this.transmitTransaction(transaction, from)
@@ -167,12 +168,13 @@ class Carnet{
         getMillisecondsFromDistance(distance){
                 // return distance * 1000
                 // TODO La finir pardi
-                return 4000
+                return 2000
         }
 
 }
 
 class Village{
+
         constructor(startmoney = 0, animals = [], neighbors = {}){
 
                 this.startmoney = startmoney;
@@ -202,13 +204,41 @@ class Village{
         }
 
         // Warning ! Should not be used outside of testing
-        addTransaction(property, from, to, amount, validated){
-                this.getCarnet(property).addTransaction(new Transaction(from, to, amount, validated))
+        addTransaction(property, transaction){
+                this.getCarnet(property).addTransaction(transaction)
+        }
+
+        // Won't apply any transaction
+        // Don't use it outside of testin
+        addTransactionToAll(transaction){
+                for(let carnet in this.getCarnets()){
+                        this.getCarnets()[carnet].addTransaction(transaction)
+                }
+        }
+
+        // Add a transaction to every carnet
+        // If the transaction is validated, apply it
+        // If not, add it normally
+        addAndApplyTransactionToAll(transaction){
+                for(let carnet in this.getCarnets()){
+                        if(transaction.isValidated()){
+                                this.getCarnets()[carnet].addAndApplyTransaction(this.cloneTransaction(transaction))
+                        }
+                        else{
+                                this.getCarnets()[carnet].addTransaction(this.cloneTransaction(transaction))
+                        }
+                }
+        }
+
+        // Return an exact copy of the same transaction
+        cloneTransaction(transaction){
+                return new Transaction(transaction.getFrom(), transaction.getTo(), transaction.getAmount(), transaction.isValidated())
         }
 }
 
 // Component displaying a transaction list
 
+// Parler des props attendues
 class CarnetBlock extends Component {
         constructor(props) {
                 super(props);
@@ -263,6 +293,7 @@ class CarnetBlock extends Component {
 
         validateTransaction(index){
                 let newtransactions = this.state.transactions
+                console.log("On m\'a appelé ?")
                 newtransactions[index].validate();
 
                 let newcarnet = this.state.carnet
@@ -276,12 +307,15 @@ class CarnetBlock extends Component {
                         newavailable.push(this.state.availableVillagers[index])
                 }
 
+                // TODO Si y a des voisins, leur envoie une copie de la transaction
+                if(this.props.inVillage){
+                        this.state.carnet.transmitTransaction(newtransactions[index], "")
+                }
+
                 // Update l'affichage
 
                 this.setState({transaction : newtransactions, carnet : newcarnet, availableVillagers : newavailable});
                 this.updateValidable()
-
-                // TODO Si y a des voisins, leur envoie une copie de la transaction
         }
 
         handleChangeAmount(index, newAmount){
@@ -441,6 +475,7 @@ class CarnetBlock extends Component {
 
 //Component displaying a transaction line
 
+//Parler des props attendues
 class TransactionLine extends Component{
         constructor(props){
                 super(props);
@@ -463,10 +498,7 @@ class TransactionLine extends Component{
         validateTransaction(e){
                 this.props.validateTransaction(this.props.index)
 
-                // TODO Vérifier que la transaction est validable
-                // TODO Préparer une nouvelle transaction si c'est bon
-
-                // Envoyer un signal au carnet pour qu'il dise si la transaction est validable ou pas
+                // TODO  Assert vérifier que la transaction est validable
         }
 
         // Change the current to and from state depening on the available villagers.
@@ -530,67 +562,55 @@ class TransactionLine extends Component{
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
-                this.state = {startMoney: this.props.village.getStartMoney(), carnets : this.props.village.getCarnets()}
+                this.state = {startMoney: this.props.village.getStartMoney(), village : this.props.village}
         }
 
         clickMe(e){
 
-                /*
-                //let newVillage = Object.assign({}, this.state.village);
+                // Add functions here
 
-                let newCarnets = {};
-                        console.log("Wow")
-                        console.log(this.state.carnets)
-                        console.log(newCarnets)
-                for (let key in this.state.carnets) {
-                        newCarnets[key] = this.state.carnets[key]; // copies each property to the objectCopy object
-                }
-                // let newVillage = this.state.village;
-                console.log(this.state.village["villagers"]["Grenouille"]["currentAccounts"])
-                console.log(newVillage["villagers"]["Grenouille"]["currentAccounts"])
-                        console.log("Wow2")
-                        console.log(this.state.carnets)
-                        console.log(newCarnets)
-                // newVillage.addTransaction("Grenouille", "Paresseux", "Pingouin", 3, true);
-                newCarnets["Grenouille"].addTransaction(new Transaction("Paresseux", "Pingouin", 3, true))
-                        console.log("Wow3")
-                        console.log(this.state.carnets)
-                        console.log(newCarnets)
-                this.setState({ carnets : newCarnets })
+        }
 
-                */
+        check(e){
+                console.log("===================================================")
+                console.log("Etat du village en state")
+                console.log(this.state.village)
         }
                 
         render(){
-                /*
                 var fulltext = []
 
                 for (let index in this.state.village.getCarnets()) {
-                        if(this.state.village.getCarnets()[index].getTransactions()["Chat"] > 10){
-                                fulltext.push(<li> {this.state.village.getCarnets()[index].getProperty()} - Bien reçu ! </li>);
-                        }
-                        else{
-                                fulltext.push(<li> {this.state.village.getCarnets()[index].getProperty()} - Pas reçu </li>);
-                        }
-                    }
-                */
-
-                if(this.state.carnets['Grenouille'].getTransactions()["Chat"] > 10){
-                        return (<div> {this.state.carnets['Grenouille'].getProperty()} - Bien reçu ! <button onClick={this.clickMe.bind(this)}>Click me</button></div>);
-                }
-                else{
-                        return (<div> {this.state.carnets['Grenouille'].getProperty()} - Pas reçu <button onClick={this.clickMe.bind(this)}>Click me</button></div>);
+                        fulltext.push(
+                                <li key = {index}>
+                                        {this.state.village.getCarnets()[index].getProperty()}
+                                        <CarnetBlock 
+                                                carnet = {this.state.village.getCarnets()[index]}
+                                                limit = {this.props.limit}
+                                                resettable = {false}
+                                                inVillage = {true}
+                                        />
+                                </li>
+                        )
+                        fulltext.push(<br></br>)
                 }
 
-                /*
-                console.log(this.state.village)
+                fulltext.push(
+                        <div>
+                        <button onClick={() => this.touchMe()}>
+                                Bouton de test 
+                        </button>
+                        <button onClick={() => this.check()}>
+                                Vérifier état 
+                        </button>
+                        </div>
+                )
 
                 return(
-                        <ul onClick={() => this.clickMe()}>
+                        <ul>
                                 {fulltext}
                         </ul>
                 )
-                */
         }
 
 }
