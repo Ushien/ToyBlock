@@ -122,3 +122,20 @@ body {
                 border: 2px groove;
                 }
         }
+
+.transactionLine {
+        display: flex;
+        background-color: #3fceb8;
+}
+
+.notValidatedLine {
+        background-color: #bbf0e8;
+}
+
+.villagerSprite {
+        height: 180%;
+}
+
+.villagerSprite.hover {
+        cursor: pointer;
+}

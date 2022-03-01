@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
 
+import chatVisual from './visuals/Chat.png';
+import grenouilleVisual from './visuals/Grenouille.png'
+import paresseuxVisual from './visuals/Paresseux.png'
+import pingouinVisual from './visuals/Pingouin.png'
+import singeVisual from './visuals/Singe.png'
+import toucanVisual from './visuals/Toucan.png'
+
 // Village and transactions machines
 
 // Class definition
 
 const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat"]
 const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {"Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
+const visualMapping = {"Chat" : chatVisual, "Grenouille" : grenouilleVisual, "Paresseux" : paresseuxVisual, "Pingouin" : pingouinVisual, "Singe" : singeVisual, "Toucan" : toucanVisual}
+
+function findVisual(animal){
+        return visualMapping[animal]
+}
 
 class Transaction{
         constructor(from, to, amount, validated){
@@ -168,7 +180,7 @@ class Carnet{
         getMillisecondsFromDistance(distance){
                 // return distance * 1000
                 // TODO La finir pardi
-                return 2000
+                return 9000
         }
 
 }
@@ -236,6 +248,11 @@ class Village{
         }
 }
 
+
+////////////////////////////////////////////////////////
+// React components                                   //
+////////////////////////////////////////////////////////
+
 //Component displaying a transaction line
 
 //Parler des props attendues
@@ -289,13 +306,9 @@ class TransactionLine extends Component{
         render(){
                 let fulltext = []
                 if (!(this.props.validated)){
-                        fulltext.push(<div>
-                                <button onClick={() => this.generateNextVillager("From")}>
-                                        {this.props.from}
-                                </button>
-                                <button onClick={() => this.generateNextVillager("To")}>
-                                        {this.props.to}
-                                </button>
+                        fulltext.push(<div class = "transactionLine notValidatedLine">
+                                <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite" height="80" width="80"></img>
+                                <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite" height="80" width="80"></img>
                                 <form>
                                         <input type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
                                 </form>
@@ -309,9 +322,9 @@ class TransactionLine extends Component{
                         
                 }
                 else{
-                        fulltext.push(<div>
-                                        {this.props.from}
-                                        {this.props.to}
+                        fulltext.push(<div class = "transactionLine" >
+                                        <img src={findVisual(this.props.from)}></img>
+                                        <img src={findVisual(this.props.to)}></img>
                                         {this.props.amount}
                                 </div>)
                 } 
@@ -319,11 +332,6 @@ class TransactionLine extends Component{
                 return fulltext;
         }
 }
-
-
-////////////////////////////////////////////////////////
-// React components
-////////////////////////////////////////////////////////
 
 
 // Component displaying a transaction list
@@ -600,25 +608,49 @@ class VillageBlock extends Component {
                 console.log("===================================================")
                 console.log("Etat du village en state")
                 console.log(this.state.village)
+                console.log("Villageois sélectionné")
+                console.log(this.state.selectedVillager)
+        }
+
+        selectVillager(animal){
+                if(this.state.selectedVillager == animal){
+                        this.setState({selectedVillager : ""})
+                }
+                else{
+                        this.setState({selectedVillager : animal})
+                }
         }
                 
         render(){
                 var fulltext = []
 
+                // D'abord affiche le village
+
+                fulltext.push(<div>
+                        <img onClick={() => this.selectVillager("Chat")} src={findVisual("Chat")} class = "villagerSprite" width="80" height="80"></img>
+                        <img onClick={() => this.selectVillager("Paresseux")} src={findVisual("Paresseux")} class = "villagerSprite" width="80" height="80"></img>
+                        <img onClick={() => this.selectVillager("Grenouille")} src={findVisual("Grenouille")} class = "villagerSprite" width="80" height="80"></img>
+                        <img onClick={() => this.selectVillager("Toucan")} src={findVisual("Toucan")} class = "villagerSprite" width="120" height="80"></img>
+                        <img onClick={() => this.selectVillager("Singe")} src={findVisual("Singe")} class = "villagerSprite" width="120" height="80"></img>
+                        <img onClick={() => this.selectVillager("Pingouin")} src={findVisual("Pingouin")} class = "villagerSprite" width="80" height="80"></img>
+                </div>)
+
+                // Si un carnet est sélectionné, l'affiche en dessous
+
                 for (let index in this.state.village.getCarnets()) {
-                        fulltext.push(
-                                <li key = {index}>
+                        if(this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager){
+                                fulltext.push(<div key = {index}>
                                         {this.state.village.getCarnets()[index].getProperty()}
-                                        <CarnetBlock 
-                                                carnet = {this.state.village.getCarnets()[index]}
-                                                limit = {this.props.limit}
-                                                resettable = {false}
-                                                inVillage = {true}
-                                                transmitTransaction = {this.transmitTransaction}
-                                        />
-                                </li>
-                        )
-                        fulltext.push(<br></br>)
+                                                <CarnetBlock 
+                                                        carnet = {this.state.village.getCarnets()[index]}
+                                                        limit = {this.props.limit}
+                                                        resettable = {false}
+                                                        inVillage = {true}
+                                                        transmitTransaction = {this.transmitTransaction}
+                                                />
+                                        </div>
+                                )
+                        }
                 }
 
                 fulltext.push(
