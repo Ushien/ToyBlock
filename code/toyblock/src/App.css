@@ -12,7 +12,7 @@ body {
 
 .paragraph {
         margin: 50px auto;
-        width: 700px;
+        width: 70%;
         font-size: 1.6em;
         text-align: justify;
         text-justify: inter-word;
@@ -133,7 +133,7 @@ body {
         background-color: #bbf0e8;
         font-family: "BabyDoll";
         font-size: 1.6em;
-        padding: 15px 32px;
+        padding: 20px 15%;
         margin: 5px;
         border-radius: 50px;
         text-align: justify;
@@ -150,11 +150,10 @@ body {
         width: 100%;
         white-space: nowrap;
         overflow-x: auto;
-        justify-content: center;
 }
 
-.villagerSprite {
-        
+.insideTransaction {
+        width: 70%;
 }
 
 .spriteWrapper {
@@ -170,6 +169,45 @@ body {
         display : inline;
 }
 
+.amountForm{
+        width : 20%;
+        height : 80px;
+        font-size: 1.6em;
+        border-radius: 20px;
+        text-align: right;
+        font-family: "BabyDoll";
+        margin-right: 20px;
+}
+
 .list {
         display : list-item;
+}
+
+.validateWrapper{
+        width : 50px;
+}
+
+.displayAmount{
+        font-size: 1.6em;
+        width : 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.inputWrapper{
+        width : 300px;
+}
+
+.validate{
+        width : 20%;
+        height : 80px;
+        font-size: 1.6em;
+        border-radius: 20px;
+        text-align: right;
+        align-items: center;
+}
+
+.validate:hover{
+        cursor: pointer;
 }

@@ -299,6 +299,7 @@ class TransactionLine extends Component{
         check = (e) => {
         }
                 
+        // TODO On doit pas submit avec enter
         render(){
                 let fulltext = []
                 
@@ -313,29 +314,67 @@ class TransactionLine extends Component{
                 }
 
                 if (!(this.props.validated)){
-                        fulltext.push(<div class="noWrap">
-                                <div class="spriteWrapper"><img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img></div>
-                                <img src={flechVisual} height="80" width="120"></img>
-                                <div class="spriteWrapper"><img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img></div>
-                                <form class = "inline">
-                                        <input type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
-                                </form>
-                        </div>)
-                        if (this.props.validable){
+                        // Transaction non validées non validables
+                        if (!(this.props.validable)){
                                 fulltext.push(
-                                        <button onClick={() => this.validateTransaction()} form class = "inline">
-                                                Valider la transaction 
-                                        </button>)
+                                        <div class="noWrap">
+                                                <div class="spriteWrapper">
+                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img>
+                                                </div>
+                                                <img src={flechVisual} height="80" width="120"></img>
+                                                <div class="spriteWrapper">
+                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img>
+                                                </div>
+                                                <div class="displayAmount">
+                                                        <input class = "amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
+                                                        {this.props.moneyName}s
+                                                </div>
+                                                <div class = "validateWrapper"></div>
+
+                                        </div>
+                                )
+                        }
+                        // Transactions non validées validables
+                        else{
+                                fulltext.push(
+                                        <div class="noWrap">
+                                                <div class="spriteWrapper">
+                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img>
+                                                </div>
+                                                <img src={flechVisual} height="80" width="120"></img>
+                                                <div class="spriteWrapper">
+                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img>
+                                                </div>
+                                                <div class="displayAmount">
+                                                        <input class = "amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
+                                                        {this.props.moneyName}s
+                                                </div>
+                                                <div class = "validateWrapper">
+                                                        
+                                                                <button onClick={() => this.validateTransaction()}>
+                                                                        <div class="validate">
+                                                                        Valider la transaction 
+                                                                        </div>
+                                                                </button>
+
+                                                        
+                                                </div>
+                                        </div>)
                         }
                         
                 }
+
+                // Transactions validées
                 else{
-                        fulltext.push(<div class="noWrap">
+                        fulltext.push(
+                                <div class="noWrap">
                                         <div class="spriteWrapper"><img src={findVisual(this.props.from)} class = "villagerSprite" height="80" width={fromWidth}></img></div>
-                                        <img src={flechVisual} height="80" width="120"></img>
+                                        <div><img src={flechVisual} height="80" width="120"></img></div>
                                         <div class="spriteWrapper"><img src={findVisual(this.props.to)} class = "villagerSprite" height="80" width={toWidth}></img></div>
-                                        {this.props.amount} {this.props.moneyName}s
-                                </div>)
+                                        <div class = "displayAmount"><div class = "amountForm">{this.props.amount}</div> <div>{this.props.moneyName}s</div></div>
+                                        <div class = "validateWrapper"></div>
+                                </div>
+                        )
                 } 
 
                 return fulltext;

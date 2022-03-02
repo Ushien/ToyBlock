@@ -3,7 +3,7 @@
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {Carnet, CarnetBlock, HashingBlock, animals} from './blockchain.js'
+import {Carnet, CarnetBlock, HashingBlock, animals, Transaction} from './blockchain.js'
 import {BlocTest} from './Test.js'
 
 /*
@@ -281,12 +281,21 @@ class Bloc1 extends Component { //Notation des transactions
   render(){
 
     let carnet = new Carnet("Toucan", 15, animals, true)
+    carnet.addAndApplyTransaction(new Transaction("Paresseux", "Pingouin", 5, true))
 
     return ( <div> 
       <div class="paragraph">
         {text1(this.props.moneyname)}
       </div>
       <div class = "machine">
+        <div class = "paragraph">
+          Voici un exemple de carnet, avec lequel tu peux t'amuser.
+
+          Tu peux peux cliquer sur la tête des villageois pour indiquer l'origine et le destinataire, et choisir le montant qu'il te plaît.
+          <br/>
+          <br/>
+          Ici, on imagine que chaque habitant a reçu le solde de base de 15 {this.props.moneyname}s.
+        </div>
         <div class="marged centeredtext">
           <CarnetBlock 
             carnet = {carnet}
@@ -295,6 +304,12 @@ class Bloc1 extends Component { //Notation des transactions
             inVillage = {false}
             moneyName = {this.props.moneyname}
           />
+        </div>
+        <div class = "paragraph">
+          Essaie de faire dépenser à Grenouille l'entièreté de son portefeuille !
+          <br/>
+          <br/>
+          Si ton carnet est rempli, tu peux appuyer sur reset pour le remettre à zéro.
         </div>
       </div>
       <div class="paragraph">
