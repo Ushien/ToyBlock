@@ -6,7 +6,8 @@ body {
       }
 
 #whiteParagraph{
-        height: 180%
+        height: 50rem;
+        width: 30cm;
 }
 
 .paragraph {
@@ -123,19 +124,52 @@ body {
                 }
         }
 
+@font-face {
+        font-family: "BabyDoll";
+        src: url("./fonts/BabyDoll.ttf") format("truetype")
+}
+
 .transactionLine {
-        display: flex;
-        background-color: #3fceb8;
+        background-color: #bbf0e8;
+        font-family: "BabyDoll";
+        font-size: 1.6em;
+        padding: 15px 32px;
+        margin: 5px;
+        border-radius: 50px;
+        text-align: justify;
+        color :#252525;
+        white-space: nowrap;
 }
 
 .notValidatedLine {
         background-color: #bbf0e8;
 }
 
-.villagerSprite {
-        height: 180%;
+.noWrap {
+        display: flex;
+        width: 100%;
+        white-space: nowrap;
+        overflow-x: auto;
+        justify-content: center;
 }
 
-.villagerSprite.hover {
+.villagerSprite {
+        
+}
+
+.spriteWrapper {
+        width: 120px;
+        text-align: center;
+}
+
+.clickable:hover {
         cursor: pointer;
+}
+
+.inline{
+        display : inline;
+}
+
+.list {
+        display : list-item;
 }

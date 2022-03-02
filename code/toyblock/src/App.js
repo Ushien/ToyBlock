@@ -2,8 +2,8 @@
 
 import './App.css';
 import React, { Component } from 'react'
-import {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {HashingBlock} from './blockchain.js'
+import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
+import {Carnet, CarnetBlock, HashingBlock, animals} from './blockchain.js'
 import {BlocTest} from './Test.js'
 
 /*
@@ -14,11 +14,11 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 1
+const startdistance = 5
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
-const test = true
+const test = false
 
 class HandlingBlock extends Component {
 
@@ -84,7 +84,7 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >= 5){
       console.log("Entered Block 1")
-      fulltext.push(<div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance}/>
+      fulltext.push(<div><Bloc1 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
         </div>)
     }
     if (this.state.distance >= 6){
@@ -133,7 +133,7 @@ class HandlingBlock extends Component {
         </div>)
     }
 
-    fulltext.push(<div id = "whiteParagraph"><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </div>)
+    fulltext.push(<div id = "whiteParagraph"></div>)
 
     return fulltext;
   }
@@ -255,21 +255,20 @@ class BlocIntro4 extends Component {
 class Bloc1 extends Component { //Notation des transactions
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount(){
-    document.addEventListener('scroll', this.handleClick, false);
+    document.addEventListener('scroll', this.handleScroll, false);
   }
 
   componentWillUnmount(){
-    document.removeEventListener('scroll', this.handleClick, false);
+    document.removeEventListener('scroll', this.handleScroll, false);
   }
 
-  handleClick = (e) => {
+  handleScroll = (e) => {
     const event = e.target.scrollingElement;
     console.log("The screen is scrolled");
-    //const bottom = e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop === e.target.scrollingElement.clientHeight;
     const bottom = Math.abs(event.scrollHeight - (event.scrollTop + event.clientHeight)) <= 1;
 
     if (bottom){
@@ -278,8 +277,29 @@ class Bloc1 extends Component { //Notation des transactions
     }
   }
 
+  // TODO Placer la machine au milieu
   render(){
-    return ( <div class="paragraph"> <br/> <br/> <br/> <div>{text1()}</div>
+
+    let carnet = new Carnet("Toucan", 15, animals, true)
+
+    return ( <div> 
+      <div class="paragraph">
+        {text1(this.props.moneyname)}
+      </div>
+      <div class = "machine">
+        <div class="marged centeredtext">
+          <CarnetBlock 
+            carnet = {carnet}
+            limit = {6}
+            resettable = {true}
+            inVillage = {false}
+            moneyName = {this.props.moneyname}
+          />
+        </div>
+      </div>
+      <div class="paragraph">
+        {text1_1()}
+      </div>
     </div>
     );
   }
@@ -335,13 +355,13 @@ class Bloc6 extends Component { //Proof of work
       </div>
       <div class = "machine">
         <div class = "paragraph">
-        Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
+          Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
         </div>
         <div>
-        <HashingBlock baseword = {baseword}/>
+          <HashingBlock baseword = {baseword}/>
         </div>
         <div class = "paragraph">
-        Voici un petit défi : Essaie de trouver un mot dont le hash commence par le chiffre 5.
+          Voici un petit défi : Essaie de trouver un mot dont le hash commence par le chiffre 5.
         </div>
       </div>
       <div class="paragraph">

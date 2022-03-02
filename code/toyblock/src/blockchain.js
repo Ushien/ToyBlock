@@ -6,6 +6,9 @@ import paresseuxVisual from './visuals/Paresseux.png'
 import pingouinVisual from './visuals/Pingouin.png'
 import singeVisual from './visuals/Singe.png'
 import toucanVisual from './visuals/Toucan.png'
+import flechVisual from './visuals/flech.png'
+
+// TODO Corriger les erreurs js
 
 // Village and transactions machines
 
@@ -63,7 +66,7 @@ class Transaction{
 }
 
 class Carnet{
-        constructor(property, startmoney, animals){
+        constructor(property, startmoney, animals, fillEmptyTransaction){
                 this.property = property;
                 this.transactions = [];
                 this.startmoney = startmoney;
@@ -73,6 +76,10 @@ class Carnet{
 
                 for (let index = 0; index < animals.length; index++){
                         this.currentAccounts[animals[index]] = startmoney;
+                }
+
+                if (fillEmptyTransaction){
+                        this.addTransaction(new Transaction(animals[0], animals[1], 0, false))
                 }
         }
 
@@ -194,7 +201,7 @@ class Village{
 
                 // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
-                        this.villagers[animals[index]] = new Carnet(animals[index], startmoney, animals)
+                        this.villagers[animals[index]] = new Carnet(animals[index], startmoney, animals, false)
                 }
 
                 // Assigning neighbors
@@ -248,7 +255,6 @@ class Village{
         }
 }
 
-
 ////////////////////////////////////////////////////////
 // React components                                   //
 ////////////////////////////////////////////////////////
@@ -256,6 +262,8 @@ class Village{
 //Component displaying a transaction line
 
 //Parler des props attendues
+
+// moneyName
 class TransactionLine extends Component{
         constructor(props){
                 super(props);
@@ -289,43 +297,44 @@ class TransactionLine extends Component{
         }
 
         check = (e) => {
-                /*
-                console.log("Available villagers: ")
-                console.log(this.state.availableVillagers)
-                console.log("From")
-                console.log(this.state.from)
-                console.log("To")
-                console.log(this.state.to)
-                console.log(this.state.validated);
-                console.log(this.props.transaction.isValidated());
-                console.log(this.state.amount)
-                console.log(this.props.transaction.getAmount())
-                */
         }
                 
         render(){
                 let fulltext = []
+                
+                let fromWidth = "80"
+                if(this.props.from == "Toucan" || this.props.from == "Singe"){
+                        fromWidth = "120"
+                }
+
+                let toWidth = "80"
+                if(this.props.to == "Toucan" || this.props.to == "Singe"){
+                        toWidth = "120"
+                }
+
                 if (!(this.props.validated)){
-                        fulltext.push(<div class = "transactionLine notValidatedLine">
-                                <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite" height="80" width="80"></img>
-                                <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite" height="80" width="80"></img>
-                                <form>
+                        fulltext.push(<div class="noWrap">
+                                <div class="spriteWrapper"><img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img></div>
+                                <img src={flechVisual} height="80" width="120"></img>
+                                <div class="spriteWrapper"><img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img></div>
+                                <form class = "inline">
                                         <input type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
                                 </form>
-                                </div>)
+                        </div>)
                         if (this.props.validable){
                                 fulltext.push(
-                                        <button onClick={() => this.validateTransaction()}>
+                                        <button onClick={() => this.validateTransaction()} form class = "inline">
                                                 Valider la transaction 
                                         </button>)
                         }
                         
                 }
                 else{
-                        fulltext.push(<div class = "transactionLine" >
-                                        <img src={findVisual(this.props.from)}></img>
-                                        <img src={findVisual(this.props.to)}></img>
-                                        {this.props.amount}
+                        fulltext.push(<div class="noWrap">
+                                        <div class="spriteWrapper"><img src={findVisual(this.props.from)} class = "villagerSprite" height="80" width={fromWidth}></img></div>
+                                        <img src={flechVisual} height="80" width="120"></img>
+                                        <div class="spriteWrapper"><img src={findVisual(this.props.to)} class = "villagerSprite" height="80" width={toWidth}></img></div>
+                                        {this.props.amount} {this.props.moneyName}s
                                 </div>)
                 } 
 
@@ -336,7 +345,18 @@ class TransactionLine extends Component{
 
 // Component displaying a transaction list
 
-// Parler des props attendues
+
+// TODO Finir la spec des props
+/*
+Waited props:
+
+carnet : the carnet object you want to display
+limit : the 
+resettable = {false}
+inVillage : set to true if you call this component from a VillageBlock component
+transmitTransaction = a transmission function from a VillageBlock component (don't need to pass it if you're not calling from a VillageBlock)
+moneyName : 
+*/
 class CarnetBlock extends Component {
         constructor(props) {
                 super(props);
@@ -498,7 +518,7 @@ class CarnetBlock extends Component {
         // reset the carnet block with a brand new empty carnet
         fullReset(){
 
-                let carnet = new Carnet(this.state.carnet.getProperty(), this.state.carnet.getStartMoney(), this.state.carnet.getVillagers())
+                let carnet = new Carnet(this.state.carnet.getProperty(), this.state.carnet.getStartMoney(), this.state.carnet.getVillagers(), false)
                 carnet.addTransaction(new Transaction(
                         this.state.transactions[this.state.transactions.length-1].getFrom(), 
                         this.state.transactions[this.state.transactions.length-1].getTo(),
@@ -533,8 +553,9 @@ class CarnetBlock extends Component {
 
                 for (let index = 0; index < this.state.transactions.length; index++) {
                         fullRender.push(
-                                <li key = {index}>
-                                        <TransactionLine 
+                                <div class = "transactionLine">
+                                <div key = {index} class = "inline">
+                                        <TransactionLine
                                                 index ={index} 
                                                 from = {this.state.transactions[index].getFrom()} 
                                                 to = {this.state.transactions[index].getTo()} 
@@ -544,8 +565,9 @@ class CarnetBlock extends Component {
                                                 validateTransaction = {this.validateTransaction} 
                                                 handleChangeAmount = {this.handleChangeAmount}
                                                 generateNextVillager = {this.generateNextVillager}
+                                                moneyName = {this.props.moneyName}
                                         />
-                                </li>)
+                                </div></div>)
                 }
 
                 // If the component is resettable add a reset button
@@ -580,6 +602,15 @@ class CarnetBlock extends Component {
 
 //Component displaying a village
 
+/*
+Waited props:
+
+village : village object you want to display (village)
+limit : the number of transactions a carnet can handle (integer)
+resettable : if the village can be resetted (boolean)
+moneyName : 
+
+*/
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
@@ -647,6 +678,7 @@ class VillageBlock extends Component {
                                                         resettable = {false}
                                                         inVillage = {true}
                                                         transmitTransaction = {this.transmitTransaction}
+                                                        moneyName = {this.props.moneyName}
                                                 />
                                         </div>
                                 )
@@ -672,18 +704,6 @@ class VillageBlock extends Component {
         }
 
 }
-
-class VillagerBlock extends Component {
-        constructor(props) {
-                super(props);
-                this.state = {carnet : this.props.carnet}
-        }
-
-        render(){
-                return(<div>Villager</div>)
-        }
-}
-
 
 ////////////////////////////////////////////////////////
 

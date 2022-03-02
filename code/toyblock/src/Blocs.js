@@ -32,24 +32,29 @@ function introtext4(){
         )
 }
 
-function text1(){
+function text1(moneyname){
         return(<div>
-                <div>
                 Le chef du village achète un carnet qui répertorie chaque transaction, afin de pouvoir déduire automatiquement 
-                combien chaque habitant peut encore dépenser. 
+                combien chaque habitant peut encore dépenser. Comment ? Il lui suffit de savoir le nombre de {moneyname}s qu'ils avaient au départ, et ensuite de retracer leurs transactions.
                 Les animaux le préviennent qu’ils veulent faire une transaction, et il l’écrit pour eux.
-                </div> 
-
-                <div class ="problem">
-                Problème:
-                </div>
-                <div>
-                Si quelqu’un de malhonnête accède au carnet du chef, la liste de transactions pourrait être modifiée, voire 
-                pire : brûlée !
-                </div>
         </div>
         )
-        // On place la machine 1 (carnet) avant le problème
+}
+
+// On place la machine 1 (carnet) avant le problème
+
+function text1_1(){
+        return( <div>
+                        <div class ="problem">
+                                Problème:
+                        </div>
+
+                        <div>
+                                Si quelqu’un de malhonnête accède au carnet du chef, la liste de transactions pourrait être modifiée, voire 
+                                pire : brûlée !
+                        </div>
+                </div>
+        )
 }
 
 function text2(moneyname){
@@ -268,4 +273,4 @@ function text9(){
         // Dessin fête
 }
 
-export {introtext1, introtext2, introtext3, introtext4, text1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9}
+export {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9}
