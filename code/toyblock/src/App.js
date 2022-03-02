@@ -281,7 +281,6 @@ class Bloc1 extends Component { //Notation des transactions
   render(){
 
     let carnet = new Carnet("Toucan", 15, animals, true)
-    carnet.addAndApplyTransaction(new Transaction("Paresseux", "Pingouin", 5, true))
 
     return ( <div> 
       <div class="paragraph">
@@ -306,7 +305,7 @@ class Bloc1 extends Component { //Notation des transactions
           />
         </div>
         <div class = "paragraph">
-          Essaie de faire dépenser à Grenouille l'entièreté de son portefeuille !
+          Essaie de faire dépenser à Grenouille plus de 40 {this.props.moneyname}s d'un seul coup !
           <br/>
           <br/>
           Si ton carnet est rempli, tu peux appuyer sur reset pour le remettre à zéro.

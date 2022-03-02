@@ -351,9 +351,9 @@ class TransactionLine extends Component{
                                                 </div>
                                                 <div class = "validateWrapper">
                                                         
-                                                                <button onClick={() => this.validateTransaction()}>
-                                                                        <div class="validate">
-                                                                        Valider la transaction 
+                                                                <button class = "button" onClick={() => this.validateTransaction()}>
+                                                                        <div>
+                                                                        Valider
                                                                         </div>
                                                                 </button>
 
@@ -612,13 +612,14 @@ class CarnetBlock extends Component {
                 // If the component is resettable add a reset button
                 if(this.props.resettable){
                         fullRender.push(
-                                <button onClick={() => this.fullReset()}> 
+                                <button onClick={() => this.fullReset()} class = "button"> 
                                         Reset 
                                 </button>
                         )
                 }
 
                 // Debug buttons
+                /*
                 fullRender.push(
                         <div>
                                 <button onClick={() => this.check()}> 
@@ -629,6 +630,7 @@ class CarnetBlock extends Component {
                                 </button>
                         </div>
                 )
+                */
 
                 return(
                         <div>
@@ -768,9 +770,9 @@ class HashingBlock extends Component {
         render(){
                 return(
                         <div className="centeredtext">
-                                <form>
-                                        <input type="text" value={this.state.hashword} onChange={this.handleChange} class="input"/>
-                                </form>
+
+                                <input type="text" value={this.state.hashword} onChange={this.handleChange} class="input"/>
+
                                 <div class="centeredelement">
                                 <div class="output">
                                         {this.state.hashed}
