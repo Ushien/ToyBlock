@@ -262,14 +262,177 @@ body {
         top:70%;
 }
 
-.letterSinge{
+
+.Singeletter-up-down{
         position:absolute;
         left:15%;
-        background-color: brown;
+
+        animation-name: updownanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
 }
 
-.letter-up-down{
-        position:inherit;
-        left:inherit;
-        top: inherit;
+.Grenouilleletter-down-up{
+        position:absolute;
+        left:15%;
+        top:35%;
+
+        animation-name: downupanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Grenouilleletter-up-down{
+        position:absolute;
+        left:15%;
+        top:35%;
+
+        animation-name: updownanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Pingouinletter-down-up{
+        position:absolute;
+        left:15%;
+        top:70%;
+
+        animation-name: downupanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Grenouilleletter-left-right{
+        position:absolute;
+        left:15%;
+        top:35%;
+
+        animation-name: leftrightanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Paresseuxletter-right-left{
+        position:absolute;
+        left:45%;
+        top:35%;
+
+        animation-name: rightleftanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Paresseuxletter-left-right{
+        position:absolute;
+        left:45%;
+        top:35%;
+
+        animation-name: leftrightanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Toucanletter-right-left{
+        position:absolute;
+        left:75%;
+        top:35%;
+
+        animation-name: rightleftanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Toucanletter-up-down{
+        position:absolute;
+        left:75%;
+        top:35%;
+
+        animation-name: updownanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+.Chatletter-down-up{
+        position:absolute;
+        left:75%;
+        top:70%;
+
+        animation-name: downupanimation, hideAnimation;
+        animation-duration: 9000ms, 0ms;
+        animation-delay: 0ms, 9000ms; /* add this */
+        animation-timing-function: ease, ease-in;
+        animation-iteration-count: 1, 1;
+        animation-fill-mode: none, forwards;
+}
+
+@keyframes updownanimation {
+        0% {    margin-top: 0%;
+                }
+        100% {
+                margin-top: 15%;
+                visibility: hidden;
+                }
+        }
+
+@keyframes downupanimation {
+        0% {    margin-top: 0%;
+                display: inherit;
+                }
+        100% {
+                margin-top: -15%;
+                display : none;
+                }
+        }
+
+@keyframes leftrightanimation {
+        0% {    margin-left: 0%;
+                }
+        100% {
+                margin-left: 30%;
+                visibility: hidden;
+                }
+        }
+
+@keyframes rightleftanimation {
+        0% {    margin-left: 0%;
+                }
+        100% {
+                margin-left: -30%;
+                visibility: hidden;
+                }
+        }
+
+@keyframes hideAnimation {
+        to {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        }
 }

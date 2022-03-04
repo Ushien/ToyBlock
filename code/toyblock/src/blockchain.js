@@ -13,6 +13,7 @@ import singemaison from './visuals/singemaison.png'
 import pingouinmaison from './visuals/pingouinmaison.png'
 import paresseuxmaison from './visuals/paresseuxmaison.png'
 import toucanmaison from './visuals/toucanmaison.png'
+import lettre from './visuals/lettre.png'
 
 // TODO Corriger les erreurs js
 
@@ -41,23 +42,26 @@ function sendLetter(from, to){
         // assert un des mouvements doit être égal à 0 et l'autre être différent
 
         if(x_movement == 1){
-                movementclass = "letter-left-right"
+                movementclass = "-left-right"
         }
         if(x_movement == -1){
-                movementclass = "letter-right-left"
+                movementclass = "-right-left"
         }
         if(y_movement == 1){
-                movementclass = "letter-up-down"
+                movementclass = "-up-down"
         }
         if(y_movement == -1){
-                movementclass = "letter-down-up"
+                movementclass = "-down-up"
         }
+        
+        var newElement = document.createElement("img");
+        // TODO change with letter
+        newElement.src = lettre;
+        newElement.width = "120"
+        newElement.height = "120"
+        newElement.className = from+"letter"+movementclass
 
-        var target = document.getElementById("villageContainer");
-        target.innerHTML += '<img src=' + singemaison +' width="120" height="120" class = "singeVillager"></img>';
-        //target.innerHTML += '<img src=' + singemaison +' width="120" height="120" class = "singeVillager ' + movementclass + '"></img>';
-
-        // document.getElementById('letter'+from).className = movementclass;
+        document.getElementById("villageContainer").appendChild(newElement);
 }
 
 class Transaction{
@@ -724,12 +728,14 @@ class VillageBlock extends Component {
         }
 
         selectVillager(animal){
+                console.log("In selectVillager")
                 if(this.state.selectedVillager == animal){
                         this.setState({selectedVillager : ""})
                 }
                 else{
                         this.setState({selectedVillager : animal})
                 }
+                console.log("Out selectVillager")
         }
                 
         render(){
