@@ -7,6 +7,12 @@ import pingouinVisual from './visuals/Pingouin.png'
 import singeVisual from './visuals/Singe.png'
 import toucanVisual from './visuals/Toucan.png'
 import flechVisual from './visuals/flech.png'
+import chatmaison from './visuals/chatmaison.png'
+import grenouillemaison from './visuals/grenouillemaison.png'
+import singemaison from './visuals/singemaison.png'
+import pingouinmaison from './visuals/pingouinmaison.png'
+import paresseuxmaison from './visuals/paresseuxmaison.png'
+import toucanmaison from './visuals/toucanmaison.png'
 
 // TODO Corriger les erreurs js
 
@@ -18,8 +24,40 @@ const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat
 const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {"Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
 const visualMapping = {"Chat" : chatVisual, "Grenouille" : grenouilleVisual, "Paresseux" : paresseuxVisual, "Pingouin" : pingouinVisual, "Singe" : singeVisual, "Toucan" : toucanVisual}
 
+// TODO Optimiser findVisual
+
 function findVisual(animal){
         return visualMapping[animal]
+}
+
+function sendLetter(from, to){
+
+        let movementclass = ""
+        let positions = {"Singe" : [1,1], "Grenouille" : [1,2], "Pingouin" : [1,3], "Paresseux" : [2,2], "Toucan" : [3,2], "Chat" : [3,3]}
+        let x_movement = positions[to][0] - positions[from][0];
+        let y_movement = positions[to][1] - positions[from][1];
+
+        // assert les 2 mouvements sont compris entre 1 et -1
+        // assert un des mouvements doit être égal à 0 et l'autre être différent
+
+        if(x_movement == 1){
+                movementclass = "letter-left-right"
+        }
+        if(x_movement == -1){
+                movementclass = "letter-right-left"
+        }
+        if(y_movement == 1){
+                movementclass = "letter-up-down"
+        }
+        if(y_movement == -1){
+                movementclass = "letter-down-up"
+        }
+
+        var target = document.getElementById("villageContainer");
+        target.innerHTML += '<img src=' + singemaison +' width="120" height="120" class = "singeVillager"></img>';
+        //target.innerHTML += '<img src=' + singemaison +' width="120" height="120" class = "singeVillager ' + movementclass + '"></img>';
+
+        // document.getElementById('letter'+from).className = movementclass;
 }
 
 class Transaction{
@@ -180,7 +218,8 @@ class Carnet{
 
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
-                console.log(this.getMillisecondsFromDistance(destination[1]))
+                
+                sendLetter(this.property, destination[0].getProperty())
                 setTimeout(() => {destination[0].receiveTransaction(transaction, this.property)} , this.getMillisecondsFromDistance(destination[1]));
         }
 
@@ -194,14 +233,14 @@ class Carnet{
 
 class Village{
 
-        constructor(startmoney = 0, animals = [], neighbors = {}){
+        constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false){
 
                 this.startmoney = startmoney;
                 this.villagers = {};
 
                 // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
-                        this.villagers[animals[index]] = new Carnet(animals[index], startmoney, animals, false)
+                        this.villagers[animals[index]] = new Carnet(animals[index], startmoney, animals, fillEmptyTransactions)
                 }
 
                 // Assigning neighbors
@@ -663,7 +702,7 @@ class VillageBlock extends Component {
         //TODO Reset du village
 
         clickMe(e){
-
+                sendLetter("Singe", "Grenouille")
                 // Add functions here
 
         }
@@ -696,15 +735,15 @@ class VillageBlock extends Component {
         render(){
                 var fulltext = []
 
-                // D'abord affiche le village
+                // D'abord, affiche le village
 
-                fulltext.push(<div>
-                        <img onClick={() => this.selectVillager("Chat")} src={findVisual("Chat")} class = "villagerSprite" width="80" height="80"></img>
-                        <img onClick={() => this.selectVillager("Paresseux")} src={findVisual("Paresseux")} class = "villagerSprite" width="80" height="80"></img>
-                        <img onClick={() => this.selectVillager("Grenouille")} src={findVisual("Grenouille")} class = "villagerSprite" width="80" height="80"></img>
-                        <img onClick={() => this.selectVillager("Toucan")} src={findVisual("Toucan")} class = "villagerSprite" width="120" height="80"></img>
-                        <img onClick={() => this.selectVillager("Singe")} src={findVisual("Singe")} class = "villagerSprite" width="120" height="80"></img>
-                        <img onClick={() => this.selectVillager("Pingouin")} src={findVisual("Pingouin")} class = "villagerSprite" width="80" height="80"></img>
+                fulltext.push(<div id="villageContainer" class="villageContainer">
+                        <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class = "clickable" width="120" height="120"></img>
+                        <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class = "clickable" width="120" height="120"></img>
+                        <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class = "clickable" width="120" height="120"></img>
+                        <img src={paresseuxmaison} onClick={() => this.selectVillager("Paresseux")} id="paresseuxvillager" class = "clickable" width="120" height="120"></img>
+                        <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class = "clickable" width="120" height="120"></img>
+                        <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class = "clickable" width="120" height="120"></img>
                 </div>)
 
                 // Si un carnet est sélectionné, l'affiche en dessous
@@ -728,7 +767,7 @@ class VillageBlock extends Component {
 
                 fulltext.push(
                         <div>
-                        <button onClick={() => this.touchMe()}>
+                        <button onClick={() => this.clickMe()}>
                                 Bouton de test 
                         </button>
                         <button onClick={() => this.check()}>

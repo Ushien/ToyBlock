@@ -1,3 +1,5 @@
+//TODO mettre des mots en gras
+
 function introtext1(){
         return(<div>
                 Au beau milieu de la forêt se trouve un village...
@@ -50,7 +52,7 @@ function text1_1(){
                         </div>
 
                         <div>
-                                Si quelqu’un de malhonnête accède au carnet du chef, la liste de transactions pourrait être modifiée, voire 
+                                Si quelqu’un de malhonnête accède au carnet du chef, <b>la liste de transactions pourrait être modifiée</b>, voire 
                                 pire : brûlée !
                         </div>
                 </div>
@@ -81,17 +83,25 @@ function text2(moneyname){
 }
 
 function text3(moneyname){
+        // Dessin coffrets serrures
         return(<div>
                 <div>
                 Chaque nouvel habitant qui souhaite rejoindre le système reçoit 2 choses : 
                 1 : Un modèle de serrure personnelle top secrète.
                 2 : Un trousseau de clés, une pour chaque habitant du village.
                 Avant d’écrire une transaction dans une lettre, et de la transmettre, Pingouin sécurise sa lettre en la mettant 
-                dans un coffre, avec sa serrure propre. Personne d’autre ne peut réaliser la même serrure que lui. Pour savoir 
+                dans un petit coffret, avec sa serrure propre. Personne d’autre ne peut réaliser la même serrure que lui. Pour savoir 
                 qui a envoyé la lettre, ils testent toutes les clés qu’ils possèdent et comprennent vite que, vu que la clé de 
                 pingouin fonctionne, ça ne peut être que Pingouin qui a rédigé cette transaction. Une fois que la lettre est 
-                transmise, à l’intérieur de son coffre, les animaux la copient dans leur carnet.
+                transmise, à l’intérieur de son coffret, les animaux la copient dans leur carnet.
                 </div> 
+                
+        </div>          
+        )
+}
+
+function text3_1(moneyname){
+        return(<div>
                 <div class ="problem">
                 Problème:
                 </div>
@@ -100,7 +110,7 @@ function text3(moneyname){
                 Renard est presque à sec, il ne lui reste que 5 {moneyname}s. Pourtant, il a très envie d’acheter les deux 
                 douceurs. Il trouve une stratégie.
                 Renard prépare 2 lettres : L’une d’elle dit qu’il a dépensé 5 {moneyname}s dans un cookie, l’autre qu’il les 
-                a dépensés dans un jus de fruit. Il les enferme dans leur coffre, avec la serrure renard. Il commence par 
+                a dépensés dans un jus de fruit. Il les enferme dans leur coffret respectif, avec la serrure renard. Il commence par 
                 acheter un cookie d'un côté du village, envoie sa première lettre, et court vite de l’autre côté pour acheter 
                 un jus de fruit, et envoyer la deuxième.
                 Pingouin reçoit d’abord la première lettre. Il vérifie dans son carnet, et voit que Renard a acheté un cookie 
@@ -109,11 +119,11 @@ function text3(moneyname){
                 possède encore 5 {moneyname}s. Il ne voit donc aucun problème à inscrire la transaction !
                 Ca y est, Renard a réussi à mettre des infos contradictoires en circulation dans le village.
                 </div>
-        </div>          
-
-        // Dessin serrures coffre ?
+        </div>
         )
 }
+
+// Machine 2
 
 function text4(moneyname){
         return(<div>
@@ -273,4 +283,4 @@ function text9(){
         // Dessin fête
 }
 
-export {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9}
+export {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9}

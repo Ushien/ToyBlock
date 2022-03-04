@@ -2,9 +2,10 @@
 
 import './App.css';
 import React, { Component } from 'react'
-import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {Carnet, CarnetBlock, HashingBlock, animals, Transaction} from './blockchain.js'
+import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
+import {Carnet, CarnetBlock, HashingBlock, animals, Village, VillageBlock, neighbors} from './blockchain.js'
 import {BlocTest} from './Test.js'
+import coffreVisual from './visuals/coffre.png'
 
 /*
 Here you can change the base parameters of the website
@@ -14,7 +15,7 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 5
+const startdistance = 7
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
@@ -329,12 +330,38 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 }
 
 class Bloc3 extends Component { //Signature électronique
-
+// TODO Afficher le texte avant et après machine
   render(){
-    return (
-    <div class="paragraph"> <br/> <br/> <br/> 
-      <div>
-        {text3(this.props.moneyname)}
+    let village = new Village(15, animals, neighbors, true)
+    return (<div>
+      <div class="paragraph"> <br/> <br/> <br/> 
+        <div>
+          {text3(this.props.moneyname)}
+        </div>
+        <img src={coffreVisual} class = "responsiveImage"></img>
+        <div>
+          {text3_1(this.props.moneyname)}
+        </div>
+      </div>
+
+      <div class = "machine">
+        <div class="paragraph">
+          Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre carnet, et y écrire des transactions !
+          Encore une fois, on imagine ici qu'au départ, tous les villageois on 15 {this.props.moneyname}s.<br/>
+
+          Amuse-toi à écrire des transactions et les voir se transmettre de carnet en carnet !
+        </div>
+        <div class="marged centeredtext">
+          <VillageBlock 
+            village = {village} 
+            limit = {8} 
+            resettable = {true}
+            moneyName = {this.props.moneyname}
+          />
+        </div>
+        <div class="paragraph">
+          Penses-tu être capable de créer le même problème que Renard ?
+        </div>
       </div>
     </div>
     );

@@ -211,3 +211,65 @@ body {
 .validate:hover{
         cursor: pointer;
 }
+
+.responsiveImage{
+        width: 100%;
+        height: auto;
+}
+
+.blankspace{
+        height: 100px;
+}
+
+.villageContainer{
+        position: relative;
+        width : 100%;
+        height: 800px;
+}
+
+#singevillager{
+        position:absolute;
+        left:15%;
+}
+
+#grenouillevillager{
+        position:absolute;
+        left:15%;
+        top:35%;
+}
+
+#pingouinvillager{
+        position:absolute;
+        left:15%;
+        top:70%;
+}
+
+#toucanvillager{
+        position:absolute;
+        left:75%;
+        top:35%;
+}
+
+#paresseuxvillager{
+        position:absolute;
+        left:45%;
+        top:35%;
+}
+
+#chatvillager{
+        position:absolute;
+        left:75%;
+        top:70%;
+}
+
+.letterSinge{
+        position:absolute;
+        left:15%;
+        background-color: brown;
+}
+
+.letter-up-down{
+        position:inherit;
+        left:inherit;
+        top: inherit;
+}
