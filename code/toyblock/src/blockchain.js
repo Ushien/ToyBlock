@@ -120,6 +120,7 @@ class Carnet{
                 this.neighbors = {};
                 this.villagers = animals;
                 this.invalidCarnet = false;
+                this.version = 0;
 
                 for (let index = 0; index < animals.length; index++){
                         this.currentAccounts[animals[index]] = startmoney;
@@ -221,6 +222,10 @@ class Carnet{
                 return this.startmoney;
         }
 
+        incrementVersion(){
+                this.version = this.version+1
+        }
+
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
         checkAccount(additionalTransaction){
 
@@ -244,20 +249,22 @@ class Carnet{
         
         }
 
-        receiveTransaction(transaction, from){
+        receiveTransaction(transaction, from, version){
 
                 //vérifie que la transaction est compatible avec les autres
                 //si oui, l'ajoute, si non, envoie une erreur
 
-                if (!this.checkAccount(transaction)){
-                        // throw "An invalid transaction has been received !"
-                        this.setInvalidCarnet();
-                        alert(this.getProperty() + " a reçu une transaction incompatible !\nAppuyez sur reset pour réinitialiser le village.")
-                }
-                else{
-                        this.addAndApplyTransaction(transaction)
-                        //transmet ensuite la transaction aux voisins, sauf au from
-                        this.transmitTransaction(transaction, from)
+                if(version == this.version){
+                        if (!this.checkAccount(transaction)){
+                                // throw "An invalid transaction has been received !"
+                                this.setInvalidCarnet();
+                                alert(this.getProperty() + " a reçu une transaction incompatible !\nAppuyez sur reset pour réinitialiser le village.")
+                        }
+                        else{
+                                this.addAndApplyTransaction(transaction)
+                                //transmet ensuite la transaction aux voisins, sauf au from
+                                this.transmitTransaction(transaction, from)
+                        }
                 }
         }
 
@@ -278,8 +285,9 @@ class Carnet{
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
                 
+                let version = this.version
                 sendLetter(this.property, destination[0].getProperty())
-                setTimeout(() => {destination[0].receiveTransaction(transaction, this.property)} , this.getMillisecondsFromDistance(destination[1]));
+                setTimeout(() => {destination[0].receiveTransaction(transaction, this.property, version)} , this.getMillisecondsFromDistance(destination[1]));
         }
 
         getMillisecondsFromDistance(distance){
@@ -336,6 +344,12 @@ class Village{
 
         getStartMoney(){
                 return this.startmoney;
+        }
+
+        incrementVersions(){
+                for(let carnet in this.getCarnets()){
+                        this.getCarnets()[carnet].incrementVersion()
+                }
         }
 
         // Warning ! Should not be used outside of testing
@@ -810,7 +824,9 @@ class VillageBlock extends Component {
         }
 
         fullReset(){
-                let cloneVillage = this.state.cloneVillage
+                this.state.village.incrementVersions();
+
+                let cloneVillage = this.state.cloneVillage;
 
                 this.setState({startMoney: cloneVillage.getStartMoney(), 
                         village : cloneVillage,
