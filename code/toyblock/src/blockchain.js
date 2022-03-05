@@ -59,7 +59,7 @@ function sendLetter(from, to){
         newElement.src = lettre;
         newElement.width = "120"
         newElement.height = "120"
-        newElement.className = from+"letter"+movementclass
+        newElement.className = from+"letter"+movementclass+" letter"
 
         document.getElementById("villageContainer").appendChild(newElement);
 }
@@ -70,6 +70,10 @@ class Transaction{
                 this.to = to;
                 this.amount = amount;
                 this.validated = validated;
+        }
+
+        clone(){
+                return new Transaction(this.getFrom(), this.getTo(), this.getAmount(), this.isValidated())
         }
 
         isValidated(){
@@ -115,6 +119,7 @@ class Carnet{
                 this.currentAccounts = {};
                 this.neighbors = {};
                 this.villagers = animals;
+                this.invalidCarnet = false;
 
                 for (let index = 0; index < animals.length; index++){
                         this.currentAccounts[animals[index]] = startmoney;
@@ -125,6 +130,30 @@ class Carnet{
                 }
         }
 
+        clone(){
+                let cloneCarnet = new Carnet(this.getProperty(), this.getStartMoney(), this.getVillagers(), false)
+
+                // Clone les transactions
+                for (let index = 0; index < this.getTransactions().length; index++) {
+                        cloneCarnet.addTransaction(this.getTransactions()[index].clone())
+                }
+
+                // Clone les comptes
+                for (let account in this.getCurrentAccounts()){
+                        cloneCarnet.setCurrentAccount(account, this.getCurrentAccounts()[account])
+                }
+
+                // Clone les voisins
+                for (let neighbor in this.getNeighbors()){
+                        cloneCarnet.setNeighbor(neighbor, this.getNeighbors()[neighbor][0], this.getNeighbors()[neighbor][1])
+                }
+
+                // Clone la validité du carnet
+                cloneCarnet.setInvalidCarnet(this.isCarnetInvalid())
+
+                return cloneCarnet;
+        }
+
         setNeighbors(neighbors, villagers){
                 for (var i in neighbors){
                         this.neighbors[i] = [];
@@ -132,6 +161,30 @@ class Carnet{
                         this.neighbors[i].push(neighbors[i]);
                 }
                 
+        }
+
+        setNeighbor(neighbor, carnet, distance){
+                this.neighbors[neighbor] = [carnet, distance]
+        }
+
+        getNeighbors(){
+                return this.neighbors;
+        }
+
+        setInvalidCarnet(isCarnetInvalid){
+                this.invalidCarnet = isCarnetInvalid;
+        }
+
+        isCarnetInvalid(){
+                return this.invalidCarnet;
+        }
+
+        setCurrentAccount(animal, amount){
+                this.currentAccounts[animal] = amount;
+        }
+
+        getCurrentAccounts(){
+                return this.currentAccounts;
         }
 
         addTransaction(transaction){
@@ -197,13 +250,15 @@ class Carnet{
                 //si oui, l'ajoute, si non, envoie une erreur
 
                 if (!this.checkAccount(transaction)){
-                        throw "An invalid transaction has been received !"
+                        // throw "An invalid transaction has been received !"
+                        this.setInvalidCarnet();
+                        alert(this.getProperty() + " a reçu une transaction incompatible !\nAppuyez sur reset pour réinitialiser le village.")
                 }
-
-                this.addAndApplyTransaction(transaction)
-        
-                //transmet ensuite la transaction aux voisins, sauf au from
-                this.transmitTransaction(transaction, from)
+                else{
+                        this.addAndApplyTransaction(transaction)
+                        //transmet ensuite la transaction aux voisins, sauf au from
+                        this.transmitTransaction(transaction, from)
+                }
         }
 
         transmitTransaction(transaction, exclude){
@@ -253,12 +308,30 @@ class Village{
                 }
         }
 
+        clone(){
+                let cloneVillage = new Village(this.getStartMoney())
+                
+                for (let property in this.getCarnets()) {
+                        cloneVillage.addCarnet(property, this.getCarnets()[property].clone())
+                }
+
+                return cloneVillage
+        }
+
         getCarnets(){
                 return this.villagers;
         }
 
+        addCarnet(property, carnet){
+                this.getCarnets()[property] = carnet;
+        }
+
         getCarnet(property){
                 return this.villagers[property];
+        }
+
+        getAnimals(){
+                return this.animals;
         }
 
         getStartMoney(){
@@ -284,17 +357,12 @@ class Village{
         addAndApplyTransactionToAll(transaction){
                 for(let carnet in this.getCarnets()){
                         if(transaction.isValidated()){
-                                this.getCarnets()[carnet].addAndApplyTransaction(this.cloneTransaction(transaction))
+                                this.getCarnets()[carnet].addAndApplyTransaction(transaction.clone())
                         }
                         else{
-                                this.getCarnets()[carnet].addTransaction(this.cloneTransaction(transaction))
+                                this.getCarnets()[carnet].addTransaction(transaction.clone())
                         }
                 }
-        }
-
-        // Return an exact copy of the same transaction
-        cloneTransaction(transaction){
-                return new Transaction(transaction.getFrom(), transaction.getTo(), transaction.getAmount(), transaction.isValidated())
         }
 }
 
@@ -698,7 +766,13 @@ moneyName :
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
-                this.state = {startMoney: this.props.village.getStartMoney(), village : this.props.village}
+                this.state = {
+                        startMoney: this.props.village.getStartMoney(), 
+                        village : this.props.village,
+                        invalidCarnet : false,
+                        cloneVillage : this.props.village.clone(),
+                        selectedVillager : ""
+                }
 
                 this.transmitTransaction = this.transmitTransaction.bind(this)
         }
@@ -706,15 +780,49 @@ class VillageBlock extends Component {
         //TODO Reset du village
 
         clickMe(e){
-                sendLetter("Singe", "Grenouille")
+                
                 // Add functions here
-
+                this.fullReset()
         }
 
         transmitTransaction(property, transaction, exclude){
                 console.log("Let's go")
                 this.state.village.getCarnet(property).transmitTransaction(transaction, exclude)
                 this.setState({village : this.state.village})
+                setTimeout(() => {this.setState({})}, 9000);
+                setTimeout(() => {this.alertInvalidCarnet()}, 9000);
+                setTimeout(() => {this.setState({})}, 18000);
+                setTimeout(() => {this.alertInvalidCarnet()}, 18000);
+                setTimeout(() => {this.setState({})}, 27000);
+                setTimeout(() => {this.alertInvalidCarnet()}, 27000);
+                setTimeout(() => {this.setState({})}, 36000);
+                setTimeout(() => {this.alertInvalidCarnet()}, 36000);
+        }
+
+        alertInvalidCarnet(){
+                if(!(this.state.invalidCarnet)){
+                        for (let index in this.state.village.getCarnets()) {
+                                if (this.state.village.getCarnets()[index].isCarnetInvalid()){
+                                        this.setState({invalidCarnet : true})
+                                }
+                        }
+                }
+        }
+
+        fullReset(){
+                let cloneVillage = this.state.cloneVillage
+
+                this.setState({startMoney: cloneVillage.getStartMoney(), 
+                        village : cloneVillage,
+                        invalidCarnet : false,
+                        cloneVillage : cloneVillage.clone(),
+                        selectedVillager : ""
+                })
+
+                const letters = document.getElementsByClassName('letter');
+                console.log(letters)
+                while (letters.length > 0) letters[0].remove();
+
         }
 
         //TODO Faire en sorte que ça s'ajoute pas en dernière place
@@ -723,6 +831,8 @@ class VillageBlock extends Component {
                 console.log("===================================================")
                 console.log("Etat du village en state")
                 console.log(this.state.village)
+                console.log("Etat du clone du village")
+                console.log(this.state.cloneVillage)
                 console.log("Villageois sélectionné")
                 console.log(this.state.selectedVillager)
         }
@@ -741,9 +851,21 @@ class VillageBlock extends Component {
         render(){
                 var fulltext = []
 
-                // D'abord, affiche le village
+                let valid = true;
+                let invalidCarnet = "";
 
-                fulltext.push(<div id="villageContainer" class="villageContainer">
+                for (let index in this.state.village.getCarnets()) {
+                        if (this.state.village.getCarnets()[index].isCarnetInvalid()){
+                                valid = false;
+                                invalidCarnet = this.state.village.getCarnets()[index].getProperty();
+                        }
+                }
+
+                // D'abord, affiche le village
+                // TODO Bouton reset
+
+                if(valid){
+                        fulltext.push(<div id="villageContainer" class="villageContainer">
                         <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class = "clickable" width="120" height="120"></img>
                         <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class = "clickable" width="120" height="120"></img>
                         <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class = "clickable" width="120" height="120"></img>
@@ -751,23 +873,37 @@ class VillageBlock extends Component {
                         <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class = "clickable" width="120" height="120"></img>
                         <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class = "clickable" width="120" height="120"></img>
                 </div>)
+                }
+                else{
+                        fulltext.push(<div id="villageContainer" class="villageContainer">
+                        <img src={singemaison} id="singevillager" width="120" height="120"></img>
+                        <img src={grenouillemaison} id="grenouillevillager" width="120" height="120"></img>
+                        <img src={pingouinmaison} id="pingouinvillager" width="120" height="120"></img>
+                        <img src={paresseuxmaison} id="paresseuxvillager" width="120" height="120"></img>
+                        <img src={toucanmaison} id="toucanvillager" width="120" height="120"></img>
+                        <img src={chatmaison} id="chatvillager" width="120" height="120"></img>
+                </div>)                        
+                }
+
 
                 // Si un carnet est sélectionné, l'affiche en dessous
 
-                for (let index in this.state.village.getCarnets()) {
-                        if(this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager){
-                                fulltext.push(<div key = {index}>
-                                        {this.state.village.getCarnets()[index].getProperty()}
-                                                <CarnetBlock 
-                                                        carnet = {this.state.village.getCarnets()[index]}
-                                                        limit = {this.props.limit}
-                                                        resettable = {false}
-                                                        inVillage = {true}
-                                                        transmitTransaction = {this.transmitTransaction}
-                                                        moneyName = {this.props.moneyName}
-                                                />
-                                        </div>
-                                )
+                if(valid){
+                        for (let index in this.state.village.getCarnets()) {
+                                if(this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager){
+                                        fulltext.push(<div key = {index}>
+                                                {this.state.village.getCarnets()[index].getProperty()}
+                                                        <CarnetBlock 
+                                                                carnet = {this.state.village.getCarnets()[index]}
+                                                                limit = {this.props.limit}
+                                                                resettable = {false}
+                                                                inVillage = {true}
+                                                                transmitTransaction = {this.transmitTransaction}
+                                                                moneyName = {this.props.moneyName}
+                                                        />
+                                                </div>
+                                        )
+                                }
                         }
                 }
 

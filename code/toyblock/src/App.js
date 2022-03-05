@@ -21,6 +21,8 @@ const baseword = "Bonjour"
 
 const test = false
 
+// TODO Licence du projet
+
 class HandlingBlock extends Component {
 
   constructor(props) {
