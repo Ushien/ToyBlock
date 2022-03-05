@@ -205,8 +205,9 @@ class Carnet{
                 if(!this.isObsolete()){
                         if (!this.checkAccount(transaction)){
                                 // throw "An invalid transaction has been received !"
-                                this.setInvalidCarnet();
+                                this.setInvalidCarnet(true);
                                 alert(this.getProperty() + " a reçu une transaction incompatible !\nAppuyez sur reset pour réinitialiser le village.")
+
                         }
                         else{
                                 this.addAndApplyTransaction(transaction)
@@ -217,7 +218,7 @@ class Carnet{
         }
 
         transmitTransaction(transaction, exclude){
-                console.assert(transaction.isValidated(), "Trying to transmit a invalidated transaction");
+                console.assert(transaction.isValidated(), "Trying to transmit a non-validated transaction");
 
                 for (var i in this.neighbors){
                         if (i !== exclude){
