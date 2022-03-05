@@ -3,9 +3,10 @@
 import './App.css';
 import React, { Component } from 'react'
 import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {Carnet, CarnetBlock, HashingBlock, animals, Village, VillageBlock, neighbors} from './blockchain.js'
+import {CarnetBlock, HashingBlock, animals, VillageBlock, neighbors} from './components.js'
 import {BlocTest} from './Test.js'
 import coffreVisual from './visuals/coffre.png'
+import {Carnet, Village, Transaction} from './classes.js'
 
 /*
 Here you can change the base parameters of the website
@@ -15,13 +16,14 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 7
+const startdistance = 1
 const defaultname = "Toycoin"
 const baseword = "Bonjour"
 
 const test = false
 
 // TODO Licence du projet
+// TODO Debug nom trop long
 
 class HandlingBlock extends Component {
 
@@ -360,7 +362,6 @@ class Bloc3 extends Component { //Signature électronique
             limit = {8} 
             resettable = {true}
             moneyName = {this.props.moneyname}
-            testing = {true}
           />
         </div>
         <div class="paragraph">

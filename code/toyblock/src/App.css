@@ -386,7 +386,7 @@ body {
 
         animation-name: downupanimation, hideAnimation;
         animation-duration: 9000ms, 0ms;
-        animation-delay: 0ms, 9000ms; /* add this */
+        animation-delay: 0ms, 9000ms;
         animation-timing-function: ease, ease-in;
         animation-iteration-count: 1, 1;
         animation-fill-mode: none, forwards;
@@ -396,18 +396,17 @@ body {
         0% {    margin-top: 0%;
                 }
         100% {
-                margin-top: 15%;
+                margin-top: 20%;
                 visibility: hidden;
                 }
         }
 
 @keyframes downupanimation {
         0% {    margin-top: 0%;
-                display: inherit;
                 }
         100% {
-                margin-top: -15%;
-                display : none;
+                margin-top: -20%;
+                visibility: hidden;
                 }
         }
 
