@@ -569,7 +569,7 @@ class CarnetBlock extends Component {
 
         // Debug helper
         // Useful to trigger some functions
-        touchMe(){
+        clickMe(){
                 console.log("touchMe triggered")
                 // Add functions here
         }
@@ -744,18 +744,18 @@ class CarnetBlock extends Component {
                 }
 
                 // Debug buttons
-                /*
-                fullRender.push(
-                        <div>
-                                <button onClick={() => this.check()}> 
-                                        Vérifier l'état du carnet 
-                                </button>
-                                <button onClick={() => this.touchMe()}>
-                                                Bouton de test 
-                                </button>
-                        </div>
-                )
-                */
+                if (this.props.testing){
+                        fullRender.push(
+                                <div>
+                                        <button onClick={() => this.check()}> 
+                                                Vérifier l'état du carnet 
+                                        </button>
+                                        <button onClick={() => this.clickMe()}>
+                                                        Bouton de test 
+                                        </button>
+                                </div>
+                        )
+                }
 
                 return(
                         <div>
@@ -868,12 +868,10 @@ class VillageBlock extends Component {
                 var fulltext = []
 
                 let valid = true;
-                let invalidCarnet = "";
 
                 for (let index in this.state.village.getCarnets()) {
                         if (this.state.village.getCarnets()[index].isCarnetInvalid()){
                                 valid = false;
-                                invalidCarnet = this.state.village.getCarnets()[index].getProperty();
                         }
                 }
 
@@ -882,23 +880,31 @@ class VillageBlock extends Component {
 
                 if(valid){
                         fulltext.push(<div id="villageContainer" class="villageContainer">
-                        <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class = "clickable" width="120" height="120"></img>
-                        <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class = "clickable" width="120" height="120"></img>
-                        <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class = "clickable" width="120" height="120"></img>
-                        <img src={paresseuxmaison} onClick={() => this.selectVillager("Paresseux")} id="paresseuxvillager" class = "clickable" width="120" height="120"></img>
-                        <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class = "clickable" width="120" height="120"></img>
-                        <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class = "clickable" width="120" height="120"></img>
-                </div>)
+                                <div id = "h-l-pathway"></div>
+                                <div id = "v-l-pathway"></div>
+                                <div id = "v-s-pathway"></div>
+                                <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class = "clickable" width="120" height="120"></img>
+                                <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class = "clickable" width="120" height="120"></img>
+                                <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class = "clickable" width="120" height="120"></img>
+                                <img src={paresseuxmaison} onClick={() => this.selectVillager("Paresseux")} id="paresseuxvillager" class = "clickable" width="120" height="120"></img>
+                                <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class = "clickable" width="120" height="120"></img>
+                                <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class = "clickable" width="120" height="120"></img>
+                                <button id = "buttonResetVillage" class = "button" onClick={() => this.fullReset()}> Reset </button>
+                        </div>)
                 }
                 else{
                         fulltext.push(<div id="villageContainer" class="villageContainer">
-                        <img src={singemaison} id="singevillager" width="120" height="120"></img>
-                        <img src={grenouillemaison} id="grenouillevillager" width="120" height="120"></img>
-                        <img src={pingouinmaison} id="pingouinvillager" width="120" height="120"></img>
-                        <img src={paresseuxmaison} id="paresseuxvillager" width="120" height="120"></img>
-                        <img src={toucanmaison} id="toucanvillager" width="120" height="120"></img>
-                        <img src={chatmaison} id="chatvillager" width="120" height="120"></img>
-                </div>)                        
+                                <div id = "h-l-pathway"></div>
+                                <div id = "v-l-pathway"></div>
+                                <div id = "v-s-pathway"></div>
+                                <img src={singemaison} id="singevillager" width="120" height="120"></img>
+                                <img src={grenouillemaison} id="grenouillevillager" width="120" height="120"></img>
+                                <img src={pingouinmaison} id="pingouinvillager" width="120" height="120"></img>
+                                <img src={paresseuxmaison} id="paresseuxvillager" width="120" height="120"></img>
+                                <img src={toucanmaison} id="toucanvillager" width="120" height="120"></img>
+                                <img src={chatmaison} id="chatvillager" width="120" height="120"></img>
+                                <button id = "buttonResetVillage" class = "button" onClick={() => this.fullReset()}> Reset </button>
+                        </div>)                        
                 }
 
 
@@ -923,16 +929,18 @@ class VillageBlock extends Component {
                         }
                 }
 
-                fulltext.push(
-                        <div>
-                        <button onClick={() => this.clickMe()}>
-                                Bouton de test 
-                        </button>
-                        <button onClick={() => this.check()}>
-                                Vérifier état 
-                        </button>
-                        </div>
-                )
+                if (this.props.testing){
+                        fulltext.push(
+                                <div>
+                                <button onClick={() => this.clickMe()}>
+                                        Bouton de test 
+                                </button>
+                                <button onClick={() => this.check()}>
+                                        Vérifier état 
+                                </button>
+                                </div>
+                        )
+                }
 
                 return(
                         <ul>

@@ -436,3 +436,39 @@ body {
         height: 0;
         }
 }
+
+#buttonResetVillage{
+        position:absolute;
+        left:43.5%;
+        top:75%;
+        font-size: 1.6em;
+        border-radius: 20px;
+        text-align: center;
+        align-items: center;
+}
+
+#h-l-pathway{
+        position: absolute;
+        top: 35%;
+        left: 15%;
+        width: 65%;
+        height: 120px;
+        background-color:#bbf0e8;  
+}
+
+#v-l-pathway{
+        position: absolute;
+        left: 15%;
+        width: 120px;
+        height: 85%;
+        background-color:#bbf0e8;
+}
+
+#v-s-pathway{
+        position:absolute;
+        top: 35%;
+        left: 75%;
+        width: 120px;
+        height: 50%;
+        background-color:#bbf0e8;       
+}
