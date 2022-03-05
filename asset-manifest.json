@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/ToyBlock/static/css/main.ba2269ca.chunk.css",
-    "main.js": "/ToyBlock/static/js/main.d464e9aa.chunk.js",
-    "main.js.map": "/ToyBlock/static/js/main.d464e9aa.chunk.js.map",
+    "main.css": "/ToyBlock/static/css/main.c56db915.chunk.css",
+    "main.js": "/ToyBlock/static/js/main.7d6f9637.chunk.js",
+    "main.js.map": "/ToyBlock/static/js/main.7d6f9637.chunk.js.map",
     "runtime-main.js": "/ToyBlock/static/js/runtime-main.fb5d9d5e.js",
     "runtime-main.js.map": "/ToyBlock/static/js/runtime-main.fb5d9d5e.js.map",
     "static/js/2.1b4d6139.chunk.js": "/ToyBlock/static/js/2.1b4d6139.chunk.js",
@@ -10,15 +10,23 @@
     "static/js/3.b8be1e69.chunk.js": "/ToyBlock/static/js/3.b8be1e69.chunk.js",
     "static/js/3.b8be1e69.chunk.js.map": "/ToyBlock/static/js/3.b8be1e69.chunk.js.map",
     "index.html": "/ToyBlock/index.html",
-    "static/css/main.ba2269ca.chunk.css.map": "/ToyBlock/static/css/main.ba2269ca.chunk.css.map",
+    "static/css/main.c56db915.chunk.css.map": "/ToyBlock/static/css/main.c56db915.chunk.css.map",
     "static/js/2.1b4d6139.chunk.js.LICENSE.txt": "/ToyBlock/static/js/2.1b4d6139.chunk.js.LICENSE.txt",
     "static/media/App.css": "/ToyBlock/static/media/BabyDoll.8dfc44c9.ttf",
-    "static/media/flech.fc44a91f.png": "/ToyBlock/static/media/flech.fc44a91f.png"
+    "static/media/chatmaison.e178964d.png": "/ToyBlock/static/media/chatmaison.e178964d.png",
+    "static/media/coffre.6921c9a8.png": "/ToyBlock/static/media/coffre.6921c9a8.png",
+    "static/media/flech.fc44a91f.png": "/ToyBlock/static/media/flech.fc44a91f.png",
+    "static/media/grenouillemaison.4881a37b.png": "/ToyBlock/static/media/grenouillemaison.4881a37b.png",
+    "static/media/lettre.15d4230e.png": "/ToyBlock/static/media/lettre.15d4230e.png",
+    "static/media/paresseuxmaison.cf59bb14.png": "/ToyBlock/static/media/paresseuxmaison.cf59bb14.png",
+    "static/media/pingouinmaison.42779aa8.png": "/ToyBlock/static/media/pingouinmaison.42779aa8.png",
+    "static/media/singemaison.bab0dec6.png": "/ToyBlock/static/media/singemaison.bab0dec6.png",
+    "static/media/toucanmaison.a33c27a6.png": "/ToyBlock/static/media/toucanmaison.a33c27a6.png"
   },
   "entrypoints": [
     "static/js/runtime-main.fb5d9d5e.js",
     "static/js/2.1b4d6139.chunk.js",
-    "static/css/main.ba2269ca.chunk.css",
-    "static/js/main.d464e9aa.chunk.js"
+    "static/css/main.c56db915.chunk.css",
+    "static/js/main.7d6f9637.chunk.js"
   ]
 }
