@@ -120,7 +120,7 @@ class Carnet{
                 this.neighbors = {};
                 this.villagers = animals;
                 this.invalidCarnet = false;
-                this.version = 0;
+                this.obsolete = false;
 
                 for (let index = 0; index < animals.length; index++){
                         this.currentAccounts[animals[index]] = startmoney;
@@ -231,8 +231,12 @@ class Carnet{
                 return this.startmoney;
         }
 
-        incrementVersion(){
-                this.version = this.version+1
+        setObsolete(){
+                this.obsolete = true;
+        }
+
+        isObsolete(){
+                return this.obsolete;
         }
 
         // Vérifie qu'une nouvelle transaction est compatible avec les transactions déjà en place.
@@ -262,10 +266,7 @@ class Carnet{
 
                 //vérifie que la transaction est compatible avec les autres
                 //si oui, l'ajoute, si non, envoie une erreur
-                console.log(this.property)
-                console.log(version)
-                console.log(this.version)
-                if(version == this.version){
+                if(!this.isObsolete()){
                         if (!this.checkAccount(transaction)){
                                 // throw "An invalid transaction has been received !"
                                 this.setInvalidCarnet();
@@ -358,6 +359,12 @@ class Village{
         incrementVersions(){
                 for(let carnet in this.getCarnets()){
                         this.getCarnets()[carnet].incrementVersion()
+                }
+        }
+
+        setObsolete(){
+                for(let carnet in this.getCarnets()){
+                        this.getCarnets()[carnet].setObsolete()
                 }
         }
 
@@ -793,7 +800,6 @@ class VillageBlock extends Component {
                         startMoney: this.props.village.getStartMoney(), 
                         village : this.props.village,
                         invalidCarnet : false,
-                        cloneVillage : this.props.village.clone(),
                         selectedVillager : ""
                 }
 
@@ -833,13 +839,13 @@ class VillageBlock extends Component {
         }
 
         fullReset(){
-                let cloneVillage = this.state.cloneVillage.clone();
-                cloneVillage.incrementVersions();
 
-                this.setState({startMoney: cloneVillage.getStartMoney(), 
-                        village : cloneVillage,
+                this.state.village.setObsolete();
+
+                let newVillage = new Village(this.props.parameters[0], this.props.parameters[1], this.props.parameters[2], this.props.parameters[3])
+                this.setState({startMoney: newVillage.getStartMoney(), 
+                        village : newVillage,
                         invalidCarnet : false,
-                        cloneVillage : cloneVillage.clone(),
                         selectedVillager : ""
                 })
 

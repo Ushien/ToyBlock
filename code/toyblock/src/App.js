@@ -355,6 +355,7 @@ class Bloc3 extends Component { //Signature électronique
         </div>
         <div class="marged centeredtext">
           <VillageBlock 
+            parameters = {[15, animals, neighbors, true]}
             village = {village} 
             limit = {8} 
             resettable = {true}
