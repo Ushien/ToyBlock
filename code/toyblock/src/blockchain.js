@@ -145,12 +145,13 @@ class Carnet{
                 }
 
                 // Clone les voisins
-                for (let neighbor in this.getNeighbors()){
-                        cloneCarnet.setNeighbor(neighbor, this.getNeighbors()[neighbor][0], this.getNeighbors()[neighbor][1])
-                }
+                cloneCarnet.neighbors = this.neighbors;
 
                 // Clone la validité du carnet
                 cloneCarnet.setInvalidCarnet(this.isCarnetInvalid())
+
+                // Clone la version du carnet
+                cloneCarnet.setVersion(this.getVersion())
 
                 return cloneCarnet;
         }
@@ -186,6 +187,14 @@ class Carnet{
 
         getCurrentAccounts(){
                 return this.currentAccounts;
+        }
+
+        setVersion(version){
+                this.version = version;
+        }
+
+        getVersion(){
+                return this.version;
         }
 
         addTransaction(transaction){
@@ -253,7 +262,9 @@ class Carnet{
 
                 //vérifie que la transaction est compatible avec les autres
                 //si oui, l'ajoute, si non, envoie une erreur
-
+                console.log(this.property)
+                console.log(version)
+                console.log(this.version)
                 if(version == this.version){
                         if (!this.checkAccount(transaction)){
                                 // throw "An invalid transaction has been received !"
@@ -273,11 +284,7 @@ class Carnet{
 
                 for (var i in this.neighbors){
                         if (i !== exclude){
-                                console.log("On envoie la transaction de ")
-                                console.log(this.property)
                                 this.sendTransaction(transaction, this.neighbors[i]) 
-                                console.log("La transaction de ... est envoyée")
-                                console.log(this.property)
                         }
                 }
         }
@@ -286,6 +293,7 @@ class Carnet{
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
                 
                 let version = this.version
+                console.log(this.version)
                 sendLetter(this.property, destination[0].getProperty())
                 setTimeout(() => {destination[0].receiveTransaction(transaction, this.property, version)} , this.getMillisecondsFromDistance(destination[1]));
         }
@@ -300,10 +308,11 @@ class Carnet{
 
 class Village{
 
-        constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false){
+        constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false, version = 0){
 
                 this.startmoney = startmoney;
                 this.villagers = {};
+                this.version = version;
 
                 // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
@@ -796,7 +805,7 @@ class VillageBlock extends Component {
         clickMe(e){
                 
                 // Add functions here
-                this.fullReset()
+                this.state.village.incrementVersions();
         }
 
         transmitTransaction(property, transaction, exclude){
@@ -824,9 +833,8 @@ class VillageBlock extends Component {
         }
 
         fullReset(){
-                this.state.village.incrementVersions();
-
-                let cloneVillage = this.state.cloneVillage;
+                let cloneVillage = this.state.cloneVillage.clone();
+                cloneVillage.incrementVersions();
 
                 this.setState({startMoney: cloneVillage.getStartMoney(), 
                         village : cloneVillage,
@@ -836,7 +844,6 @@ class VillageBlock extends Component {
                 })
 
                 const letters = document.getElementsByClassName('letter');
-                console.log(letters)
                 while (letters.length > 0) letters[0].remove();
 
         }
@@ -851,6 +858,10 @@ class VillageBlock extends Component {
                 console.log(this.state.cloneVillage)
                 console.log("Villageois sélectionné")
                 console.log(this.state.selectedVillager)
+                console.log("Version du clone")
+                console.log(this.state.cloneVillage.getCarnet("Paresseux").version)
+                console.log("Version du state")
+                console.log(this.state.village.getCarnet("Paresseux").version)
         }
 
         selectVillager(animal){

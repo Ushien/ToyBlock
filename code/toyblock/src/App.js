@@ -359,6 +359,7 @@ class Bloc3 extends Component { //Signature électronique
             limit = {8} 
             resettable = {true}
             moneyName = {this.props.moneyname}
+            testing = {true}
           />
         </div>
         <div class="paragraph">
