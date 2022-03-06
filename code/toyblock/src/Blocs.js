@@ -1,4 +1,5 @@
 //TODO mettre des mots en gras
+//TODO Mettre des paragraphes
 
 function introtext1(){
         return(<div>
@@ -283,4 +284,16 @@ function text9(){
         // Dessin fête
 }
 
-export {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9}
+export {introtext1, 
+        introtext2, 
+        introtext3, 
+        introtext4, 
+        text1, text1_1, 
+        text2, 
+        text3, text3_1, 
+        text4, 
+        text5, 
+        text6, text6_1, 
+        text7, 
+        text8, 
+        text9}

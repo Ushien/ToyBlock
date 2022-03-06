@@ -1,5 +1,9 @@
 import {sendLetter} from './components.js'
 
+
+// TODO Remettre de l'ordre dans les propriétés
+// TODO Retirer le système de versions
+
 class Transaction{
         constructor(from, to, amount, validated){
                 this.from = from;
@@ -328,4 +332,4 @@ class Village{
         }
 }
 
-export {Village, Carnet, Transaction}
+export {Transaction, Carnet, Village}

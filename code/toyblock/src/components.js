@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Transaction, Village, Village} from './classes.js'
+import {Transaction, Carnet, Village} from './classes.js'
 
 import chatVisual from './visuals/Chat.png';
 import grenouilleVisual from './visuals/Grenouille.png'
@@ -464,9 +464,11 @@ moneyName :
 class VillageBlock extends Component {
         constructor(props) {
                 super(props);
+
+                let village = new Village(this.props.basemoney, this.props.animals, this.props.neighbors, this.props.fillEmptyTransaction);
                 this.state = {
-                        startMoney: this.props.village.getStartMoney(), 
-                        village : this.props.village,
+                        startMoney: village.getStartMoney(), 
+                        village : village,
                         invalidCarnet : false,
                         selectedVillager : ""
                 }
@@ -508,7 +510,7 @@ class VillageBlock extends Component {
 
                 this.state.village.setObsolete();
 
-                let newVillage = new Village(this.props.parameters[0], this.props.parameters[1], this.props.parameters[2], this.props.parameters[3])
+                let newVillage = new Village(this.props.basemoney, this.props.animals, this.props.neighbors, this.props.fillEmptyTransaction);
                 this.setState({startMoney: newVillage.getStartMoney(), 
                         village : newVillage,
                         invalidCarnet : false,
@@ -597,15 +599,15 @@ class VillageBlock extends Component {
                                 if(this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager){
                                         fulltext.push(<div key = {index}>
                                                 {this.state.village.getCarnets()[index].getProperty()}
-                                                        <CarnetBlock 
-                                                                carnet = {this.state.village.getCarnets()[index]}
-                                                                limit = {this.props.limit}
-                                                                resettable = {false}
-                                                                inVillage = {true}
-                                                                transmitTransaction = {this.transmitTransaction}
-                                                                moneyName = {this.props.moneyName}
-                                                        />
-                                                </div>
+                                                <CarnetBlock 
+                                                        carnet = {this.state.village.getCarnets()[index]}
+                                                        limit = {this.props.limit}
+                                                        resettable = {false}
+                                                        inVillage = {true}
+                                                        transmitTransaction = {this.transmitTransaction}
+                                                        moneyName = {this.props.moneyName}
+                                                />
+                                        </div>
                                         )
                                 }
                         }

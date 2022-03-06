@@ -1,12 +1,14 @@
 // Imports
 
-import './App.css';
 import React, { Component } from 'react'
+
+import './App.css';
 import {introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9} from './Blocs.js'
-import {CarnetBlock, HashingBlock, animals, VillageBlock, neighbors} from './components.js'
+import {CarnetBlock, VillageBlock, HashingBlock, animals, neighbors} from './components.js'
 import {BlocTest} from './Test.js'
+import {Carnet} from './classes.js'
+
 import coffreVisual from './visuals/coffre.png'
-import {Carnet, Village, Transaction} from './classes.js'
 import flechVisual from './visuals/flech.png'
 
 /*
@@ -17,11 +19,11 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 1
-const defaultname = "Toycoin"
-const baseword = "Bonjour"
+const startdistance = 1;
+const defaultname = "Toycoin";
+const baseword = "Bonjour";
 
-const test = false
+const test = false;
 
 // TODO Debug nom trop long
 
@@ -328,7 +330,6 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 
 class Bloc3 extends Component { //Signature électronique
   render(){
-    let village = new Village(15, animals, neighbors, true)
     return (<div>
       <div class="paragraph"> <br/> <br/> <br/> 
         <div>
@@ -349,8 +350,11 @@ class Bloc3 extends Component { //Signature électronique
         </div>
         <div class="marged centeredtext">
           <VillageBlock 
-            parameters = {[15, animals, neighbors, true]}
-            village = {village} 
+            basemoney = {15}
+            animals = {animals}
+            neighbors = {neighbors}
+            fillEmptyTransaction = {true}
+
             limit = {8} 
             resettable = {true}
             moneyName = {this.props.moneyname}
