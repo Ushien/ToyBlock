@@ -33,8 +33,6 @@ class HandlingBlock extends Component {
     this.incrementDistance = this.incrementDistance.bind(this)
     this.changeName = this.changeName.bind(this)
     this.state = {distance: startdistance, moneyname: defaultname};
-    console.log("Voici l'état initial du state")
-    console.log(this.state)
   }
 
   incrementDistance() {
@@ -47,9 +45,8 @@ class HandlingBlock extends Component {
   }
 
   changeName(newname) {
-    console.log("This is the old money name: " + this.state.moneyname)
     this.setState({moneyname: newname})
-    console.log("The name is changed to " + this.state.moneyname)
+    console.log("ùoneyname is changed to " + this.state.moneyname)
   }
 
   render(){ 
@@ -161,7 +158,6 @@ class BlocIntro1 extends Component {
   }
 
   handleClick = (e) => {
-    console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
 
@@ -191,7 +187,6 @@ class BlocIntro2 extends Component {
   }
 
   handleClick = (e) => {
-    console.log("The screen is clicked")
     this.props.onDistanceChange();
   }
   render(){
@@ -213,7 +208,6 @@ class BlocIntro3 extends Component {
   }
 
   handleClick = (e) => {
-    console.log("The button is clicked")
     this.props.onDistanceChange();
   }
 
@@ -234,7 +228,6 @@ class BlocIntro4 extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log("The form is submitted")
     this.props.onDistanceChange();
   }
 
@@ -274,11 +267,9 @@ class Bloc1 extends Component { //Notation des transactions
 
   handleScroll = (e) => {
     const event = e.target.scrollingElement;
-    console.log("The screen is scrolled");
     const bottom = Math.abs(event.scrollHeight - (event.scrollTop + event.clientHeight)) <= 1;
 
     if (bottom){
-      console.log("Enter the condition")
       this.props.onDistanceChange();
     }
   }

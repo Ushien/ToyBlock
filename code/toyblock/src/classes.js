@@ -229,9 +229,7 @@ class Carnet{
 
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
-                
                 let version = this.version
-                console.log(this.version)
                 sendLetter(this.property, destination[0].getProperty())
                 setTimeout(() => {destination[0].receiveTransaction(transaction, this.property, version)} , this.getMillisecondsFromDistance(destination[1]));
         }
@@ -311,7 +309,7 @@ class Village{
         }
 
         // Won't apply any transaction
-        // Don't use it outside of testin
+        // Don't use it outside of testing
         addTransactionToAll(transaction){
                 for(let carnet in this.getCarnets()){
                         this.getCarnets()[carnet].addTransaction(transaction)
