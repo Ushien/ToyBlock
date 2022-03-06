@@ -90,23 +90,6 @@ function sendLetter(from, to) {
 // React components                                   //
 ////////////////////////////////////////////////////////
 
-/*
- index={index}
- from={this.state.transactions[index].getFrom()}
- to={this.state.transactions[index].getTo()}
- amount={this.state.transactions[index].getAmount()}
- validated={this.state.transactions[index].isValidated()}
- validable={this.state.validable[index]}
- validateTransaction={this.validateTransaction}
- handleChangeAmount={this.handleChangeAmount}
- generateNextVillager={this.generateNextVillager}
- moneyName={this.props.moneyName}
- */
- // Since React components structure is different I 
- /*
-
-
- */
 /**
  * Component displaying a transaction line
  */
@@ -128,6 +111,8 @@ class TransactionLine extends Component {
          */
         constructor(props) {
                 super(props);
+
+                // Binding functions
                 this.validateTransaction = this.validateTransaction.bind(this);
                 this.handleChangeAmount = this.handleChangeAmount.bind(this);
                 this.generateNextVillager = this.generateNextVillager.bind(this);
@@ -261,28 +246,32 @@ class TransactionLine extends Component {
         }
 }
 
-
-// Component displaying a transaction list
-
-
-// TODO Finir la spec des props
-/*
-Waited props:
-
-notebook : the notebook object you want to display
-limit : the 
-resettable = {false}
-inVillage : set to true if you call this component from a VillageBlock component
-transmitTransaction = a transmission function from a VillageBlock component (don't need to pass it if you're not calling from a VillageBlock)
-moneyName : 
-*/
 /**
+ * Component displaying a notebook
  * 
+ * @property {Notebook} notebook - The notebook we want to display
+ * @property {Transaction[]} transactions - The list of transactions contained in the notebook
+ * @property {string[]} villagers - All the villagers composing the village
+ * @property {string[][]} availableVillagers - The list of all the villagers available to be changed to
+ * @property {boolean[]} validable - Whether or not each transaction is validable
  */
 class NotebookBlock extends Component {
+        /**
+         * Display a notebook block
+         * 
+         * @param {Notebook} notebook - The notebook we want to display
+         * @param {number} limit - The maximum number of transactions we want to handle
+         * @param {boolean} resettable - Wheather or not the notebook component is resettable
+         * @param {string} moneyName - The name of the money
+         * 
+         * @param {boolean} [testing] - Wheather or not the test buttons should be displayed
+         * @param {boolean} [inVillage] - Wheather or not the component is part of a village component
+         * @param {function} [transmitTransaction] - Passed by the village component
+         */
         constructor(props) {
                 super(props);
 
+                // Define the available villagers for every transaction
                 let availableVillagers = []
                 for (let index = 0; index < this.props.notebook.getTransactions().length; index++) {
                         let newArray = [...this.props.notebook.getVillagers()];
@@ -291,6 +280,7 @@ class NotebookBlock extends Component {
                         availableVillagers.push(newArray)
                 }
 
+                // Set state
                 this.state = {
                         notebook: this.props.notebook,
                         transactions: this.props.notebook.getTransactions(),
@@ -299,6 +289,7 @@ class NotebookBlock extends Component {
                         validable: []
                 }
 
+                // Binding functions
                 this.transmitTransaction = this.transmitTransaction.bind(this)
                 this.validateTransaction = this.validateTransaction.bind(this);
                 this.handleChangeAmount = this.handleChangeAmount.bind(this);
@@ -307,8 +298,10 @@ class NotebookBlock extends Component {
                 this.updateValidable();
         }
 
-        // Debug helper
-        // Will display in the console the current state of the memory
+        /**
+         * Debug tool
+         * Display the current state of the component
+         */
         check() {
                 console.log("===================================================")
                 console.log("Les transactions actuelles")
@@ -324,22 +317,32 @@ class NotebookBlock extends Component {
                 // Add instructions here
         }
 
-        // Debug helper
-        // Useful to trigger some functions
+        /**
+         * Debug tool
+         * Add functions to freely trigger them
+         */
         clickMe() {
                 console.log("touchMe triggered")
-                // Add functions here
+                // Add instructions here
         }
 
+        /**
+         * Validate the transaction located at a given index
+         * 
+         * @param {number} index - The index of the transaction to validate
+         */
         validateTransaction(index) {
                 let newtransactions = this.state.transactions
-                console.log("Transaction validated")
-                newtransactions[index].validate();
 
+                // Validate the transaction
+                newtransactions[index].validate();
+                console.log("Transaction validated")
+
+                // Apply the transaction
                 let newnotebook = this.state.notebook
                 newnotebook.applyTransaction(newtransactions[index])
 
-                // S'il reste assez de place, crée une nouvelle transaction vide
+                // Create a new empty transaction if there's enough space
                 let newavailable = [...this.state.availableVillagers]
 
                 if (this.state.transactions.length < this.props.limit) {
@@ -347,33 +350,51 @@ class NotebookBlock extends Component {
                         newavailable.push(this.state.availableVillagers[index])
                 }
 
-                // Si y a des voisins, leur envoie une copie de la transaction
+                // Transmit the transaction if the component is part of a village
                 if (this.props.inVillage) {
                         this.transmitTransaction(newtransactions[index], "")
                 }
 
-                // Update l'affichage
-
+                // Render the displaying
                 this.setState({ transaction: newtransactions, notebook: newnotebook, availableVillagers: newavailable });
                 this.updateValidable()
         }
 
+        /**
+         * Transmit the transaction
+         * 
+         * @param {Transaction} transaction - The transaction to transmit
+         * @param {string} exclude - The neighbor name to exclude from the transmission
+         */
         transmitTransaction(transaction, exclude) {
                 if (this.props.inVillage) {
                         this.props.transmitTransaction(this.state.notebook.property, transaction, exclude)
                 }
         }
 
+        /**
+         * Update the amount of the transaction
+         * 
+         * @param {number} index - The index of the transaction we need to change the amount
+         * @param {number} newAmount - The new amount of the transaction
+         */
         handleChangeAmount(index, newAmount) {
+
+                // Update the amount of the transaction
                 let newtransactions = this.state.transactions
                 newtransactions[index].setAmount(newAmount);
 
-                // Update l'affichage
-
+                // Render the displaying
                 this.setState({ transaction: newtransactions });
                 this.updateValidable()
         }
 
+        /**
+         * Generates the next villager to switch for
+         * 
+         * @param {number} id - The index of the transaction we need to change the origin/destination
+         * @param {string} fromto - The property of the transaction we want to switch (from or to)
+         */
         generateNextVillager(id, fromto) {
 
                 let tempTransactions = this.state.transactions
@@ -381,10 +402,12 @@ class NotebookBlock extends Component {
 
                 let assertionBuddy = 0
 
-
+                // If the origin villager needs to change
                 if (fromto == "From") {
                         let arr = [...this.state.availableVillagers][id];
+                        // Add the current origin villager to the queue
                         arr.push(this.state.transactions[id].getFrom())
+                        // Pop the first villager in queue to the role
                         let newFrom = arr[0]
                         arr.shift()
                         tempTransactions[id].setFrom(newFrom)
@@ -393,9 +416,12 @@ class NotebookBlock extends Component {
                         assertionBuddy++
                 }
 
+                // If the destination villager needs to change
                 if (fromto == "To") {
                         let arr = [...this.state.availableVillagers][id];
+                        // Add the current destination villager to the queue
                         arr.push(this.state.transactions[id].getTo())
+                        // Pop the first villager in queue to the role
                         let newTo = arr[0]
                         arr.shift()
                         tempTransactions[id].setTo(newTo)
@@ -406,22 +432,28 @@ class NotebookBlock extends Component {
 
                 console.assert(assertionBuddy == 1, "Incorrect fromTo parameter")
 
-                // Update l'affichage
+                // Render the displaying
 
                 this.setState({ availableVillagers: totalArr, transaction: tempTransactions })
                 this.updateValidable()
         }
 
+        /**
+         * Update the validable property depending on if the transaction is validated or incompatible
+         */
         updateValidable() {
                 let temp = [...this.state.transactions];
                 let newValidable = []
 
+                // Check every transaction
                 for (let i = 0; i < temp.length; i++) {
                         newValidable.push(true)
+                        // Validated transactions or problematic amount transactions are not validable
                         if ((temp[i].isValidated()) || (isNaN(temp[i].getAmount()) || (temp[i].getAmount() <= 0))) {
                                 newValidable[i] = false
                         }
                         else {
+                                // Compatible transactions are validable
                                 if (this.state.notebook.checkAccount(temp[i])) {
                                         newValidable[i] = true;
                                 }
@@ -431,28 +463,39 @@ class NotebookBlock extends Component {
                         }
                 }
 
-                // Update l'affichage
+                // Render the displaying
 
                 this.setState({ validable: newValidable })
         }
 
-        // reset the notebook block with a brand new empty notebook
+        /**
+         * Create a new notebook with the same parameters and pass it to the component
+         */
         fullReset() {
 
+                // Create a new notebook
                 let notebook = new Notebook(this.state.notebook.getProperty(), this.state.notebook.getStartMoney(), this.state.notebook.getVillagers(), false)
-                notebook.addTransaction(new Transaction(
-                        this.state.transactions[this.state.transactions.length - 1].getFrom(),
-                        this.state.transactions[this.state.transactions.length - 1].getTo(),
-                        0,
-                        false
+                
+                // Add the last transaction to this new notebook
+                // Note that the last transaction is the non validated one
+                notebook.addTransaction(
+                        new Transaction(
+                                this.state.transactions[this.state.transactions.length - 1].getFrom(),
+                                this.state.transactions[this.state.transactions.length - 1].getTo(),
+                                0,
+                                false
+                        )
                 )
-                )
+
+                // Set the other elements of the state
                 let transactions = notebook.getTransactions()
                 let villagers = notebook.getVillagers()
                 let availableVillagers = []
                 availableVillagers.push(this.state.availableVillagers[this.state.availableVillagers.length - 1])
                 let validable = []
                 validable.push(false)
+
+                // Render the displaying
 
                 this.setState({
                         notebook: notebook,
@@ -465,11 +508,15 @@ class NotebookBlock extends Component {
                 this.updateValidable();
         }
 
-        // TODO Comment gérer une transaction qui entre alors que c'est complet ?
-
+        /**
+         * Define the displaying of the notebook
+         * 
+         * @returns {html} - The displaying of the notebook
+         */
         render() {
                 let fullRender = []
 
+                // Display every transaction
                 for (let index = 0; index < this.state.transactions.length; index++) {
                         fullRender.push(
                                 <div class="transactionLine">
@@ -498,7 +545,7 @@ class NotebookBlock extends Component {
                         )
                 }
 
-                // Debug buttons
+                // If the component is in test mode add debug buttons
                 if (this.props.testing) {
                         fullRender.push(
                                 <div>
@@ -520,8 +567,6 @@ class NotebookBlock extends Component {
         }
 
 }
-
-//Component displaying a village
 
 /*
 Waited props:
