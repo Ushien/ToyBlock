@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Transaction, Carnet, Village } from './classes.js'
+import { Transaction, Notebook, Village } from './classes.js'
 
 import chatVisual from './visuals/Chat.png';
 import grenouilleVisual from './visuals/Grenouille.png'
@@ -200,29 +200,29 @@ class TransactionLine extends Component {
 /*
 Waited props:
 
-carnet : the carnet object you want to display
+notebook : the notebook object you want to display
 limit : the 
 resettable = {false}
 inVillage : set to true if you call this component from a VillageBlock component
 transmitTransaction = a transmission function from a VillageBlock component (don't need to pass it if you're not calling from a VillageBlock)
 moneyName : 
 */
-class CarnetBlock extends Component {
+class NotebookBlock extends Component {
         constructor(props) {
                 super(props);
 
                 let availableVillagers = []
-                for (let index = 0; index < this.props.carnet.getTransactions().length; index++) {
-                        let newArray = [...this.props.carnet.getVillagers()];
-                        newArray.splice(newArray.lastIndexOf(this.props.carnet.getTransactions()[index].getFrom()), 1);
-                        newArray.splice(newArray.lastIndexOf(this.props.carnet.getTransactions()[index].getTo()), 1);
+                for (let index = 0; index < this.props.notebook.getTransactions().length; index++) {
+                        let newArray = [...this.props.notebook.getVillagers()];
+                        newArray.splice(newArray.lastIndexOf(this.props.notebook.getTransactions()[index].getFrom()), 1);
+                        newArray.splice(newArray.lastIndexOf(this.props.notebook.getTransactions()[index].getTo()), 1);
                         availableVillagers.push(newArray)
                 }
 
                 this.state = {
-                        carnet: this.props.carnet,
-                        transactions: this.props.carnet.getTransactions(),
-                        villagers: this.props.carnet.getVillagers(),
+                        notebook: this.props.notebook,
+                        transactions: this.props.notebook.getTransactions(),
+                        villagers: this.props.notebook.getVillagers(),
                         availableVillagers: availableVillagers,
                         validable: []
                 }
@@ -241,10 +241,10 @@ class CarnetBlock extends Component {
                 console.log("===================================================")
                 console.log("Les transactions actuelles")
                 console.log(this.state.transactions)
-                console.log("L'objet Carnet en props")
-                console.log(this.props.carnet)
-                console.log("L'objet Carnet en state")
-                console.log(this.state.carnet)
+                console.log("L'objet Notebook en props")
+                console.log(this.props.notebook)
+                console.log("L'objet Notebook en state")
+                console.log(this.state.notebook)
                 console.log("Les villageois disponibles pour chaque transaction")
                 console.log(this.state.availableVillagers)
                 console.log("Quelle transaction est validable ?")
@@ -264,14 +264,14 @@ class CarnetBlock extends Component {
                 console.log("On m\'a appelé ?")
                 newtransactions[index].validate();
 
-                let newcarnet = this.state.carnet
-                newcarnet.applyTransaction(newtransactions[index])
+                let newnotebook = this.state.notebook
+                newnotebook.applyTransaction(newtransactions[index])
 
                 // S'il reste assez de place, crée une nouvelle transaction vide
                 let newavailable = [...this.state.availableVillagers]
 
                 if (this.state.transactions.length < this.props.limit) {
-                        newcarnet.addTransaction(new Transaction(newtransactions[index].getFrom(), newtransactions[index].getTo(), 0, false))
+                        newnotebook.addTransaction(new Transaction(newtransactions[index].getFrom(), newtransactions[index].getTo(), 0, false))
                         newavailable.push(this.state.availableVillagers[index])
                 }
 
@@ -282,13 +282,13 @@ class CarnetBlock extends Component {
 
                 // Update l'affichage
 
-                this.setState({ transaction: newtransactions, carnet: newcarnet, availableVillagers: newavailable });
+                this.setState({ transaction: newtransactions, notebook: newnotebook, availableVillagers: newavailable });
                 this.updateValidable()
         }
 
         transmitTransaction(transaction, exclude) {
                 if (this.props.inVillage) {
-                        this.props.transmitTransaction(this.state.carnet.property, transaction, exclude)
+                        this.props.transmitTransaction(this.state.notebook.property, transaction, exclude)
                 }
         }
 
@@ -350,7 +350,7 @@ class CarnetBlock extends Component {
                                 newValidable[i] = false
                         }
                         else {
-                                if (this.state.carnet.checkAccount(temp[i])) {
+                                if (this.state.notebook.checkAccount(temp[i])) {
                                         newValidable[i] = true;
                                 }
                                 else {
@@ -364,26 +364,26 @@ class CarnetBlock extends Component {
                 this.setState({ validable: newValidable })
         }
 
-        // reset the carnet block with a brand new empty carnet
+        // reset the notebook block with a brand new empty notebook
         fullReset() {
 
-                let carnet = new Carnet(this.state.carnet.getProperty(), this.state.carnet.getStartMoney(), this.state.carnet.getVillagers(), false)
-                carnet.addTransaction(new Transaction(
+                let notebook = new Notebook(this.state.notebook.getProperty(), this.state.notebook.getStartMoney(), this.state.notebook.getVillagers(), false)
+                notebook.addTransaction(new Transaction(
                         this.state.transactions[this.state.transactions.length - 1].getFrom(),
                         this.state.transactions[this.state.transactions.length - 1].getTo(),
                         0,
                         false
                 )
                 )
-                let transactions = carnet.getTransactions()
-                let villagers = carnet.getVillagers()
+                let transactions = notebook.getTransactions()
+                let villagers = notebook.getVillagers()
                 let availableVillagers = []
                 availableVillagers.push(this.state.availableVillagers[this.state.availableVillagers.length - 1])
                 let validable = []
                 validable.push(false)
 
                 this.setState({
-                        carnet: carnet,
+                        notebook: notebook,
                         transactions: transactions,
                         villagers: villagers,
                         availableVillagers: availableVillagers,
@@ -431,7 +431,7 @@ class CarnetBlock extends Component {
                         fullRender.push(
                                 <div>
                                         <button onClick={() => this.check()}>
-                                                Vérifier l'état du carnet
+                                                Vérifier l'état du notebook
                                         </button>
                                         <button onClick={() => this.clickMe()}>
                                                 Bouton de test
@@ -455,7 +455,7 @@ class CarnetBlock extends Component {
 Waited props:
 
 village : village object you want to display (village)
-limit : the number of transactions a carnet can handle (integer)
+limit : the number of transactions a notebook can handle (integer)
 resettable : if the village can be resetted (boolean)
 moneyName : 
 
@@ -468,7 +468,7 @@ class VillageBlock extends Component {
                 this.state = {
                         startMoney: village.getStartMoney(),
                         village: village,
-                        invalidCarnet: false,
+                        invalidNotebook: false,
                         selectedVillager: ""
                 }
 
@@ -483,23 +483,23 @@ class VillageBlock extends Component {
 
         transmitTransaction(property, transaction, exclude) {
                 console.log("Let's go")
-                this.state.village.getCarnet(property).transmitTransaction(transaction, exclude)
+                this.state.village.getNotebook(property).transmitTransaction(transaction, exclude)
                 this.setState({ village: this.state.village })
                 setTimeout(() => { this.setState({}) }, 9000);
-                setTimeout(() => { this.alertInvalidCarnet() }, 9000);
+                setTimeout(() => { this.alertInvalidNotebook() }, 9000);
                 setTimeout(() => { this.setState({}) }, 18000);
-                setTimeout(() => { this.alertInvalidCarnet() }, 18000);
+                setTimeout(() => { this.alertInvalidNotebook() }, 18000);
                 setTimeout(() => { this.setState({}) }, 27000);
-                setTimeout(() => { this.alertInvalidCarnet() }, 27000);
+                setTimeout(() => { this.alertInvalidNotebook() }, 27000);
                 setTimeout(() => { this.setState({}) }, 36000);
-                setTimeout(() => { this.alertInvalidCarnet() }, 36000);
+                setTimeout(() => { this.alertInvalidNotebook() }, 36000);
         }
 
-        alertInvalidCarnet() {
-                if (!(this.state.invalidCarnet)) {
-                        for (let index in this.state.village.getCarnets()) {
-                                if (this.state.village.getCarnets()[index].isCarnetInvalid()) {
-                                        this.setState({ invalidCarnet: true })
+        alertInvalidNotebook() {
+                if (!(this.state.invalidNotebook)) {
+                        for (let index in this.state.village.getNotebooks()) {
+                                if (this.state.village.getNotebooks()[index].isNotebookInvalid()) {
+                                        this.setState({ invalidNotebook: true })
                                 }
                         }
                 }
@@ -513,7 +513,7 @@ class VillageBlock extends Component {
                 this.setState({
                         startMoney: newVillage.getStartMoney(),
                         village: newVillage,
-                        invalidCarnet: false,
+                        invalidNotebook: false,
                         selectedVillager: ""
                 })
 
@@ -535,14 +535,12 @@ class VillageBlock extends Component {
         }
 
         selectVillager(animal) {
-                console.log("In selectVillager")
                 if (this.state.selectedVillager == animal) {
                         this.setState({ selectedVillager: "" })
                 }
                 else {
                         this.setState({ selectedVillager: animal })
                 }
-                console.log("Out selectVillager")
         }
 
         render() {
@@ -550,8 +548,8 @@ class VillageBlock extends Component {
 
                 let valid = true;
 
-                for (let index in this.state.village.getCarnets()) {
-                        if (this.state.village.getCarnets()[index].isCarnetInvalid()) {
+                for (let index in this.state.village.getNotebooks()) {
+                        if (this.state.village.getNotebooks()[index].isNotebookInvalid()) {
                                 valid = false;
                         }
                 }
@@ -588,15 +586,15 @@ class VillageBlock extends Component {
                 }
 
 
-                // Si un carnet est sélectionné, l'affiche en dessous
+                // Si un notebook est sélectionné, l'affiche en dessous
 
                 if (valid) {
-                        for (let index in this.state.village.getCarnets()) {
-                                if (this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager) {
+                        for (let index in this.state.village.getNotebooks()) {
+                                if (this.state.village.getNotebooks()[index].getProperty() == this.state.selectedVillager) {
                                         fulltext.push(<div key={index}>
-                                                {this.state.village.getCarnets()[index].getProperty()}
-                                                <CarnetBlock
-                                                        carnet={this.state.village.getCarnets()[index]}
+                                                {this.state.village.getNotebooks()[index].getProperty()}
+                                                <NotebookBlock
+                                                        notebook={this.state.village.getNotebooks()[index]}
                                                         limit={this.props.limit}
                                                         resettable={false}
                                                         inVillage={true}
@@ -670,6 +668,6 @@ class HashingBlock extends Component {
 
 export {
         hashing, sendLetter,
-        TransactionLine, CarnetBlock, VillageBlock, HashingBlock,
+        TransactionLine, NotebookBlock, VillageBlock, HashingBlock,
         animals, neighbors
 }

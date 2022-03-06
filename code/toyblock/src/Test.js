@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { TransactionLine, CarnetBlock, animals, neighbors, VillageBlock } from './components';
-import { Carnet, Village, Transaction } from './classes.js'
+import { TransactionLine, NotebookBlock, animals, neighbors, VillageBlock } from './components';
+import { Notebook, Village, Transaction } from './classes.js'
 
 let village = new Village(10, animals, neighbors);
 let transaction1 = new Transaction("Paresseux", "Grenouille", 5, true);

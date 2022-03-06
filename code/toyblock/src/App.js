@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 
 import './App.css';
 import { introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9 } from './Blocs.js'
-import { CarnetBlock, VillageBlock, HashingBlock, animals, neighbors } from './components.js'
+import { NotebookBlock, VillageBlock, HashingBlock, animals, neighbors } from './components.js'
 import { BlocTest } from './Test.js'
-import { Carnet } from './classes.js'
+import { Notebook } from './classes.js'
 
 import coffreVisual from './visuals/coffre.png'
 import flechVisual from './visuals/flech.png'
@@ -277,7 +277,7 @@ class Bloc1 extends Component { //Notation des transactions
 
   render() {
 
-    let carnet = new Carnet("Toucan", 15, animals, true)
+    let notebook = new Notebook("Toucan", 15, animals, true)
 
     return (<div>
       <div id="flechcontainer">
@@ -288,7 +288,7 @@ class Bloc1 extends Component { //Notation des transactions
       </div>
       <div class="machine">
         <div class="paragraph">
-          Voici un exemple de carnet, avec lequel tu peux t'amuser.
+          Voici un exemple de notebook, avec lequel tu peux t'amuser.
 
           Tu peux peux cliquer sur la tête des villageois pour indiquer l'origine et le destinataire, et choisir le montant qu'il te plaît.
           <br />
@@ -296,8 +296,8 @@ class Bloc1 extends Component { //Notation des transactions
           Ici, on imagine que chaque habitant a reçu le solde de base de 15 {this.props.moneyname}s.
         </div>
         <div class="marged centeredtext">
-          <CarnetBlock
-            carnet={carnet}
+          <NotebookBlock
+            notebook={notebook}
             limit={6}
             resettable={true}
             inVillage={false}
@@ -308,7 +308,7 @@ class Bloc1 extends Component { //Notation des transactions
           Essaie de faire dépenser à Grenouille plus de 40 {this.props.moneyname}s d'un seul coup !
           <br />
           <br />
-          Si ton carnet est rempli, tu peux appuyer sur reset pour le remettre à zéro.
+          Si ton notebook est rempli, tu peux appuyer sur reset pour le remettre à zéro.
         </div>
       </div>
       <div class="paragraph">
@@ -343,10 +343,10 @@ class Bloc3 extends Component { //Signature électronique
 
       <div class="machine">
         <div class="paragraph">
-          Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre carnet, et y écrire des transactions !
+          Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre notebook, et y écrire des transactions !
           Encore une fois, on imagine ici qu'au départ, tous les villageois on 15 {this.props.moneyname}s.<br />
 
-          Amuse-toi à écrire des transactions et les voir se transmettre de carnet en carnet !
+          Amuse-toi à écrire des transactions et les voir se transmettre de notebook en notebook !
         </div>
         <div class="marged centeredtext">
           <VillageBlock
