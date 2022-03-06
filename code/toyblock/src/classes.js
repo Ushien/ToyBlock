@@ -2,8 +2,15 @@ import { sendLetter } from './components.js'
 
 // TODO Remettre de l'ordre dans les propriétés
 
-
 class Transaction {
+        /**
+         * Creates a transaction
+         * 
+         * @param  {string} from - The villager who gives the money
+         * @param  {string} to - The villager who receives the money
+         * @param  {number} amount - The amount of money spent
+         * @param  {boolean} validated - Whether or not the transaction is validated
+         */
         constructor(from, to, amount, validated) {
                 this.from = from;
                 this.to = to;
@@ -11,38 +18,81 @@ class Transaction {
                 this.validated = validated;
         }
 
+        /**
+         * Returns a clone of the transaction
+         * 
+         * @returns {Transaction} - A clone of the transaction
+         */
         clone() {
                 return new Transaction(this.getFrom(), this.getTo(), this.getAmount(), this.isValidated())
         }
 
+        /**
+         * Get the isValidated property of the transaction
+         * 
+         * @returns {boolean} - Wheter or not the transaction is validated
+         */
         isValidated() {
                 return this.validated;
         }
 
+        /**
+         * Get the amount property of the transaction
+         * 
+         * @returns {number} - The amount of the transaction
+         */
         getAmount() {
                 return this.amount;
         }
 
+        /**
+         * Set the amount property of the transaction
+         * 
+         * @param {number} amount - The new amount of the transaction
+         */
         setAmount(amount) {
                 this.amount = amount;
         }
 
+        /**
+         * Get the from property of the transaction
+         * 
+         * @returns {string} - The from property of the transaction
+         */
         getFrom() {
                 return this.from;
         }
 
+        /**
+         * Set the from property of the transaction
+         * 
+         * @param {string} from - The new from property of the transaction
+         */
         setFrom(from) {
                 this.from = from;
         }
 
+        /**
+         * Get the to property of the transaction
+         * 
+         * @returns {string} - The to property of the transaction
+         */
         getTo() {
                 return this.to;
         }
 
+        /**
+         * Set the to property of the transaction
+         * 
+         * @param {string} to - The new to property of the transaction
+         */
         setTo(to) {
                 this.to = to;
         }
 
+        /**
+         * Validate a transaction
+         */
         validate() {
                 console.assert(this.from != this.to, "Sender and receiver are the same");
                 console.assert(this.amount >= 0, "Amount is negative")
