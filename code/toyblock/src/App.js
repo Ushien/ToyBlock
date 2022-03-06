@@ -39,8 +39,7 @@ class HandlingBlock extends Component {
 
   incrementDistance() {
     if (this.state.distance < 13) {
-      console.log("We move forward in the document. New distance:");
-      console.log(this.state.distance);
+      console.log("We move forward in the document. New distance:" + this.state.distance);
       this.setState({ distance: this.state.distance + 1 });
     }
     console.assert(this.state.distance <= 13)
@@ -48,7 +47,7 @@ class HandlingBlock extends Component {
 
   changeName(newname) {
     this.setState({ moneyname: newname })
-    console.log("ùoneyname is changed to " + this.state.moneyname)
+    console.log("Moneyname is changed to " + this.state.moneyname)
   }
 
   render() {
