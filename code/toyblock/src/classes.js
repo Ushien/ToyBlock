@@ -139,11 +139,13 @@ class Notebook {
                 this.invalidNotebook = false;
                 this.obsolete = false;
 
+                // Assigning currentAccounts
                 for (let index = 0; index < animals.length; index++) {
                         this.currentAccounts[animals[index]] = startmoney;
                 }
 
                 if (fillEmptyTransaction) {
+                        // Add an empty transaction
                         this.addTransaction(new Transaction(animals[0], animals[1], 0, false))
                 }
         }
@@ -156,20 +158,20 @@ class Notebook {
         clone() {
                 let cloneNotebook = new Notebook(this.getProperty(), this.getStartMoney(), this.getVillagers(), false)
 
-                // Clone les transactions
+                // Clone the transactions
                 for (let index = 0; index < this.getTransactions().length; index++) {
                         cloneNotebook.addTransaction(this.getTransactions()[index].clone())
                 }
 
-                // Clone les comptes
+                // Clone the accounts
                 for (let account in this.getCurrentAccounts()) {
                         cloneNotebook.setCurrentAccount(account, this.getCurrentAccounts()[account])
                 }
 
-                // Clone les voisins
+                // Clone the neighbors
                 cloneNotebook.neighbors = this.neighbors;
 
-                // Clone la validité du notebook
+                // Clone the notebook validity
                 cloneNotebook.setInvalidNotebook(this.isNotebookInvalid())
 
                 return cloneNotebook;
@@ -184,7 +186,9 @@ class Notebook {
         assignNeighbors(neighbors, villagers) {
                 for (var i in neighbors) {
                         this.neighbors[i] = [];
+                        // Add the notebook
                         this.neighbors[i].push(villagers[i]);
+                        // Add the distance
                         this.neighbors[i].push(neighbors[i]);
                 }
         }
@@ -264,7 +268,9 @@ class Notebook {
          * @param {Transaction} transaction - The transaction you need to apply on the accounts
          */
         applyTransaction(transaction) {
+                // Remove money from the sender
                 this.currentAccounts[transaction.getFrom()] = this.currentAccounts[transaction.getFrom()] - transaction.getAmount();
+                // Add money to the receiver
                 this.currentAccounts[transaction.getTo()] = this.currentAccounts[transaction.getTo()] + transaction.getAmount();
         }
 
@@ -332,14 +338,17 @@ class Notebook {
 
                 let validity = true;
 
+                // Copy the accounts
                 let newAccounts = {};
                 for (let account in this.currentAccounts) {
                         newAccounts[account] = this.currentAccounts[account];
                 }
 
+                // Apply the transaction
                 newAccounts[additionalTransaction.getFrom()] = newAccounts[additionalTransaction.getFrom()] - additionalTransaction.getAmount();
                 newAccounts[additionalTransaction.getTo()] = newAccounts[additionalTransaction.getTo()] + additionalTransaction.getAmount();
 
+                // Check if every account is valid
                 for (let account in newAccounts) {
                         if (newAccounts[account] < 0) {
                                 validity = false;
@@ -360,21 +369,25 @@ class Notebook {
          */
         receiveTransaction(transaction, from) {
 
-                //vérifie que la transaction est compatible avec les autres
-                //si oui, l'ajoute, si non, envoie une erreur
                 if (!this.isObsolete()) {
+
                         if (!this.checkAccount(transaction)) {
-                                // throw "An invalid transaction has been received !"
+                                // If the transaction is incompatible, display an error message and stop the propagation
                                 this.setInvalidNotebook(true);
                                 alert(this.getProperty() + " a reçu une transaction incompatible !\nAppuyez sur reset pour réinitialiser le village.")
 
                         }
                         else {
+                                // If the transaction is compatible
+
+                                // Add and apply it to the notebook
                                 this.addAndApplyTransaction(transaction)
-                                //transmet ensuite la transaction aux voisins, sauf au from
+                                // Transmit the transaction to the neighbors (except the one who sent the transaction)
                                 this.transmitTransaction(transaction, from)
                         }
                 }
+
+                // If the notebook is obsolete, does nothing
         }
 
         /**
@@ -386,6 +399,7 @@ class Notebook {
         transmitTransaction(transaction, exclude) {
                 console.assert(transaction.isValidated(), "Trying to transmit a non-validated transaction");
 
+                // Send the transaction to the neighbors except the exclusion
                 for (var i in this.neighbors) {
                         if (i !== exclude) {
                                 this.sendTransaction(transaction, this.neighbors[i][0], this.neighbors[i][1])
@@ -402,8 +416,9 @@ class Notebook {
          * @param {number} distance - The distance between the notebook and the destination notebook
          */
         sendTransaction(transaction, destination, distance) {
-                //envoie une transaction à un autre notebook, après avoir attendu le temps qu'il faut
+                // Start a visual animation
                 sendLetter(this.property, destination.getProperty())
+                // Wait enough time then send the transaction
                 setTimeout(() => { destination.receiveTransaction(transaction, this.property) }, this.getMillisecondsFromDistance(distance));
         }
 
@@ -414,6 +429,8 @@ class Notebook {
          * @returns {number} - The time that the transaction needs to travel the distance (milliseconds)
          */
         getMillisecondsFromDistance(distance) {
+                // The current version of the project doesn't handle multiple distances, so this function always returns 9000
+
                 // return distance * 3000
                 return 9000
         }
@@ -460,6 +477,7 @@ class Village {
         clone() {
                 let cloneVillage = new Village(this.getStartMoney())
 
+                // Copy the notebooks
                 for (let property in this.getNotebooks()) {
                         cloneVillage.addNotebook(property, this.getNotebooks()[property].clone())
                 }
@@ -544,6 +562,7 @@ class Village {
         addAndApplyTransactionToAll(transaction) {
                 for (let notebook in this.getNotebooks()) {
                         if (transaction.isValidated()) {
+                                // Apply the transaction if it's validated
                                 this.getNotebooks()[notebook].addAndApplyTransaction(transaction.clone())
                         }
                         else {

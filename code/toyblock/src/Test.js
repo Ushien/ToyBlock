@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { TransactionLine, NotebookBlock, animals, neighbors, VillageBlock } from './components';
 import { Notebook, Village, Transaction } from './classes.js'
 
+// Freely use this space to individuallt test the components
+
 let village = new Village(10, animals, neighbors);
 let transaction1 = new Transaction("Paresseux", "Grenouille", 5, true);
 let transaction2 = new Transaction("Chat", "Singe", 3, false);
