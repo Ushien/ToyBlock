@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 
 import './App.css';
 import { introtext1, introtext2, introtext3, introtext4, text1, text1_1, text2, text3, text3_1, text4, text5, text6, text6_1, text7, text8, text9 } from './Blocs.js'
-import { NotebookBlock, VillageBlock, HashingBlock, animals, neighbors } from './components.js'
+import { NotebookBlock, VillageBlock, HashingBlock, animals, neighbors } from './Components.js'
 import { BlocTest } from './Test.js'
-import { Notebook } from './classes.js'
+import { Notebook } from './Classes.js'
 
 import coffreVisual from './visuals/coffre.png'
 import flechVisual from './visuals/flech.png'

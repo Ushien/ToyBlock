@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Transaction, Notebook, Village } from './classes.js'
+import { Transaction, Notebook, Village } from './Classes.js'
 
 import chatVisual from './visuals/Chat.png';
 import grenouilleVisual from './visuals/Grenouille.png'
