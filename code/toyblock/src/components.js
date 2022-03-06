@@ -675,4 +675,6 @@ class HashingBlock extends Component {
 }
 
 // TODO Remettre un peu d'ordre dans les exports
-export {hashing, HashingBlock, TransactionLine, CarnetBlock, VillageBlock, animals, neighbors, sendLetter}
+export {hashing, sendLetter, 
+        HashingBlock, TransactionLine, CarnetBlock, VillageBlock, 
+        animals, neighbors}

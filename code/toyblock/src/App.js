@@ -7,6 +7,7 @@ import {CarnetBlock, HashingBlock, animals, VillageBlock, neighbors} from './com
 import {BlocTest} from './Test.js'
 import coffreVisual from './visuals/coffre.png'
 import {Carnet, Village, Transaction} from './classes.js'
+import flechVisual from './visuals/flech.png'
 
 /*
 Here you can change the base parameters of the website
@@ -288,6 +289,9 @@ class Bloc1 extends Component { //Notation des transactions
     let carnet = new Carnet("Toucan", 15, animals, true)
 
     return ( <div> 
+      <div id="flechcontainer">
+        <img id="scrollsign" src={flechVisual} height="80" width="120"></img>
+      </div>
       <div class="paragraph">
         {text1(this.props.moneyname)}
       </div>
