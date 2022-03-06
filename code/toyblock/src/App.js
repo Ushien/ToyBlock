@@ -19,7 +19,7 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 5;
+const startdistance = 1;
 const defaultname = "Toycoin";
 const baseword = "Bonjour";
 
