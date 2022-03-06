@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: NotebookBlock</title>
+    <title>JSDoc: Class: VillageBlock</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: NotebookBlock</h1>
+    <h1 class="page-title">Class: VillageBlock</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>NotebookBlock<span class="signature">(notebook, limit, resettable<span class="signature-attributes">opt</span>, moneyName, testing<span class="signature-attributes">opt</span>, inVillage<span class="signature-attributes">opt</span>, transmitTransaction<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>VillageBlock<span class="signature">(basemoney, animals, neighbors, fillEmptyTransactions<span class="signature-attributes">opt</span>, moneyName, limit, resettable<span class="signature-attributes">opt</span>, testing<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Component displaying a notebook</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="NotebookBlock"><span class="type-signature"></span>new NotebookBlock<span class="signature">(notebook, limit, resettable<span class="signature-attributes">opt</span>, moneyName, testing<span class="signature-attributes">opt</span>, inVillage<span class="signature-attributes">opt</span>, transmitTransaction<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="VillageBlock"><span class="type-signature"></span>new VillageBlock<span class="signature">(basemoney, animals, neighbors, fillEmptyTransactions<span class="signature-attributes">opt</span>, moneyName, limit, resettable<span class="signature-attributes">opt</span>, testing<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Display a notebook block
+    Display a village block
 </div>
 
 
@@ -81,6 +81,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -91,13 +93,13 @@
 
         <tr>
             
-                <td class="name"><code>notebook</code></td>
+                <td class="name"><code>basemoney</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Notebook.html">Notebook</a></span>
+<span class="param-type">number</span>
 
 
             
@@ -114,8 +116,156 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
-            <td class="description last">The notebook we want to display</td>
+            <td class="description last">The amount of money every villagers own at the beginning</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>animals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The names of the villagers composing the village</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>neighbors</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The list of neighbours of every villager associated with their distance from them</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fillEmptyTransactions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Wheter or not the empty notebooks should be filled with an empty transaction (optional - default = true)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>moneyName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The name of the money</td>
         </tr>
 
     
@@ -144,6 +294,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The maximum number of transactions we want to handle</td>
@@ -178,39 +332,12 @@
             
 
             
-
-            <td class="description last">Whether or not the notebook component is resettable (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>moneyName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
+                <td class="default">
                 
                 </td>
             
 
-            
-
-            <td class="description last">The name of the money</td>
+            <td class="description last">Whether or not the notebook component is resettable (optional)</td>
         </tr>
 
     
@@ -242,74 +369,12 @@
             
 
             
-
-            <td class="description last">Whether or not the test buttons should be displayed</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>inVillage</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
+                <td class="default">
                 
                 </td>
             
 
-            
-
-            <td class="description last">Whether or not the component is part of a village component</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>transmitTransaction</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Passed by the village component</td>
+            <td class="description last">Whether or not the test buttons should be displayed (optional)</td>
         </tr>
 
     
@@ -347,13 +412,13 @@
 
         <tr>
             
-                <td class="name"><code>notebook</code></td>
+                <td class="name"><code>startMoney</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Notebook.html">Notebook</a></span>
+<span class="param-type">number</span>
 
 
             
@@ -363,20 +428,20 @@
 
             
 
-            <td class="description last">The notebook we want to display</td>
+            <td class="description last">The amount of money every villagers own at the beginning</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>transactions</code></td>
+                <td class="name"><code>village</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="Transaction.html">Transaction</a>></span>
+<span class="param-type"><a href="Village.html">Village</a></span>
 
 
             
@@ -386,20 +451,20 @@
 
             
 
-            <td class="description last">The list of transactions contained in the notebook</td>
+            <td class="description last">The village we want to display</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>villagers</code></td>
+                <td class="name"><code>invalidNotebook</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">boolean</span>
 
 
             
@@ -409,20 +474,20 @@
 
             
 
-            <td class="description last">All the villagers composing the village</td>
+            <td class="description last">Whether or not there is an invalid notebook inside of the village</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>availableVillagers</code></td>
+                <td class="name"><code>selectedVillager</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Array.&lt;string>></span>
+<span class="param-type">string</span>
 
 
             
@@ -432,30 +497,7 @@
 
             
 
-            <td class="description last">The list of all the villagers available to be changed to</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>validable</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;boolean></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Whether or not each transaction is validable</td>
+            <td class="description last">The villager we want to display the notebook</td>
         </tr>
 
     
@@ -494,7 +536,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line259">line 259</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -602,7 +644,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line306">line 306</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line682">line 682</a>
     </li></ul></dd>
     
 
@@ -690,7 +732,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line325">line 325</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line614">line 614</a>
     </li></ul></dd>
     
 
@@ -734,7 +776,7 @@
 
 
 <div class="description">
-    Create a new notebook with the same parameters and pass it to the component
+    Create a new village with the same parameters and pass it to the component
 </div>
 
 
@@ -778,327 +820,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line475">line 475</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="generateNextVillager"><span class="type-signature"></span>generateNextVillager<span class="signature">(id, fromto)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Generates the next villager to switch for
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The index of the transaction we need to change the origin/destination</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fromto</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The property of the transaction we want to switch (from or to)</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line399">line 399</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="handleChangeAmount"><span class="type-signature"></span>handleChangeAmount<span class="signature">(index, newAmount)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Update the amount of the transaction
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The index of the transaction we need to change the amount</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newAmount</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The new amount of the transaction</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line382">line 382</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line660">line 660</a>
     </li></ul></dd>
     
 
@@ -1142,7 +864,7 @@
 
 
 <div class="description">
-    Define the displaying of the notebook
+    Define the displaying of the village
 </div>
 
 
@@ -1186,7 +908,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line517">line 517</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line713">line 713</a>
     </li></ul></dd>
     
 
@@ -1244,7 +966,144 @@
     
 
     
-    <h4 class="name" id="transmitTransaction"><span class="type-signature"></span>transmitTransaction<span class="signature">(transaction, exclude)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="selectVillager"><span class="type-signature"></span>selectVillager<span class="signature">(animal)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Select the notebook of a villager to display itIf the villager is already selected, hide its notebookOnly one notebook can be displayed at the same time
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>animal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line697">line 697</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="transmitTransaction"><span class="type-signature"></span>transmitTransaction<span class="signature">(property, transaction, exclude)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1284,6 +1143,29 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The villager transmitting a transaction</td>
+        </tr>
+
     
 
         <tr>
@@ -1368,7 +1250,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line370">line 370</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line627">line 627</a>
     </li></ul></dd>
     
 
@@ -1404,7 +1286,7 @@
     
 
     
-    <h4 class="name" id="updateValidable"><span class="type-signature"></span>updateValidable<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="updateInvalidNotebook"><span class="type-signature"></span>updateInvalidNotebook<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -1412,7 +1294,7 @@
 
 
 <div class="description">
-    Update the validable property depending on if the transaction is validated or incompatible
+    Check if a notebook received an incompatible transaction and update the invalidNotebook property
 </div>
 
 
@@ -1456,144 +1338,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line445">line 445</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="validateTransaction"><span class="type-signature"></span>validateTransaction<span class="signature">(index)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Validate the transaction located at a given index
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The index of the transaction to validate</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line335">line 335</a>
+        <a href="Components.js.html">Components.js</a>, <a href="Components.js.html#line646">line 646</a>
     </li></ul></dd>
     
 

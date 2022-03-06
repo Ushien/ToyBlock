@@ -246,6 +246,7 @@ class TransactionLine extends Component {
         }
 }
 
+
 /**
  * Component displaying a notebook
  * 
@@ -261,11 +262,11 @@ class NotebookBlock extends Component {
          * 
          * @param {Notebook} notebook - The notebook we want to display
          * @param {number} limit - The maximum number of transactions we want to handle
-         * @param {boolean} resettable - Wheather or not the notebook component is resettable
+         * @param {boolean} [resettable] - Whether or not the notebook component is resettable (optional)
          * @param {string} moneyName - The name of the money
          * 
-         * @param {boolean} [testing] - Wheather or not the test buttons should be displayed
-         * @param {boolean} [inVillage] - Wheather or not the component is part of a village component
+         * @param {boolean} [testing] - Whether or not the test buttons should be displayed
+         * @param {boolean} [inVillage] - Whether or not the component is part of a village component
          * @param {function} [transmitTransaction] - Passed by the village component
          */
         constructor(props) {
@@ -568,16 +569,30 @@ class NotebookBlock extends Component {
 
 }
 
-/*
-Waited props:
 
-village : village object you want to display (village)
-limit : the number of transactions a notebook can handle (integer)
-resettable : if the village can be resetted (boolean)
-moneyName : 
-
-*/
+/**
+ * Component displaying a notebook
+ * 
+ * @property {number} startMoney - The amount of money every villagers own at the beginning
+ * @property {Village} village - The village we want to display
+ * @property {boolean} invalidNotebook - Whether or not there is an invalid notebook inside of the village
+ * @property {string} selectedVillager - The villager we want to display the notebook
+ */
 class VillageBlock extends Component {
+        /**
+         * Display a village block
+         * 
+         * @param {number} basemoney - The amount of money every villagers own at the beginning
+         * @param {string[]} animals - The names of the villagers composing the village
+         * @param {Object} neighbors - The list of neighbours of every villager associated with their distance from them
+         * @param {boolean} [fillEmptyTransactions = false] - Wheter or not the empty notebooks should be filled with an empty transaction (optional - default = true)
+         * 
+         * @param {string} moneyName - The name of the money
+         * 
+         * @param {number} limit - The maximum number of transactions we want to handle
+         * @param {boolean} [resettable] - Whether or not the notebook component is resettable (optional)
+         * @param {boolean} [testing] - Whether or not the test buttons should be displayed (optional)
+         */
         constructor(props) {
                 super(props);
 
@@ -592,27 +607,45 @@ class VillageBlock extends Component {
                 this.transmitTransaction = this.transmitTransaction.bind(this)
         }
 
+        /**
+         * Debug tool
+         * Add functions to freely trigger them
+         */
         clickMe(e) {
 
                 // Add functions here
 
         }
 
+        /**
+         * Transmit the transaction
+         * 
+         * @param {string} property - The villager transmitting a transaction
+         * @param {Transaction} transaction - The transaction to transmit
+         * @param {string} exclude - The neighbor name to exclude from the transmission
+         */
         transmitTransaction(property, transaction, exclude) {
                 this.state.village.getNotebook(property).transmitTransaction(transaction, exclude)
                 this.setState({ village: this.state.village })
+
+                // Check 3 times, every 9 seconds, if a notebook received an incompatible transaction
+                // If it's the case, block the interactions with the village
                 setTimeout(() => { this.setState({}) }, 9000);
-                setTimeout(() => { this.alertInvalidNotebook() }, 9000);
+                setTimeout(() => { this.updateInvalidNotebook() }, 9000);
                 setTimeout(() => { this.setState({}) }, 18000);
-                setTimeout(() => { this.alertInvalidNotebook() }, 18000);
+                setTimeout(() => { this.updateInvalidNotebook() }, 18000);
                 setTimeout(() => { this.setState({}) }, 27000);
-                setTimeout(() => { this.alertInvalidNotebook() }, 27000);
+                setTimeout(() => { this.updateInvalidNotebook() }, 27000);
                 setTimeout(() => { this.setState({}) }, 36000);
-                setTimeout(() => { this.alertInvalidNotebook() }, 36000);
+                setTimeout(() => { this.updateInvalidNotebook() }, 36000);
         }
 
-        alertInvalidNotebook() {
+        /**
+         * Check if a notebook received an incompatible transaction and update the invalidNotebook property
+         */
+        updateInvalidNotebook() {
                 if (!(this.state.invalidNotebook)) {
+                        // Check all the notebooks
                         for (let index in this.state.village.getNotebooks()) {
                                 if (this.state.village.getNotebooks()[index].isNotebookInvalid()) {
                                         this.setState({ invalidNotebook: true })
@@ -621,6 +654,9 @@ class VillageBlock extends Component {
                 }
         }
 
+        /**
+         * Create a new village with the same parameters and pass it to the component
+         */
         fullReset() {
 
                 this.state.village.setObsolete();
@@ -633,36 +669,53 @@ class VillageBlock extends Component {
                         selectedVillager: ""
                 })
 
+                // Remove all the letters on the screen
                 const letters = document.getElementsByClassName('letter');
                 while (letters.length > 0) letters[0].remove();
 
         }
 
-        //TODO Faire en sorte que ça s'ajoute pas en dernière place
-
+        /**
+         * Debug tool
+         * Display the current state of the component
+         */
         check(e) {
                 console.log("===================================================")
                 console.log("Etat du village en state")
                 console.log(this.state.village)
-                console.log("Etat du clone du village")
-                console.log(this.state.cloneVillage)
                 console.log("Villageois sélectionné")
                 console.log(this.state.selectedVillager)
         }
 
+        /**
+         * Select the notebook of a villager to display it
+         * If the villager is already selected, hide its notebook
+         * Only one notebook can be displayed at the same time
+         * 
+         * @param {string} animal 
+         */
         selectVillager(animal) {
                 if (this.state.selectedVillager == animal) {
+                        // If the villager is already selected, hide its notebook
                         this.setState({ selectedVillager: "" })
                 }
                 else {
+                        // If the villager isn't selected, replace the current displayed notebook with its one
                         this.setState({ selectedVillager: animal })
                 }
         }
 
+        /**
+         * Define the displaying of the village
+         * 
+         * @returns {html} - The displaying of the notebook
+         */
         render() {
                 var fulltext = []
 
                 let valid = true;
+
+                // Check if the village contains invalid notebooks
 
                 for (let index in this.state.village.getNotebooks()) {
                         if (this.state.village.getNotebooks()[index].isNotebookInvalid()) {
@@ -670,9 +723,10 @@ class VillageBlock extends Component {
                         }
                 }
 
-                // D'abord, affiche le village
+                // Display the village first
 
                 if (valid) {
+                        // If there is no problem among the notebooks
                         fulltext.push(<div id="villageContainer" class="villageContainer">
                                 <div id="h-l-pathway"></div>
                                 <div id="v-l-pathway"></div>
@@ -687,6 +741,7 @@ class VillageBlock extends Component {
                         </div>)
                 }
                 else {
+                        // If one notebook received an incompatible transaction, block the interactions with the village
                         fulltext.push(<div id="villageContainer" class="villageContainer">
                                 <div id="h-l-pathway"></div>
                                 <div id="v-l-pathway"></div>
@@ -701,10 +756,8 @@ class VillageBlock extends Component {
                         </div>)
                 }
 
-
-                // Si un notebook est sélectionné, l'affiche en dessous
-
                 if (valid) {
+                        // Display the selected notebook, if there is one
                         for (let index in this.state.village.getNotebooks()) {
                                 if (this.state.village.getNotebooks()[index].getProperty() == this.state.selectedVillager) {
                                         fulltext.push(<div key={index}>
@@ -722,7 +775,9 @@ class VillageBlock extends Component {
                                 }
                         }
                 }
+                // Do not display any notebook if a notebook received an incompatible transaction
 
+                // If the component is in test mode add debug buttons
                 if (this.props.testing) {
                         fulltext.push(
                                 <div>
