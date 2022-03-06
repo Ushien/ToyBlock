@@ -477,9 +477,9 @@ class VillageBlock extends Component {
         }
 
         clickMe(e){
-                
+
                 // Add functions here
-                this.state.village.incrementVersions();
+
         }
 
         transmitTransaction(property, transaction, exclude){
@@ -532,10 +532,6 @@ class VillageBlock extends Component {
                 console.log(this.state.cloneVillage)
                 console.log("Villageois sélectionné")
                 console.log(this.state.selectedVillager)
-                console.log("Version du clone")
-                console.log(this.state.cloneVillage.getCarnet("Paresseux").version)
-                console.log("Version du state")
-                console.log(this.state.village.getCarnet("Paresseux").version)
         }
 
         selectVillager(animal){

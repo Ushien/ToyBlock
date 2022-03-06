@@ -2,7 +2,6 @@ import {sendLetter} from './components.js'
 
 
 // TODO Remettre de l'ordre dans les propriétés
-// TODO Retirer le système de versions
 
 class Transaction{
         constructor(from, to, amount, validated){
@@ -90,9 +89,6 @@ class Carnet{
                 // Clone la validité du carnet
                 cloneCarnet.setInvalidCarnet(this.isCarnetInvalid())
 
-                // Clone la version du carnet
-                cloneCarnet.setVersion(this.getVersion())
-
                 return cloneCarnet;
         }
 
@@ -126,14 +122,6 @@ class Carnet{
 
         getCurrentAccounts(){
                 return this.currentAccounts;
-        }
-
-        setVersion(version){
-                this.version = version;
-        }
-
-        getVersion(){
-                return this.version;
         }
 
         addTransaction(transaction){
@@ -200,7 +188,7 @@ class Carnet{
         
         }
 
-        receiveTransaction(transaction, from, version){
+        receiveTransaction(transaction, from){
 
                 //vérifie que la transaction est compatible avec les autres
                 //si oui, l'ajoute, si non, envoie une erreur
@@ -231,9 +219,8 @@ class Carnet{
 
         sendTransaction(transaction, destination){
                 //envoie une transaction à un autre carnet, après avoir attendu le temps qu'il faut
-                let version = this.version
                 sendLetter(this.property, destination[0].getProperty())
-                setTimeout(() => {destination[0].receiveTransaction(transaction, this.property, version)} , this.getMillisecondsFromDistance(destination[1]));
+                setTimeout(() => {destination[0].receiveTransaction(transaction, this.property)} , this.getMillisecondsFromDistance(destination[1]));
         }
 
         getMillisecondsFromDistance(distance){
@@ -245,11 +232,10 @@ class Carnet{
 
 class Village{
 
-        constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false, version = 0){
+        constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false){
 
                 this.startmoney = startmoney;
                 this.villagers = {};
-                this.version = version;
 
                 // Creatings villagers transaction lists
                 for (let index = 0; index < animals.length; index++) {
@@ -290,12 +276,6 @@ class Village{
 
         getStartMoney(){
                 return this.startmoney;
-        }
-
-        incrementVersions(){
-                for(let carnet in this.getCarnets()){
-                        this.getCarnets()[carnet].incrementVersion()
-                }
         }
 
         setObsolete(){
