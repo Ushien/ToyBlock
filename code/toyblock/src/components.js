@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Transaction, Carnet, Village} from './classes.js'
+import { Transaction, Carnet, Village } from './classes.js'
 
 import chatVisual from './visuals/Chat.png';
 import grenouilleVisual from './visuals/Grenouille.png'
@@ -25,44 +25,44 @@ import lettre from './visuals/lettre.png'
 // Class definition
 
 const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat"]
-const neighbors = {"Paresseux" : {"Toucan" : 2, "Grenouille" : 2}, "Pingouin" : {"Grenouille" : 1}, "Toucan" : {"Paresseux" : 2, "Chat" : 1}, "Grenouille" : {"Paresseux" : 2, "Singe" : 1 ,"Pingouin" : 1}, "Singe" : {"Grenouille" : 1}, "Chat" : {"Toucan" : 1}}
-const visualMapping = {"Chat" : chatVisual, "Grenouille" : grenouilleVisual, "Paresseux" : paresseuxVisual, "Pingouin" : pingouinVisual, "Singe" : singeVisual, "Toucan" : toucanVisual}
+const neighbors = { "Paresseux": { "Toucan": 2, "Grenouille": 2 }, "Pingouin": { "Grenouille": 1 }, "Toucan": { "Paresseux": 2, "Chat": 1 }, "Grenouille": { "Paresseux": 2, "Singe": 1, "Pingouin": 1 }, "Singe": { "Grenouille": 1 }, "Chat": { "Toucan": 1 } }
+const visualMapping = { "Chat": chatVisual, "Grenouille": grenouilleVisual, "Paresseux": paresseuxVisual, "Pingouin": pingouinVisual, "Singe": singeVisual, "Toucan": toucanVisual }
 
 // TODO Optimiser findVisual
 
-function findVisual(animal){
+function findVisual(animal) {
         return visualMapping[animal]
 }
 
-function sendLetter(from, to){
+function sendLetter(from, to) {
 
         let movementclass = ""
-        let positions = {"Singe" : [1,1], "Grenouille" : [1,2], "Pingouin" : [1,3], "Paresseux" : [2,2], "Toucan" : [3,2], "Chat" : [3,3]}
+        let positions = { "Singe": [1, 1], "Grenouille": [1, 2], "Pingouin": [1, 3], "Paresseux": [2, 2], "Toucan": [3, 2], "Chat": [3, 3] }
         let x_movement = positions[to][0] - positions[from][0];
         let y_movement = positions[to][1] - positions[from][1];
 
         // assert les 2 mouvements sont compris entre 1 et -1
         // assert un des mouvements doit être égal à 0 et l'autre être différent
 
-        if(x_movement == 1){
+        if (x_movement == 1) {
                 movementclass = "-left-right"
         }
-        if(x_movement == -1){
+        if (x_movement == -1) {
                 movementclass = "-right-left"
         }
-        if(y_movement == 1){
+        if (y_movement == 1) {
                 movementclass = "-up-down"
         }
-        if(y_movement == -1){
+        if (y_movement == -1) {
                 movementclass = "-down-up"
         }
-        
+
         var newElement = document.createElement("img");
-        
+
         newElement.src = lettre;
         newElement.width = "120"
         newElement.height = "120"
-        newElement.className = from+"letter"+movementclass+" letter"
+        newElement.className = from + "letter" + movementclass + " letter"
 
         document.getElementById("villageContainer").appendChild(newElement);
 }
@@ -76,117 +76,117 @@ function sendLetter(from, to){
 //Parler des props attendues
 
 // moneyName
-class TransactionLine extends Component{
-        constructor(props){
+class TransactionLine extends Component {
+        constructor(props) {
                 super(props);
                 this.validateTransaction = this.validateTransaction.bind(this);
                 this.handleChangeAmount = this.handleChangeAmount.bind(this);
                 this.generateNextVillager = this.generateNextVillager.bind(this);
         }
 
-        handleChangeAmount(e){
+        handleChangeAmount(e) {
                 // Bloque les entrées vides
                 let value = 0
-                if(e.target.value != ''){
+                if (e.target.value != '') {
                         value = parseInt(e.target.value)
                 }
-                
+
                 this.props.handleChangeAmount(this.props.index, value)
 
         }
 
-        validateTransaction(e){
+        validateTransaction(e) {
                 this.props.validateTransaction(this.props.index)
 
                 // TODO  Assert vérifier que la transaction est validable
         }
 
         // Change the current to and from state depening on the available villagers.
-        generateNextVillager(fromto){
+        generateNextVillager(fromto) {
 
                 this.props.generateNextVillager(this.props.index, fromto)
-                
+
         }
 
         check = (e) => {
         }
-                
-        render(){
+
+        render() {
                 let fulltext = []
-                
+
                 let fromWidth = "80"
-                if(this.props.from == "Toucan" || this.props.from == "Singe"){
+                if (this.props.from == "Toucan" || this.props.from == "Singe") {
                         fromWidth = "120"
                 }
 
                 let toWidth = "80"
-                if(this.props.to == "Toucan" || this.props.to == "Singe"){
+                if (this.props.to == "Toucan" || this.props.to == "Singe") {
                         toWidth = "120"
                 }
 
-                if (!(this.props.validated)){
+                if (!(this.props.validated)) {
                         // Transaction non validées non validables
-                        if (!(this.props.validable)){
+                        if (!(this.props.validable)) {
                                 fulltext.push(
                                         <div class="noWrap">
                                                 <div class="spriteWrapper">
-                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img>
+                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class="villagerSprite clickable" height="80" width={fromWidth}></img>
                                                 </div>
                                                 <img src={flechVisual} height="80" width="120"></img>
                                                 <div class="spriteWrapper">
-                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img>
+                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class="villagerSprite clickable" height="80" width={toWidth}></img>
                                                 </div>
                                                 <div class="displayAmount">
-                                                        <input class = "amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
+                                                        <input class="amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount} />
                                                         {this.props.moneyName}s
                                                 </div>
-                                                <div class = "validateWrapper"></div>
+                                                <div class="validateWrapper"></div>
 
                                         </div>
                                 )
                         }
                         // Transactions non validées validables
-                        else{
+                        else {
                                 fulltext.push(
                                         <div class="noWrap">
                                                 <div class="spriteWrapper">
-                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class = "villagerSprite clickable" height="80" width={fromWidth}></img>
+                                                        <img onClick={() => this.generateNextVillager("From")} src={findVisual(this.props.from)} class="villagerSprite clickable" height="80" width={fromWidth}></img>
                                                 </div>
                                                 <img src={flechVisual} height="80" width="120"></img>
                                                 <div class="spriteWrapper">
-                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class = "villagerSprite clickable" height="80" width={toWidth}></img>
+                                                        <img onClick={() => this.generateNextVillager("To")} src={findVisual(this.props.to)} class="villagerSprite clickable" height="80" width={toWidth}></img>
                                                 </div>
                                                 <div class="displayAmount">
-                                                        <input class = "amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount}/>
+                                                        <input class="amountForm" type="number" value={this.props.amount} onChange={this.handleChangeAmount} />
                                                         {this.props.moneyName}s
                                                 </div>
-                                                <div class = "validateWrapper">
-                                                        
-                                                                <button class = "button" onClick={() => this.validateTransaction()}>
-                                                                        <div>
-                                                                        Valider
-                                                                        </div>
-                                                                </button>
+                                                <div class="validateWrapper">
 
-                                                        
+                                                        <button class="button" onClick={() => this.validateTransaction()}>
+                                                                <div>
+                                                                        Valider
+                                                                </div>
+                                                        </button>
+
+
                                                 </div>
                                         </div>)
                         }
-                        
+
                 }
 
                 // Transactions validées
-                else{
+                else {
                         fulltext.push(
                                 <div class="noWrap">
-                                        <div class="spriteWrapper"><img src={findVisual(this.props.from)} class = "villagerSprite" height="80" width={fromWidth}></img></div>
+                                        <div class="spriteWrapper"><img src={findVisual(this.props.from)} class="villagerSprite" height="80" width={fromWidth}></img></div>
                                         <div><img src={flechVisual} height="80" width="120"></img></div>
-                                        <div class="spriteWrapper"><img src={findVisual(this.props.to)} class = "villagerSprite" height="80" width={toWidth}></img></div>
-                                        <div class = "displayAmount"><div class = "amountForm">{this.props.amount}</div> <div>{this.props.moneyName}s</div></div>
-                                        <div class = "validateWrapper"></div>
+                                        <div class="spriteWrapper"><img src={findVisual(this.props.to)} class="villagerSprite" height="80" width={toWidth}></img></div>
+                                        <div class="displayAmount"><div class="amountForm">{this.props.amount}</div> <div>{this.props.moneyName}s</div></div>
+                                        <div class="validateWrapper"></div>
                                 </div>
                         )
-                } 
+                }
 
                 return fulltext;
         }
@@ -212,20 +212,19 @@ class CarnetBlock extends Component {
                 super(props);
 
                 let availableVillagers = []
-                for (let index = 0; index < this.props.carnet.getTransactions().length; index++)
-                {
+                for (let index = 0; index < this.props.carnet.getTransactions().length; index++) {
                         let newArray = [...this.props.carnet.getVillagers()];
                         newArray.splice(newArray.lastIndexOf(this.props.carnet.getTransactions()[index].getFrom()), 1);
                         newArray.splice(newArray.lastIndexOf(this.props.carnet.getTransactions()[index].getTo()), 1);
                         availableVillagers.push(newArray)
                 }
-        
+
                 this.state = {
-                        carnet : this.props.carnet,
-                        transactions : this.props.carnet.getTransactions(),
-                        villagers : this.props.carnet.getVillagers(),
-                        availableVillagers : availableVillagers,
-                        validable : []
+                        carnet: this.props.carnet,
+                        transactions: this.props.carnet.getTransactions(),
+                        villagers: this.props.carnet.getVillagers(),
+                        availableVillagers: availableVillagers,
+                        validable: []
                 }
 
                 this.transmitTransaction = this.transmitTransaction.bind(this)
@@ -234,11 +233,11 @@ class CarnetBlock extends Component {
                 this.generateNextVillager = this.generateNextVillager.bind(this);
 
                 this.updateValidable();
-        }        
+        }
 
         // Debug helper
         // Will display in the console the current state of the memory
-        check(){
+        check() {
                 console.log("===================================================")
                 console.log("Les transactions actuelles")
                 console.log(this.state.transactions)
@@ -255,12 +254,12 @@ class CarnetBlock extends Component {
 
         // Debug helper
         // Useful to trigger some functions
-        clickMe(){
+        clickMe() {
                 console.log("touchMe triggered")
                 // Add functions here
         }
 
-        validateTransaction(index){
+        validateTransaction(index) {
                 let newtransactions = this.state.transactions
                 console.log("On m\'a appelé ?")
                 newtransactions[index].validate();
@@ -271,39 +270,39 @@ class CarnetBlock extends Component {
                 // S'il reste assez de place, crée une nouvelle transaction vide
                 let newavailable = [...this.state.availableVillagers]
 
-                if(this.state.transactions.length < this.props.limit){
+                if (this.state.transactions.length < this.props.limit) {
                         newcarnet.addTransaction(new Transaction(newtransactions[index].getFrom(), newtransactions[index].getTo(), 0, false))
                         newavailable.push(this.state.availableVillagers[index])
                 }
 
                 // Si y a des voisins, leur envoie une copie de la transaction
-                if(this.props.inVillage){
+                if (this.props.inVillage) {
                         this.transmitTransaction(newtransactions[index], "")
                 }
 
                 // Update l'affichage
 
-                this.setState({transaction : newtransactions, carnet : newcarnet, availableVillagers : newavailable});
+                this.setState({ transaction: newtransactions, carnet: newcarnet, availableVillagers: newavailable });
                 this.updateValidable()
         }
 
-        transmitTransaction(transaction, exclude){
-                if(this.props.inVillage){
+        transmitTransaction(transaction, exclude) {
+                if (this.props.inVillage) {
                         this.props.transmitTransaction(this.state.carnet.property, transaction, exclude)
                 }
         }
 
-        handleChangeAmount(index, newAmount){
+        handleChangeAmount(index, newAmount) {
                 let newtransactions = this.state.transactions
                 newtransactions[index].setAmount(newAmount);
-                
+
                 // Update l'affichage
 
-                this.setState({transaction : newtransactions});
+                this.setState({ transaction: newtransactions });
                 this.updateValidable()
         }
 
-        generateNextVillager(id, fromto){ 
+        generateNextVillager(id, fromto) {
 
                 let tempTransactions = this.state.transactions
                 let totalArr = [...this.state.availableVillagers]
@@ -311,7 +310,7 @@ class CarnetBlock extends Component {
                 let assertionBuddy = 0
 
 
-                if(fromto == "From"){
+                if (fromto == "From") {
                         let arr = [...this.state.availableVillagers][id];
                         arr.push(this.state.transactions[id].getFrom())
                         let newFrom = arr[0]
@@ -319,10 +318,10 @@ class CarnetBlock extends Component {
                         tempTransactions[id].setFrom(newFrom)
                         totalArr[id] = arr
 
-                        assertionBuddy ++
+                        assertionBuddy++
                 }
 
-                if(fromto == "To"){
+                if (fromto == "To") {
                         let arr = [...this.state.availableVillagers][id];
                         arr.push(this.state.transactions[id].getTo())
                         let newTo = arr[0]
@@ -330,31 +329,31 @@ class CarnetBlock extends Component {
                         tempTransactions[id].setTo(newTo)
                         totalArr[id] = arr
 
-                        assertionBuddy ++
-                }        
+                        assertionBuddy++
+                }
 
                 console.assert(assertionBuddy == 1, "Incorrect fromTo parameter")
 
                 // Update l'affichage
 
-                this.setState({availableVillagers : totalArr, transaction : tempTransactions})
+                this.setState({ availableVillagers: totalArr, transaction: tempTransactions })
                 this.updateValidable()
         }
 
-        updateValidable(){
+        updateValidable() {
                 let temp = [...this.state.transactions];
                 let newValidable = []
 
-                for(let i = 0; i < temp.length ; i++){
+                for (let i = 0; i < temp.length; i++) {
                         newValidable.push(true)
-                        if((temp[i].isValidated())||(isNaN(temp[i].getAmount())||(temp[i].getAmount()<=0))){
+                        if ((temp[i].isValidated()) || (isNaN(temp[i].getAmount()) || (temp[i].getAmount() <= 0))) {
                                 newValidable[i] = false
                         }
-                        else{
-                                if(this.state.carnet.checkAccount(temp[i])){
+                        else {
+                                if (this.state.carnet.checkAccount(temp[i])) {
                                         newValidable[i] = true;
                                 }
-                                else{
+                                else {
                                         newValidable[i] = false;
                                 }
                         }
@@ -362,86 +361,86 @@ class CarnetBlock extends Component {
 
                 // Update l'affichage
 
-                this.setState({validable : newValidable})
+                this.setState({ validable: newValidable })
         }
 
         // reset the carnet block with a brand new empty carnet
-        fullReset(){
+        fullReset() {
 
                 let carnet = new Carnet(this.state.carnet.getProperty(), this.state.carnet.getStartMoney(), this.state.carnet.getVillagers(), false)
                 carnet.addTransaction(new Transaction(
-                        this.state.transactions[this.state.transactions.length-1].getFrom(), 
-                        this.state.transactions[this.state.transactions.length-1].getTo(),
+                        this.state.transactions[this.state.transactions.length - 1].getFrom(),
+                        this.state.transactions[this.state.transactions.length - 1].getTo(),
                         0,
                         false
-                        )
+                )
                 )
                 let transactions = carnet.getTransactions()
                 let villagers = carnet.getVillagers()
                 let availableVillagers = []
-                availableVillagers.push(this.state.availableVillagers[this.state.availableVillagers.length-1])
+                availableVillagers.push(this.state.availableVillagers[this.state.availableVillagers.length - 1])
                 let validable = []
                 validable.push(false)
 
                 this.setState({
-                        carnet : carnet,
-                        transactions : transactions,
-                        villagers : villagers,
-                        availableVillagers : availableVillagers,
-                        validable : validable
+                        carnet: carnet,
+                        transactions: transactions,
+                        villagers: villagers,
+                        availableVillagers: availableVillagers,
+                        validable: validable
                 })
 
                 this.updateValidable();
         }
-                
+
         // TODO Comment gérer une transaction qui entre alors que c'est complet ?
 
-        render(){
+        render() {
                 let fullRender = []
 
                 for (let index = 0; index < this.state.transactions.length; index++) {
                         fullRender.push(
-                                <div class = "transactionLine">
-                                <div key = {index} class = "inline">
-                                        <TransactionLine
-                                                index ={index} 
-                                                from = {this.state.transactions[index].getFrom()} 
-                                                to = {this.state.transactions[index].getTo()} 
-                                                amount = {this.state.transactions[index].getAmount()} 
-                                                validated = {this.state.transactions[index].isValidated()}
-                                                validable = {this.state.validable[index]}
-                                                validateTransaction = {this.validateTransaction} 
-                                                handleChangeAmount = {this.handleChangeAmount}
-                                                generateNextVillager = {this.generateNextVillager}
-                                                moneyName = {this.props.moneyName}
-                                        />
-                                </div></div>)
+                                <div class="transactionLine">
+                                        <div key={index} class="inline">
+                                                <TransactionLine
+                                                        index={index}
+                                                        from={this.state.transactions[index].getFrom()}
+                                                        to={this.state.transactions[index].getTo()}
+                                                        amount={this.state.transactions[index].getAmount()}
+                                                        validated={this.state.transactions[index].isValidated()}
+                                                        validable={this.state.validable[index]}
+                                                        validateTransaction={this.validateTransaction}
+                                                        handleChangeAmount={this.handleChangeAmount}
+                                                        generateNextVillager={this.generateNextVillager}
+                                                        moneyName={this.props.moneyName}
+                                                />
+                                        </div></div>)
                 }
 
                 // If the component is resettable add a reset button
-                if(this.props.resettable){
+                if (this.props.resettable) {
                         fullRender.push(
-                                <button onClick={() => this.fullReset()} class = "button"> 
-                                        Reset 
+                                <button onClick={() => this.fullReset()} class="button">
+                                        Reset
                                 </button>
                         )
                 }
 
                 // Debug buttons
-                if (this.props.testing){
+                if (this.props.testing) {
                         fullRender.push(
                                 <div>
-                                        <button onClick={() => this.check()}> 
-                                                Vérifier l'état du carnet 
+                                        <button onClick={() => this.check()}>
+                                                Vérifier l'état du carnet
                                         </button>
                                         <button onClick={() => this.clickMe()}>
-                                                        Bouton de test 
+                                                Bouton de test
                                         </button>
                                 </div>
                         )
                 }
 
-                return(
+                return (
                         <div>
                                 {fullRender}
                         </div>
@@ -467,54 +466,55 @@ class VillageBlock extends Component {
 
                 let village = new Village(this.props.basemoney, this.props.animals, this.props.neighbors, this.props.fillEmptyTransaction);
                 this.state = {
-                        startMoney: village.getStartMoney(), 
-                        village : village,
-                        invalidCarnet : false,
-                        selectedVillager : ""
+                        startMoney: village.getStartMoney(),
+                        village: village,
+                        invalidCarnet: false,
+                        selectedVillager: ""
                 }
 
                 this.transmitTransaction = this.transmitTransaction.bind(this)
         }
 
-        clickMe(e){
+        clickMe(e) {
 
                 // Add functions here
 
         }
 
-        transmitTransaction(property, transaction, exclude){
+        transmitTransaction(property, transaction, exclude) {
                 console.log("Let's go")
                 this.state.village.getCarnet(property).transmitTransaction(transaction, exclude)
-                this.setState({village : this.state.village})
-                setTimeout(() => {this.setState({})}, 9000);
-                setTimeout(() => {this.alertInvalidCarnet()}, 9000);
-                setTimeout(() => {this.setState({})}, 18000);
-                setTimeout(() => {this.alertInvalidCarnet()}, 18000);
-                setTimeout(() => {this.setState({})}, 27000);
-                setTimeout(() => {this.alertInvalidCarnet()}, 27000);
-                setTimeout(() => {this.setState({})}, 36000);
-                setTimeout(() => {this.alertInvalidCarnet()}, 36000);
+                this.setState({ village: this.state.village })
+                setTimeout(() => { this.setState({}) }, 9000);
+                setTimeout(() => { this.alertInvalidCarnet() }, 9000);
+                setTimeout(() => { this.setState({}) }, 18000);
+                setTimeout(() => { this.alertInvalidCarnet() }, 18000);
+                setTimeout(() => { this.setState({}) }, 27000);
+                setTimeout(() => { this.alertInvalidCarnet() }, 27000);
+                setTimeout(() => { this.setState({}) }, 36000);
+                setTimeout(() => { this.alertInvalidCarnet() }, 36000);
         }
 
-        alertInvalidCarnet(){
-                if(!(this.state.invalidCarnet)){
+        alertInvalidCarnet() {
+                if (!(this.state.invalidCarnet)) {
                         for (let index in this.state.village.getCarnets()) {
-                                if (this.state.village.getCarnets()[index].isCarnetInvalid()){
-                                        this.setState({invalidCarnet : true})
+                                if (this.state.village.getCarnets()[index].isCarnetInvalid()) {
+                                        this.setState({ invalidCarnet: true })
                                 }
                         }
                 }
         }
 
-        fullReset(){
+        fullReset() {
 
                 this.state.village.setObsolete();
 
                 let newVillage = new Village(this.props.basemoney, this.props.animals, this.props.neighbors, this.props.fillEmptyTransaction);
-                this.setState({startMoney: newVillage.getStartMoney(), 
-                        village : newVillage,
-                        invalidCarnet : false,
-                        selectedVillager : ""
+                this.setState({
+                        startMoney: newVillage.getStartMoney(),
+                        village: newVillage,
+                        invalidCarnet: false,
+                        selectedVillager: ""
                 })
 
                 const letters = document.getElementsByClassName('letter');
@@ -524,7 +524,7 @@ class VillageBlock extends Component {
 
         //TODO Faire en sorte que ça s'ajoute pas en dernière place
 
-        check(e){
+        check(e) {
                 console.log("===================================================")
                 console.log("Etat du village en state")
                 console.log(this.state.village)
@@ -534,74 +534,74 @@ class VillageBlock extends Component {
                 console.log(this.state.selectedVillager)
         }
 
-        selectVillager(animal){
+        selectVillager(animal) {
                 console.log("In selectVillager")
-                if(this.state.selectedVillager == animal){
-                        this.setState({selectedVillager : ""})
+                if (this.state.selectedVillager == animal) {
+                        this.setState({ selectedVillager: "" })
                 }
-                else{
-                        this.setState({selectedVillager : animal})
+                else {
+                        this.setState({ selectedVillager: animal })
                 }
                 console.log("Out selectVillager")
         }
-                
-        render(){
+
+        render() {
                 var fulltext = []
 
                 let valid = true;
 
                 for (let index in this.state.village.getCarnets()) {
-                        if (this.state.village.getCarnets()[index].isCarnetInvalid()){
+                        if (this.state.village.getCarnets()[index].isCarnetInvalid()) {
                                 valid = false;
                         }
                 }
 
                 // D'abord, affiche le village
 
-                if(valid){
+                if (valid) {
                         fulltext.push(<div id="villageContainer" class="villageContainer">
-                                <div id = "h-l-pathway"></div>
-                                <div id = "v-l-pathway"></div>
-                                <div id = "v-s-pathway"></div>
-                                <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class = "clickable" width="120" height="120"></img>
-                                <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class = "clickable" width="120" height="120"></img>
-                                <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class = "clickable" width="120" height="120"></img>
-                                <img src={paresseuxmaison} onClick={() => this.selectVillager("Paresseux")} id="paresseuxvillager" class = "clickable" width="120" height="120"></img>
-                                <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class = "clickable" width="120" height="120"></img>
-                                <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class = "clickable" width="120" height="120"></img>
-                                <button id = "buttonResetVillage" class = "button" onClick={() => this.fullReset()}> Reset </button>
+                                <div id="h-l-pathway"></div>
+                                <div id="v-l-pathway"></div>
+                                <div id="v-s-pathway"></div>
+                                <img src={singemaison} onClick={() => this.selectVillager("Singe")} id="singevillager" class="clickable" width="120" height="120"></img>
+                                <img src={grenouillemaison} onClick={() => this.selectVillager("Grenouille")} id="grenouillevillager" class="clickable" width="120" height="120"></img>
+                                <img src={pingouinmaison} onClick={() => this.selectVillager("Pingouin")} id="pingouinvillager" class="clickable" width="120" height="120"></img>
+                                <img src={paresseuxmaison} onClick={() => this.selectVillager("Paresseux")} id="paresseuxvillager" class="clickable" width="120" height="120"></img>
+                                <img src={toucanmaison} onClick={() => this.selectVillager("Toucan")} id="toucanvillager" class="clickable" width="120" height="120"></img>
+                                <img src={chatmaison} onClick={() => this.selectVillager("Chat")} id="chatvillager" class="clickable" width="120" height="120"></img>
+                                <button id="buttonResetVillage" class="button" onClick={() => this.fullReset()}> Reset </button>
                         </div>)
                 }
-                else{
+                else {
                         fulltext.push(<div id="villageContainer" class="villageContainer">
-                                <div id = "h-l-pathway"></div>
-                                <div id = "v-l-pathway"></div>
-                                <div id = "v-s-pathway"></div>
+                                <div id="h-l-pathway"></div>
+                                <div id="v-l-pathway"></div>
+                                <div id="v-s-pathway"></div>
                                 <img src={singemaison} id="singevillager" width="120" height="120"></img>
                                 <img src={grenouillemaison} id="grenouillevillager" width="120" height="120"></img>
                                 <img src={pingouinmaison} id="pingouinvillager" width="120" height="120"></img>
                                 <img src={paresseuxmaison} id="paresseuxvillager" width="120" height="120"></img>
                                 <img src={toucanmaison} id="toucanvillager" width="120" height="120"></img>
                                 <img src={chatmaison} id="chatvillager" width="120" height="120"></img>
-                                <button id = "buttonResetVillage" class = "button" onClick={() => this.fullReset()}> Reset </button>
-                        </div>)                        
+                                <button id="buttonResetVillage" class="button" onClick={() => this.fullReset()}> Reset </button>
+                        </div>)
                 }
 
 
                 // Si un carnet est sélectionné, l'affiche en dessous
 
-                if(valid){
+                if (valid) {
                         for (let index in this.state.village.getCarnets()) {
-                                if(this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager){
-                                        fulltext.push(<div key = {index}>
+                                if (this.state.village.getCarnets()[index].getProperty() == this.state.selectedVillager) {
+                                        fulltext.push(<div key={index}>
                                                 {this.state.village.getCarnets()[index].getProperty()}
-                                                <CarnetBlock 
-                                                        carnet = {this.state.village.getCarnets()[index]}
-                                                        limit = {this.props.limit}
-                                                        resettable = {false}
-                                                        inVillage = {true}
-                                                        transmitTransaction = {this.transmitTransaction}
-                                                        moneyName = {this.props.moneyName}
+                                                <CarnetBlock
+                                                        carnet={this.state.village.getCarnets()[index]}
+                                                        limit={this.props.limit}
+                                                        resettable={false}
+                                                        inVillage={true}
+                                                        transmitTransaction={this.transmitTransaction}
+                                                        moneyName={this.props.moneyName}
                                                 />
                                         </div>
                                         )
@@ -609,20 +609,20 @@ class VillageBlock extends Component {
                         }
                 }
 
-                if (this.props.testing){
+                if (this.props.testing) {
                         fulltext.push(
                                 <div>
-                                <button onClick={() => this.clickMe()}>
-                                        Bouton de test 
-                                </button>
-                                <button onClick={() => this.check()}>
-                                        Vérifier état 
-                                </button>
+                                        <button onClick={() => this.clickMe()}>
+                                                Bouton de test
+                                        </button>
+                                        <button onClick={() => this.check()}>
+                                                Vérifier état
+                                        </button>
                                 </div>
                         )
                 }
 
-                return(
+                return (
                         <ul>
                                 {fulltext}
                         </ul>
@@ -637,38 +637,39 @@ class VillageBlock extends Component {
 
 const SHA256 = require("crypto-js/sha256");
 
-function hashing(number){
+function hashing(number) {
         return SHA256(number).toString()
 }
 
 class HashingBlock extends Component {
         constructor(props) {
                 super(props);
-                this.state = {hashword : this.props.baseword, hashed : hashing(this.props.baseword)}
+                this.state = { hashword: this.props.baseword, hashed: hashing(this.props.baseword) }
         }
-        
+
         handleChange = (e) => {
-                this.setState({hashword : (e.target.value)})
-                this.setState({hashed : hashing(e.target.value)})
+                this.setState({ hashword: (e.target.value) })
+                this.setState({ hashed: hashing(e.target.value) })
         }
-        
-        render(){
-                return(
+
+        render() {
+                return (
                         <div className="centeredtext">
 
-                                <input type="text" value={this.state.hashword} onChange={this.handleChange} class="input"/>
+                                <input type="text" value={this.state.hashword} onChange={this.handleChange} class="input" />
 
                                 <div class="centeredelement">
-                                <div class="output">
-                                        {this.state.hashed}
-                                </div>
+                                        <div class="output">
+                                                {this.state.hashed}
+                                        </div>
                                 </div>
                         </div>
                 )
         }
 }
 
-// TODO Remettre un peu d'ordre dans les exports
-export {hashing, sendLetter, 
+export {
+        hashing, sendLetter,
         TransactionLine, CarnetBlock, VillageBlock, HashingBlock,
-        animals, neighbors}
+        animals, neighbors
+}
