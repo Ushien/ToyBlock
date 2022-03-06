@@ -19,7 +19,7 @@ Pick another defaultname if you want to change the default name of the currency
 Pick another baseword if you can to change the default word of the hash machine
 Set test to true if you want to load a test version of the website
 */
-const startdistance = 1;
+const startdistance = 5;
 const defaultname = "Toycoin";
 const baseword = "Bonjour";
 
@@ -105,12 +105,12 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >= 8) {
       console.log("Entered Block 4")
-      fulltext.push(<div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      fulltext.push(<div><Bloc4 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>)
     }
     if (this.state.distance >= 9) {
       console.log("Entered Block 5")
-      fulltext.push(<div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      fulltext.push(<div><Bloc5 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>)
     }
     if (this.state.distance >= 10) {
@@ -118,7 +118,7 @@ class HandlingBlock extends Component {
       fulltext.push(
         <div>
           <div>
-            <Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+            <Bloc6 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
           </div>
         </div>)
     }
@@ -129,12 +129,12 @@ class HandlingBlock extends Component {
     }
     if (this.state.distance >= 12) {
       console.log("Entered Block 8")
-      fulltext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      fulltext.push(<div><Bloc8 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>)
     }
     if (this.state.distance >= 13) {
       console.log("Entered Block 9")
-      fulltext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance} />
+      fulltext.push(<div><Bloc9 onDistanceChange={this.incrementDistance} distance={this.state.distance} moneyname={this.state.moneyname}/>
       </div>)
     }
 
@@ -289,7 +289,7 @@ class Bloc1 extends Component { //Notation des transactions
       </div>
       <div class="machine">
         <div class="paragraph">
-          Voici un exemple de notebook, avec lequel tu peux t'amuser.
+          Voici un exemple de carnet, avec lequel tu peux t'amuser.
 
           Tu peux peux cliquer sur la tête des villageois pour indiquer l'origine et le destinataire, et choisir le montant qu'il te plaît.
           <br />
@@ -309,7 +309,7 @@ class Bloc1 extends Component { //Notation des transactions
           Essaie de faire dépenser à Grenouille plus de 40 {this.props.moneyname}s d'un seul coup !
           <br />
           <br />
-          Si ton notebook est rempli, tu peux appuyer sur reset pour le remettre à zéro.
+          Si ton carnet est rempli, tu peux appuyer sur reset pour le remettre à zéro.
         </div>
       </div>
       <div class="paragraph">
@@ -344,10 +344,10 @@ class Bloc3 extends Component { //Signature électronique
 
       <div class="machine">
         <div class="paragraph">
-          Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre notebook, et y écrire des transactions !
+          Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre carnet, et y écrire des transactions !
           Encore une fois, on imagine ici qu'au départ, tous les villageois on 15 {this.props.moneyname}s.<br />
 
-          Amuse-toi à écrire des transactions et les voir se transmettre de notebook en notebook !
+          Amuse-toi à écrire des transactions et les voir se transmettre de carnet en carnet !
         </div>
         <div class="marged centeredtext">
           <VillageBlock
@@ -398,7 +398,7 @@ class Bloc6 extends Component { //Proof of work
         </div>
         <div class="machine">
           <div class="paragraph">
-            Tu peux essayer de hasher tes propres mots ! Tu peux par exemple essayer de hasher ton prénom.
+            Tu peux essayer de hasher tes propres mots ! Pourquoi ne pas essayer avec ton prénom, pour commencer ?
           </div>
           <div>
             <HashingBlock baseword={baseword} />
