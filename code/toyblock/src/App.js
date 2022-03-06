@@ -26,6 +26,7 @@ const baseword = "Bonjour";
 const test = false;
 
 // TODO Debug nom trop long
+// TODO Commenter le code
 
 class HandlingBlock extends Component {
 

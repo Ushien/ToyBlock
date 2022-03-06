@@ -114,7 +114,7 @@ class Transaction {
  * @property {string} property - The villager who owns the notebook
  * @property {Transaction[]} transactions - The list of transactions written in the notebook
  * @property {number} startmoney - The amount of money every villagers own at the beginning
- * @property {string[]} villagers - All the villagers composing the village
+ * @property {string[]} villagers - The names of the villagers composing the village
  * @property {Object} currentAccounts - The current account of every villager of the village
  * @property {Object} neighbors - The notebooks and the distance of the neighbors of the notebook owner
  * @property {boolean} invalidNotebook - Wheter or not the notebook received an incompatible transaction
@@ -126,7 +126,7 @@ class Notebook {
          * 
          * @param {string} property - The villager who owns the notebook
          * @param {number} startmoney - The amount of money every villagers own at the beginning
-         * @param {string[]} animals - All the villagers composing the village
+         * @param {string[]} animals - The names of the villagers composing the village
          * @param {boolean} [fillEmptyTransaction = true] - Wheter or not the empty notebook should be filled with an empty transaction (optional - default = true)
          */
         constructor(property, startmoney, animals, fillEmptyTransaction = false) {
@@ -182,8 +182,6 @@ class Notebook {
          * @param {Object} villagers - The list of every notebook composing the village
          */
         assignNeighbors(neighbors, villagers) {
-                console.log(neighbors)
-                console.log(villagers)
                 for (var i in neighbors) {
                         this.neighbors[i] = [];
                         this.neighbors[i].push(villagers[i]);
@@ -416,14 +414,28 @@ class Notebook {
          * @returns {number} - The time that the transaction needs to travel the distance (milliseconds)
          */
         getMillisecondsFromDistance(distance) {
-                // return distance * 1000
+                // return distance * 3000
                 return 9000
         }
 
 }
 
+/**
+ * Represents a village containing multiple villagers. Every villager is represented by a notebook.
+ * 
+ * @property {number} startmoney - The amount of money every villagers own at the beginning
+ * @property {Notebook[]} villagers - The notebooks composing the village
+ */
 class Village {
 
+        /**
+         * Creates a village
+         * 
+         * @param {number} startmoney - The amount of money every villagers own at the beginning
+         * @param {string[]} animals - The names of the villagers composing the village
+         * @param {Object} neighbors - The list of neighbours of every villager associated with their distance from them
+         * @param {boolean} [fillEmptyTransactions = false] - Wheter or not the empty notebooks should be filled with an empty transaction (optional - default = true)
+         */
         constructor(startmoney = 0, animals = [], neighbors = {}, fillEmptyTransactions = false) {
 
                 this.startmoney = startmoney;
@@ -440,6 +452,11 @@ class Village {
                 }
         }
 
+        /**
+         * Returns a clone of the village
+         * 
+         * @returns {Village} - A clone of the village
+         */
         clone() {
                 let cloneVillage = new Village(this.getStartMoney())
 
@@ -450,48 +467,80 @@ class Village {
                 return cloneVillage
         }
 
+        /**
+         * Get the villagers property of the village
+         * 
+         * @returns {Object} - An object containing the notebook of every villager of the village
+         */
         getNotebooks() {
                 return this.villagers;
         }
 
+        /**
+         * Add a notebook to the village
+         * 
+         * @param {string} property - The nom of tbe villager who owns the notebook
+         * @param {Notebook} notebook - The notebook to add
+         */
         addNotebook(property, notebook) {
                 this.getNotebooks()[property] = notebook;
         }
 
+        /**
+         * Returns the notebook owned by a given villager
+         * 
+         * @param {string} property - The name of the villagers who owns the notebook
+         * @returns {Notebook} - The notebook owned by the villager
+         */
         getNotebook(property) {
                 return this.villagers[property];
         }
 
-        getAnimals() {
-                return this.animals;
-        }
-
+        /**
+         * Get the startMoney attribute of the village
+         * 
+         * @returns {number} - The amount of money every villagers own at the beginning
+         */
         getStartMoney() {
                 return this.startmoney;
         }
 
+        /**
+         * Make every notebook of the village obsolete
+         */
         setObsolete() {
                 for (let notebook in this.getNotebooks()) {
                         this.getNotebooks()[notebook].setObsolete()
                 }
         }
 
-        // Warning ! Should not be used outside of testing
+        /**
+         * Add a transaction to the notebook of a villager and does nothing else
+         * 
+         * @param {string} property - The name of the villagers who owns the notebook
+         * @param {Transaction} transaction - The transaction to add
+         */
         addTransaction(property, transaction) {
                 this.getNotebook(property).addTransaction(transaction)
         }
 
-        // Won't apply any transaction
-        // Don't use it outside of testing
+        /**
+         * Add a transaction to every notebook of the village and does nothing else
+         * 
+         * @param {Transaction} transaction - The transaction to add
+         */
         addTransactionToAll(transaction) {
                 for (let notebook in this.getNotebooks()) {
                         this.getNotebooks()[notebook].addTransaction(transaction)
                 }
         }
 
-        // Add a transaction to every notebook
-        // If the transaction is validated, apply it
-        // If not, add it normally
+        /**
+         * Add a transaction to every notebook of the village
+         * If the transaction is validated, it also apply it and update the accounts of the notebook
+         * 
+         * @param {Transaction} transaction - The transaction to add
+         */
         addAndApplyTransactionToAll(transaction) {
                 for (let notebook in this.getNotebooks()) {
                         if (transaction.isValidated()) {
