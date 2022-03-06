@@ -97,8 +97,7 @@ class Carnet{
                         this.neighbors[i] = [];
                         this.neighbors[i].push(villagers[i]);
                         this.neighbors[i].push(neighbors[i]);
-                }
-                
+                } 
         }
 
         setNeighbor(neighbor, carnet, distance){
@@ -143,7 +142,6 @@ class Carnet{
                 // console.assert(this.transactions.filter().length < 2)
                 this.applyTransaction(transaction);
                 console.log("Transaction added and applied");
-                
         }
 
         applyTransaction(transaction){
@@ -236,7 +234,6 @@ class Carnet{
 
         getMillisecondsFromDistance(distance){
                 // return distance * 1000
-                // TODO La finir pardi
                 return 9000
         }
 

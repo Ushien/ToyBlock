@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Carnet, Village, Transaction} from './classes.js'
+import {Transaction, Village, Village} from './classes.js'
 
 import chatVisual from './visuals/Chat.png';
 import grenouilleVisual from './visuals/Grenouille.png'
@@ -17,6 +17,8 @@ import toucanmaison from './visuals/toucanmaison.png'
 import lettre from './visuals/lettre.png'
 
 // TODO Corriger les erreurs js
+
+// TODO Ajouter les derniers dessins
 
 // Village and transactions machines
 
@@ -56,7 +58,7 @@ function sendLetter(from, to){
         }
         
         var newElement = document.createElement("img");
-        // TODO change with letter
+        
         newElement.src = lettre;
         newElement.width = "120"
         newElement.height = "120"
@@ -109,7 +111,6 @@ class TransactionLine extends Component{
         check = (e) => {
         }
                 
-        // TODO On doit pas submit avec enter
         render(){
                 let fulltext = []
                 
@@ -275,7 +276,7 @@ class CarnetBlock extends Component {
                         newavailable.push(this.state.availableVillagers[index])
                 }
 
-                // TODO Si y a des voisins, leur envoie une copie de la transaction
+                // Si y a des voisins, leur envoie une copie de la transaction
                 if(this.props.inVillage){
                         this.transmitTransaction(newtransactions[index], "")
                 }
@@ -393,8 +394,6 @@ class CarnetBlock extends Component {
                 this.updateValidable();
         }
                 
-        // TODO Affichage des soldes actuels
-        // TODO que le bouton de validation s'affiche au premier tour
         // TODO Comment gérer une transaction qui entre alors que c'est complet ?
 
         render(){
@@ -474,8 +473,6 @@ class VillageBlock extends Component {
 
                 this.transmitTransaction = this.transmitTransaction.bind(this)
         }
-
-        //TODO Reset du village
 
         clickMe(e){
                 
@@ -562,7 +559,6 @@ class VillageBlock extends Component {
                 }
 
                 // D'abord, affiche le village
-                // TODO Bouton reset
 
                 if(valid){
                         fulltext.push(<div id="villageContainer" class="villageContainer">
@@ -676,5 +672,5 @@ class HashingBlock extends Component {
 
 // TODO Remettre un peu d'ordre dans les exports
 export {hashing, sendLetter, 
-        HashingBlock, TransactionLine, CarnetBlock, VillageBlock, 
+        TransactionLine, CarnetBlock, VillageBlock, HashingBlock,
         animals, neighbors}

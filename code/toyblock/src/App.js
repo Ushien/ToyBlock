@@ -23,7 +23,6 @@ const baseword = "Bonjour"
 
 const test = false
 
-// TODO Licence du projet
 // TODO Debug nom trop long
 
 class HandlingBlock extends Component {
@@ -274,7 +273,6 @@ class Bloc1 extends Component { //Notation des transactions
     }
   }
 
-  // TODO Placer la machine au milieu
   render(){
 
     let carnet = new Carnet("Toucan", 15, animals, true)
@@ -329,7 +327,6 @@ class Bloc2 extends Component { //Décentralisation de la monnaie
 }
 
 class Bloc3 extends Component { //Signature électronique
-// TODO Afficher le texte avant et après machine
   render(){
     let village = new Village(15, animals, neighbors, true)
     return (<div>
