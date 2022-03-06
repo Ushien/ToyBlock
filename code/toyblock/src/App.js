@@ -8,6 +8,8 @@ import { NotebookBlock, VillageBlock, HashingBlock, animals, neighbors } from '.
 import { BlocTest } from './Test.js'
 import { Notebook } from './Classes.js'
 
+// Visual imports
+
 import coffreVisual from './visuals/coffre.png'
 import flechVisual from './visuals/flech.png'
 
@@ -24,9 +26,6 @@ const defaultname = "Toycoin";
 const baseword = "Bonjour";
 
 const test = false;
-
-// TODO Debug nom trop long
-// TODO Commenter le code
 
 class HandlingBlock extends Component {
 

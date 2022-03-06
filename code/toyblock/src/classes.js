@@ -1,6 +1,6 @@
-import { sendLetter } from './Components.js'
+// Imports
 
-// TODO Remettre de l'ordre dans les propriétés
+import { sendLetter } from './Components.js'
 
 /**
  * Represents a transaction between two villagers

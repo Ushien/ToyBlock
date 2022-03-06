@@ -1,6 +1,3 @@
-//TODO mettre des mots en gras
-//TODO Mettre des paragraphes
-
 function introtext1() {
         return (<div>
                 Au beau milieu de la forêt se trouve un village...

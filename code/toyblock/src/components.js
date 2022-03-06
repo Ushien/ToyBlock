@@ -1,4 +1,7 @@
+// Imports
+
 import React, { Component } from 'react'
+
 import { Transaction, Notebook, Village } from './Classes.js'
 
 // Visual imports
@@ -17,10 +20,6 @@ import pingouinmaison from './visuals/pingouinmaison.png'
 import paresseuxmaison from './visuals/paresseuxmaison.png'
 import toucanmaison from './visuals/toucanmaison.png'
 import lettre from './visuals/lettre.png'
-
-// TODO Corriger les erreurs js
-
-// TODO Ajouter les derniers dessins
 
 // Constants definition
 
