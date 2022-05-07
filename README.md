@@ -38,6 +38,7 @@ Multiple methods can be used depending on the type of server and website you wan
 
 The React structure of the project is based on the one provided by [Create React App](https://github.com/facebook/create-react-app).
 The frontend of the project is made with the help of [React-Bootstrap](https://github.com/react-bootstrap/react-bootstrap)
+The documentation of the code is handled by [JSDoc](https://jsdoc.app/)
 
 # Project structure
 
@@ -45,7 +46,11 @@ The main part of the project is found in **App.js**
 
 The text of the website is found in **Blocs.js**
 
-The interactive machines code is found in **blockchain.js**
+The interactive machines React components are found in **Components.js**
+
+The javascript classes with which the machines interact are implemented in **Classes.js**
+
+The necessary visuals of the website are found in ./visuals
 
 
 For any further question, please check the programmer's guide in the doc directory.
