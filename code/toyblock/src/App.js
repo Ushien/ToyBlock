@@ -343,7 +343,7 @@ class Bloc3 extends Component { //Signature électronique
       <div class="machine">
         <div class="paragraph">
           Voici un village imaginaire avec lequel tu peux interagir. Il suffit de cliquer sur la maison d'un villageois pour ouvrir son propre carnet, et y écrire des transactions !
-          Encore une fois, on imagine ici qu'au départ, tous les villageois on 15 {this.props.moneyname}s.<br />
+          Encore une fois, on imagine ici qu'au départ, tous les villageois ont 15 {this.props.moneyname}s.<br />
 
           Amuse-toi à écrire des transactions et les voir se transmettre de carnet en carnet !
         </div>

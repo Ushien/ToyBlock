@@ -25,7 +25,7 @@ import lettre from './visuals/lettre.png'
 
 // Here you can change the members of the story.
 // Note: The current version of the project won't visually handle modification of these data. 
-// The Village Notebook and Transaction class will still work perfectly.
+// The Village Notebook and Transaction classes will still work perfectly.
 
 const animals = ["Paresseux", "Pingouin", "Toucan", "Grenouille", "Singe", "Chat"]
 const neighbors = { "Paresseux": { "Toucan": 2, "Grenouille": 2 }, "Pingouin": { "Grenouille": 1 }, "Toucan": { "Paresseux": 2, "Chat": 1 }, "Grenouille": { "Paresseux": 2, "Singe": 1, "Pingouin": 1 }, "Singe": { "Grenouille": 1 }, "Chat": { "Toucan": 1 } }
@@ -570,9 +570,9 @@ class NotebookBlock extends Component {
 
 
 /**
- * Component displaying a notebook
+ * Component displaying a village
  * 
- * @property {number} startMoney - The amount of money every villagers own at the beginning
+ * @property {number} startMoney - The amount of money every villager owns at the beginning
  * @property {Village} village - The village we want to display
  * @property {boolean} invalidNotebook - Whether or not there is an invalid notebook inside of the village
  * @property {string} selectedVillager - The villager we want to display the notebook
