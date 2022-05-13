@@ -52,5 +52,9 @@ The javascript classes with which the machines interact are implemented in **Cla
 
 The necessary visuals of the website are found in ./visuals
 
+# Code documentation
+
+To access the JSDoc official documentation of the project, open the [doc/JSDoc/index.html](https://github.com/Ushien/ToyBlock/blob/main/doc/JSDoc/index.html) file.
+
 
 For any further question, please check the programmer's guide in the doc directory.
